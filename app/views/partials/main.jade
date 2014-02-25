@@ -1,0 +1,22 @@
+h1="Hello World"
+.container 
+  .row
+    .col-md-12 
+      form
+        div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+        button.btn.btn-primary(ng-click="checkCaptcha()")
+          = "Try now!"
+          
+          
+//-      form(action='/check_recaptcha', method='post')
+//-          
+//-        script(type='text/javascript', src='http://www.google.com/recaptcha/api/challenge?k=' + req.config.recaptcha.publicKey)       
+//-        
+//-        noscript
+//-          iframe(src='http://www.google.com/recaptcha/api/noscript?k='+ req.config.recaptcha.publicKey, height='300', width='500', frameborder='0')
+//-          br
+//-          
+//-          textarea(name='recaptcha_challenge_field', rows='3', cols='40')
+//-          input(type='hidden', name='recaptcha_response_field', value='manual_challenge')
+          
+    
