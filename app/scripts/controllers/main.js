@@ -1,8 +1,4 @@
 'use strict';
 
-angular.module('indigitusDemonstrationApp')
-  .controller('MainCtrl', function ($scope, $http) {
-    $http.get('/api/awesomeThings').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
-  });
+angular.module('indigitusMarketingApp')
+  .controller('MainCtrl', function ($scope) {});
