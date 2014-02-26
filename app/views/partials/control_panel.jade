@@ -1,0 +1,25 @@
+.container 
+  .row 
+    .col-md-12
+      p='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+  
+  .row 
+    .col-md-12
+      h1='Performance View'
+      .row 
+        .col-md-6 
+          h1='Ping'
+          button.btn.btn-primary.btn-block="Start Test"
+        .col-md-6 
+          h1='Traceroute'
+          button.btn.btn-primary.btn-block="Start Test"
+      .row  
+        .col-md-6 
+          h1='Upload'
+          button.btn.btn-primary.btn-block="Start Test"
+        .col-md-6 
+          h1='Download'
+          button.btn.btn-primary.btn-block="Start Test"
+  .row 
+    .col-md-12 
+        <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
