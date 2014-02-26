@@ -1,0 +1,10 @@
+h1="Hello World"
+.container 
+  .row
+    .col-md-12 
+      form
+        | <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+        button.btn.btn-primary(ng-click="checkCaptcha()")
+          = "Try now!"
+          
