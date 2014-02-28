@@ -1,8 +1,8 @@
 'use strict';
 
+
 angular.module('indigitusMarketingApp')
-  .controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket) {
-    console.log(socket);
+  .controller('StartInstanceCtrl', function($scope, $http, $location, $timeout) {
     $scope.steps = [];
     socket.emit('instance.start');
 
@@ -18,3 +18,5 @@ angular.module('indigitusMarketingApp')
 
 
   });
+
+

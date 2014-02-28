@@ -1,24 +1,40 @@
-angular.module('indigitusMarketingApp')
-  .factory('socket', function($rootScope) {
-    var socket = io.connect();
-    return {
-      on: function(eventName, callback) {
-        socket.on(eventName, function() {
-          var args = arguments;
-          $rootScope.$apply(function() {
-            callback.apply(socket, args);
-          });
-        });
-      },
-      emit: function(eventName, data, callback) {
-        socket.emit(eventName, data, function() {
-          var args = arguments;
-          $rootScope.$apply(function() {
-            if (callback) {
-              callback.apply(socket, args);
-            }
-          });
-        })
-      }
-    };
-  });
+'use strict';
+
+angular.module('indigitusMarketingApp').factory('socket', function($rootScope) {
+
+	var _socket = null;
+
+	var api = {
+
+		connect: function() {
+
+			var url = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+			_socket = io.connect(url);
+
+		},
+
+		on: function(event, callback, scope) {
+
+			_socket.on(event, function() {
+				var args = [].slice.call(arguments);
+				callback.apply(scope, args);
+			});
+
+		},
+
+		emit: function(event, data, callback, scope) {
+
+			_socket.emit(event, data, function() {
+				var args = [].slice.call(arguments);
+				callback.apply(scope, args);
+			});
+
+		}
+
+	};
+
+
+	return api;
+
+});
+
