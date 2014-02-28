@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
-          livereload: true
+          livereload: false
         }
       },
       jsTest: {
@@ -183,7 +183,8 @@ module.exports = function (grunt) {
     // additional tasks can operate on them
     useminPrepare: {
       html: ['<%= yeoman.app %>/views/index.html',
-             '<%= yeoman.app %>/views/index.jade'],
+        '<%= yeoman.app %>/views/index.jade'
+      ],
       options: {
         dest: '<%= yeoman.dist %>/public'
       }
@@ -192,7 +193,8 @@ module.exports = function (grunt) {
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       html: ['<%= yeoman.dist %>/views/{,*/}*.html',
-             '<%= yeoman.dist %>/views/{,*/}*.jade'],
+        '<%= yeoman.dist %>/views/{,*/}*.jade'
+      ],
       css: ['<%= yeoman.dist %>/public/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>/public']
@@ -355,22 +357,22 @@ module.exports = function (grunt) {
   });
 
   // Used for delaying livereload until after server has restarted
-  grunt.registerTask('wait', function () {
+  grunt.registerTask('wait', function() {
     grunt.log.ok('Waiting for server reload...');
 
     var done = this.async();
 
-    setTimeout(function () {
+    setTimeout(function() {
       grunt.log.writeln('Done waiting!');
       done();
     }, 500);
   });
 
-  grunt.registerTask('express-keepalive', 'Keep grunt running', function () {
+  grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
     this.async();
   });
 
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'express:prod', 'open', 'express-keepalive']);
     }
@@ -383,12 +385,12 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'express:dev',
-      'open',
+      //'open',
       'watch'
     ]);
   });
 
-  grunt.registerTask('server', function () {
+  grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
@@ -416,7 +418,7 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
-  grunt.registerTask('heroku', function () {
+  grunt.registerTask('heroku', function() {
     grunt.log.warn('The `heroku` task has been deprecated. Use `grunt build` to build for deployment.');
     grunt.task.run(['build']);
   });

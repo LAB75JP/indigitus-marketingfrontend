@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express');
-
+var socketio = require('socket.io');
+var Instance = require('./lib/controllers/Instance');
 /**
  * Main application file
  */
@@ -21,9 +22,13 @@ require('./lib/config/express')(app);
 require('./lib/routes')(app);
 
 // Start server
-app.listen(config.port, function () {
+var server = app.listen(config.port, function () {
   console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
 });
+
+var io = socketio.listen(server);
+
+var instance = new Instance(io);
 
 // Expose app
 exports = module.exports = app;

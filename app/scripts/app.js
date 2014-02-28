@@ -1,5 +1,8 @@
 'use strict';
 
+var full = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+var socket = io.connect(full);
+
 angular.module('indigitusMarketingApp', [
   'ngCookies',
   'ngResource',
@@ -7,9 +10,10 @@ angular.module('indigitusMarketingApp', [
   'ngRoute',
   'ngAnimate',
   'ui.bootstrap',
-  'vcRecaptcha'
+  'vcRecaptcha',
+  'nvd3ChartDirectives'
 ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/landing_page',
