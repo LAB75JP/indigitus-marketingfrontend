@@ -1,11 +1,23 @@
-.container 
-  .row 
+.container-narrow.container.landing-page
+  .row.header
     .col-md-6
-        h1="Say Hello to Cloud Computing from Switzerland"
-        p= "We offer secure and flexible infrastructures to make cloud computing painless"
+        .logo-wrapper 
+          a.logo(href='/')=Indigitus
+        h1
+          ="Say Hello"
+          br 
+          ="to Cloud Computing" 
+          br
+          ="from Switzerland"
+        p
+          ="We offer secure and flexible infrastructures" 
+          br
+          ="to make cloud computing painless"
+          br 
+          a.btn.btn-primary.btn-to-tour(href="#demo-teaser", ng-click="scrollToDemo()")="Try the Demo for Free" 
     .col-md-6
-        img(src='images/map.png', style="max-width: 70%")
-  .row 
+        img.map(src='images/map.png')
+  .row.intro
     .col-md-4
         h3="Indigitus means needed"
         ul
@@ -18,49 +30,57 @@
         p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
   .row 
     .col-md-12
-        h3.text-center="Feature Highlight"
+        h2.text-center="Feature Highlight"
   .row 
-    .col-md-3
+    .col-md-4.feature
+        h3="SETUP"
+        .img-wrapper
+          img(src="images/setup.png")
         ul
             li="Launch instances within 60 sec."
             li="Have independently scalable storages"
             li="Setup project templates & users"
-    .col-md-3
+    .col-md-4.feature
+        h3="DASHBOARD"
+        .img-wrapper 
+          img(src="images/dashboard.png")
         ul 
             li="Love the hassle-free interface"
             li="Configure reports & dashboard"
             li="Visual guidance will help you, if needed"
-    .col-md-3
+
+    .col-md-4.feature
+        h3="PAYMENT"
+        .img-wrapper 
+          img(src="images/money.png")
         ul 
             li="Pay as you go"
             li="Have total control of costs"
             li="Setup project-based payment"
             
-  .row 
-    .col-md-12
-        h3.text-center="Feature Highlight"
-  .row
-    .col-md-5.col-md-offset-1
+  #demo-teaser.row.demo-teaser
+      h2.text-center="Try the demo for free"
+      .col-md-5.col-md-offset-1
         p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
-    .col-md-5 
-      form
-        | <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-        div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
-        button.btn.btn-primary(ng-click="checkCaptcha()")
-          = "Try now!"
+      .col-md-5 
+        form
+          | <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+          div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+          button.btn.btn-block.btn-primary(ng-click="checkCaptcha()")
+            = "Try now!"
 
-footer 
-    .container 
-        .row 
-            .col-md-4
-                h3="Contact"
-                ul
-                    li="hello@indigitus.com" 
-                    li="phone "
-                    li="Demostreet"
-             .col-md-4
-                h3="Map"
-             .col-md-4
-                h3="About us"
-                p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
-            
+.footer 
+  .container 
+    .row 
+      .col-md-4
+        h3="Contact"
+        ul
+          li="hello@indigitus.com" 
+          li="phone "
+          li="Demostreet"
+      .col-md-4
+        h3="Map"
+      .col-md-4
+        h3="About us"
+        p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accu "
+
