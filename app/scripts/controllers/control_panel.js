@@ -40,11 +40,28 @@ console.log(pingsData);
 
 
 angular.module('indigitusMarketingApp')
-  .controller('ControlPanelCtrl', function($scope, $http, $location) {
+  .controller('ControlPanelCtrl', function($scope, $http, $location, socket) {
+
+window.socket = socket;
+
+	$scope.ping = function() {
+	};
+
+	$scope.traceroute = function() {
+
+console.log('TEST!');
+	};
+
+	$scope.upload = function() {
+	};
+
+	$scope.download = function() {
+	};
+
+
+/*
     $scope.command = '';
     $scope.pingsData = pingsData;
-    $scope.ping = function() {};
-    $scope.traceroute = function() {};
     $scope.commands = [];
     $scope.terminalLines = [];
 
@@ -88,4 +105,7 @@ angular.module('indigitusMarketingApp')
       }
     }
 
-  });
+*/
+
+});
+
