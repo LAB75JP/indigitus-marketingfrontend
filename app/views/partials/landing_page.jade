@@ -5,11 +5,62 @@
         p= "We offer secure and flexible infrastructures to make cloud computing painless"
     .col-md-6
         img(src='images/map.png', style="max-width: 70%")
+  .row 
+    .col-md-4
+        h3="Indigitus means needed"
+        ul
+            li="Swiss Location and neutrality"
+            li="No NSA strings attached"
+            li="DevOps support"
+            li="Based on OpenStack"
+    .col-md-8
+        h3="Private cloud on public infrastructure"
+        p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
+  .row 
+    .col-md-12
+        h3.text-center="Feature Highlight"
+  .row 
+    .col-md-3
+        ul
+            li="Launch instances within 60 sec."
+            li="Have independently scalable storages"
+            li="Setup project templates & users"
+    .col-md-3
+        ul 
+            li="Love the hassle-free interface"
+            li="Configure reports & dashboard"
+            li="Visual guidance will help you, if needed"
+    .col-md-3
+        ul 
+            li="Pay as you go"
+            li="Have total control of costs"
+            li="Setup project-based payment"
+            
+  .row 
+    .col-md-12
+        h3.text-center="Feature Highlight"
   .row
-    .col-md-12 
+    .col-md-5.col-md-offset-1
+        p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
+    .col-md-5 
       form
         | <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
         div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
         button.btn.btn-primary(ng-click="checkCaptcha()")
           = "Try now!"
-          
+
+footer 
+    .container 
+        .row 
+            .col-md-4
+                h3="Contact"
+                ul
+                    li="hello@indigitus.com" 
+                    li="phone "
+                    li="Demostreet"
+             .col-md-4
+                h3="Map"
+             .col-md-4
+                h3="About us"
+                p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
+            
