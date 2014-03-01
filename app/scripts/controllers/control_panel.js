@@ -1,15 +1,8 @@
 'use strict';
 
 var pings = [];
-var sample = {
-  bytes: 64,
-  from: '173.194.70.101',
-  icmp_seq: 0,
-  ttl: 50,
-  time: 56.909
-};
 
-var initSample = function(i) {
+var initSample = function (i) {
   var sample = {
     bytes: 64,
     from: '173.194.70.101',
@@ -20,11 +13,11 @@ var initSample = function(i) {
   sample.time = 50 + (Math.random() * 10);
   sample.icmp_seq = i;
   pings[i] = sample;
-}
+};
 
 for (var i = 0; i < 10; i++) {
   initSample(i);
-};
+}
 
 var pingsData = [{
   key: 'Pings',
@@ -33,64 +26,67 @@ var pingsData = [{
 
 for (var i = 0; i < pings.length; i++) {
   var label = pings[i].icmp_seq;
-  pingsData[0].values.push([label, pings[i].time]);
+  pingsData[0].values.push({
+    key: label,
+    value: 10,
+    series: 0
+    //value: pings[i].time.toFixed(2)
+  });
+  //pingsData[0].values.push([, ]);
 }
-
+console.log('PINGS DATA');
 console.log(pingsData);
 
-
 angular.module('indigitusMarketingApp')
-  .controller('ControlPanelCtrl', function($scope, $http, $location, socket) {
+  .controller('ControlPanelCtrl', function ($scope, $http, $location, socket) {
 
-window.socket = socket;
+    socket.connect();
 
-	$scope.ping = function() {
-	};
+    window.socket = socket;
 
-	$scope.traceroute = function() {
+    $scope.instanceIp = '10.20.30.40';
 
-console.log('TEST!');
-	};
+    $scope.ping = function () {};
 
-	$scope.upload = function() {
-	};
+    $scope.traceroute = function () {
+      console.log('TEST!');
+    };
 
-	$scope.download = function() {
-	};
+    $scope.colorFunction = function () {
+      console.log('COLOR FUNCTION');
+      return '#000';
+    };
 
-
-/*
+    $scope.upload = function () {};
+    $scope.download = function () {};
     $scope.command = '';
     $scope.pingsData = pingsData;
     $scope.commands = [];
     $scope.terminalLines = [];
-
     $scope.availableCommands = [
       'You have a limited set of commands available for testing out the instance:',
       'ls: Description',
       'ping: Description',
       'traceroute: Description'
     ];
+
     var terminal = null;
 
-    socket.on('instance.command_output', function(data) {
-      console.log('DATA');
-      console.log(data);
+    socket.on('instance.command_output', function (data) {
       terminal.pause();
       if (data.exit) {
         terminal.resume();
       }
-      if (data.code == 127) {
+      if (data.code === 127) {
         terminal.error('type "help" for available commands');
       }
       if (data.output) {
         terminal.echo(data.output);
       }
-
       terminal.resume();
     });
 
-    $scope.onTerminalInput = function(command, term) {
+    $scope.onTerminalInput = function (command, term) {
       terminal = term;
       if (command === 'help') {
         var sep = '\n';
@@ -101,11 +97,8 @@ console.log('TEST!');
           command: command
         });
         term.pause();
-        //term.error('-bash: ' + command + ' command not found');
       }
-    }
+    };
 
-*/
 
-});
-
+  });

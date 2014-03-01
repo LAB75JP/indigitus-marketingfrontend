@@ -47,9 +47,6 @@ body {
 .marketing p + h4 {
   margin-top: 28px;
 }
-.control-panel .terminal {
-  background-color: #272822;
-}
 .main-container ul {
   padding-left: 13px;
 }
@@ -60,6 +57,9 @@ body {
   background: #e76964;
   border-color: #e76964;
   margin-top: 30px;
+}
+.main-container .header .map {
+  max-width: 100%;
 }
 .main-container .intro {
   margin-top: 20px;
@@ -77,6 +77,10 @@ body {
 }
 .main-container .demo-teaser h2 {
   margin-bottom: 30px;
+}
+.main-container .control-panel .terminal {
+  margin-top: 100px;
+  background-color: #272822;
 }
 .main-container .logo-wrapper .logo {
   display: block;

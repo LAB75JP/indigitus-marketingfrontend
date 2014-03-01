@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('indigitusMarketingApp')
-  .controller('LandingPageCtrl', function ($scope, $http, $location, vcRecaptchaService) {
+  .controller('LandingPageCtrl', function($scope, $http, $location, vcRecaptchaService) {
 
-    var scrollTo = function (target) {
+    var scrollTo = function(target) {
       var destination = $(target).offset().top;
       $('html:not(:animated),body:not(:animated)').animate({
         scrollTop: destination - 15
@@ -13,16 +13,16 @@ angular.module('indigitusMarketingApp')
 
     $scope.alerts = [];
 
-    $scope.scrollToDemo = function () {
+    $scope.scrollToDemo = function() {
       scrollTo('#demo-teaser');
 
     };
 
-    $scope.closeAlert = function (index) {
+    $scope.closeAlert = function(index) {
       $scope.alerts.splice(index, 1);
     };
 
-    $scope.checkCaptcha = function () {
+    $scope.checkCaptcha = function() {
 
       $scope.alerts = [];
 
@@ -41,7 +41,7 @@ angular.module('indigitusMarketingApp')
         method: 'POST',
         url: '/check_recaptcha',
         data: vcRecaptchaService.data()
-      }).success(function (data) {
+      }).success(function(data) {
         if (data.err) {
           $scope.alerts.push({
             type: 'danger',
@@ -55,7 +55,7 @@ angular.module('indigitusMarketingApp')
           return;
         }
         vcRecaptchaService.reload();
-      }).error(function (data) {
+      }).error(function(data) {
         vcRecaptchaService.reload();
         $scope.alerts.push({
           type: 'danger',

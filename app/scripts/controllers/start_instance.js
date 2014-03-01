@@ -11,7 +11,6 @@ angular.module('indigitusMarketingApp')
       if ($scope.timeLeft > 0) {
         $timeout(decrease, 1000);
       }
-
     };
     $timeout(decrease, 1000);
 
