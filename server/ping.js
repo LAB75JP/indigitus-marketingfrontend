@@ -28,10 +28,9 @@
 
     var tunnel = new _ssh();
 
-
     tunnel.once('ready', function () {
 
-      tunnel.exec('ping -c 20 ' + data.target, function (err, stream) {
+      tunnel.exec('ping -c 10 ' + data.target, function (err, stream) {
 
         stream.on('data', function (line) {
 
