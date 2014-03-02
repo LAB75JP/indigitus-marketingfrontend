@@ -1,3 +1,6 @@
+term_green = #00CC00  
+term_brown = #272822
+
 body
   padding-top 20px
   padding-bottom 20px
@@ -82,12 +85,29 @@ body
       margin-bottom 30px
   
 
-
   .control-panel
     .terminal 
       margin-top 100px
-      background-color #272822
-      
+      background-color term_brown
+    .ping-chart-wrapper 
+      background #272822
+      .ping-chart
+        fill term_green
+        .nv-axis
+          .tick
+            line 
+              stroke term_brown
+        .domain
+          fill term_green
+        .nv-axis
+          fill term_green
+        .nvd3
+          .nv-axis 
+            path
+              stroke term_green
+        .nv-bar
+          text
+            fill term_green
       
   .logo-wrapper 
     .logo
