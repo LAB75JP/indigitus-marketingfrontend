@@ -82,25 +82,44 @@ body {
   margin-top: 100px;
   background-color: #272822;
 }
-.main-container .control-panel .ping-chart-wrapper {
+.main-container .control-panel .ping-chart-wrapper,
+.main-container .control-panel .traceroute-chart-wrapper {
   background: #272822;
 }
-.main-container .control-panel .ping-chart-wrapper .ping-chart {
+.main-container .control-panel .ping-chart-wrapper .ping-chart,
+.main-container .control-panel .traceroute-chart-wrapper .ping-chart,
+.main-container .control-panel .ping-chart-wrapper .traceroute-chart,
+.main-container .control-panel .traceroute-chart-wrapper .traceroute-chart {
   fill: #0c0;
 }
-.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-axis .tick line {
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-axis .tick line,
+.main-container .control-panel .traceroute-chart-wrapper .ping-chart .nv-axis .tick line,
+.main-container .control-panel .ping-chart-wrapper .traceroute-chart .nv-axis .tick line,
+.main-container .control-panel .traceroute-chart-wrapper .traceroute-chart .nv-axis .tick line {
   stroke: #272822;
 }
-.main-container .control-panel .ping-chart-wrapper .ping-chart .domain {
+.main-container .control-panel .ping-chart-wrapper .ping-chart .domain,
+.main-container .control-panel .traceroute-chart-wrapper .ping-chart .domain,
+.main-container .control-panel .ping-chart-wrapper .traceroute-chart .domain,
+.main-container .control-panel .traceroute-chart-wrapper .traceroute-chart .domain {
   fill: #0c0;
 }
-.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-axis {
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-axis,
+.main-container .control-panel .traceroute-chart-wrapper .ping-chart .nv-axis,
+.main-container .control-panel .ping-chart-wrapper .traceroute-chart .nv-axis,
+.main-container .control-panel .traceroute-chart-wrapper .traceroute-chart .nv-axis {
   fill: #0c0;
 }
-.main-container .control-panel .ping-chart-wrapper .ping-chart .nvd3 .nv-axis path {
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nvd3 .nv-axis path,
+.main-container .control-panel .traceroute-chart-wrapper .ping-chart .nvd3 .nv-axis path,
+.main-container .control-panel .ping-chart-wrapper .traceroute-chart .nvd3 .nv-axis path,
+.main-container .control-panel .traceroute-chart-wrapper .traceroute-chart .nvd3 .nv-axis path {
   stroke: #0c0;
 }
-.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-bar text {
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-bar text,
+.main-container .control-panel .traceroute-chart-wrapper .ping-chart .nv-bar text,
+.main-container .control-panel .ping-chart-wrapper .traceroute-chart .nv-bar text,
+.main-container .control-panel .traceroute-chart-wrapper .traceroute-chart .nv-bar text {
   fill: #0c0;
 }
 .main-container .logo-wrapper .logo {

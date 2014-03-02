@@ -14,7 +14,7 @@ angular.module('indigitusMarketingApp')
 	 */
 
     $scope.pingsActive = false;
-	$scope.pingsAverage = 0;
+    $scope.pingsAverage = 0;
     $scope.pingsItem = 0;
     $scope.pingsData = [{
       key: 'Pings',
@@ -22,7 +22,7 @@ angular.module('indigitusMarketingApp')
     }];
 
 
-    socket.on('ping', function (data) {
+  socket.on('ping', function (data) {
 	  if (data === null) return;
       $scope.$apply(function () {
 	    if (data.sequence > 0) {
@@ -36,7 +36,7 @@ angular.module('indigitusMarketingApp')
           $scope.pingsItem++;
 		} else {
 		  $scope.pingsActive = false;
-          $scope.pingsItem   = 0;
+      $scope.pingsItem   = 0;
 		}
       });
 
@@ -59,19 +59,24 @@ angular.module('indigitusMarketingApp')
 	 * TRACEROUTE
 	 */
 
-    $scope.tracerouteActive = false;
+  $scope.tracerouteActive = false;
 	$scope.tracerouteItem = 0;
 	$scope.tracerouteData = [{
 	  key: 'Traceroutes',
 	  values: []
 	}];
-
+    
+  $scope.tracerouteTooltip = function(label, index){
+    return 'Host: <strong>' + $scope.tracerouteHosts[index] + '</strong>'; 
+  }
+    
+  $scope.tracerouteHosts = {}
 	socket.on('traceroute', function(data) {
 	  if (data === null) return false;
-	  console.log('TRACEROUTE RESULT', data);
 	  $scope.$apply(function () {
 		if (data.sequence > 0) {
-	      $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence + ' (' + data.host + ')', data.time];
+      $scope.tracerouteHosts[data.sequence] = data.host;
+      $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence, data.time];
 		  $scope.tracerouteItem++;
 		} else {
 		  $scope.tracerouteActive = false;
@@ -82,7 +87,9 @@ angular.module('indigitusMarketingApp')
 
 	$scope.traceroute = function() {
 	  if ($scope.tracerouteActive === true) return false;
+    $scope.tracerouteHosts = [];
 	  $scope.tracerouteItem = 0;
+    $scope.tracerouteActive = true;
 	  socket.emit('traceroute', {
 	    target: 'lycheejs.org',
 		start: Date.now()
