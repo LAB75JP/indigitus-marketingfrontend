@@ -37,6 +37,7 @@
 			) {
 
 				var data = {
+          line: lines[l],  
 					host:     str[1],
 					sequence: parseInt(str[0], 10),
 					time:     parseFloat(str[3], 10)

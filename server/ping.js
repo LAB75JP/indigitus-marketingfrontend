@@ -6,14 +6,15 @@
   var _parse = function (line) {
 
     var str = line.split(' ');
-
     if (
          typeof str[5] === 'string'
 	  && str[str.length - 4].substr(0, 9) === 'icmp_seq='
 	  && str[str.length - 2].substr(0, 5) === 'time='
+    
     ) {
 
       return {
+        line: line,
         sequence: parseInt(str[str.length - 4].substr(9), 10),
         time: parseFloat(str[str.length - 2].substr(5), 10)
       };

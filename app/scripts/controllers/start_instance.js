@@ -3,7 +3,6 @@
 
 angular.module('indigitusMarketingApp')
   .controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket) {
-    socket.connect();
     $scope.steps = [];
     $scope.timeLeft = 60;
     var decrease = function() {
@@ -17,6 +16,7 @@ angular.module('indigitusMarketingApp')
     socket.emit('instance.start');
 
     socket.on('instance.step', function(data) {
+      console.log('DAT STEP');
       console.log(data.step);
       $scope.steps.push(data.step);
     });

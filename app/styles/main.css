@@ -78,6 +78,12 @@ body {
 .main-container .demo-teaser h2 {
   margin-bottom: 30px;
 }
+.main-container .control-panel .ping-info,
+.main-container .control-panel .traceroute-info {
+  min-height: 300px;
+  color: #0c0;
+  background: #272822;
+}
 .main-container .control-panel .terminal {
   margin-top: 100px;
   background-color: #272822;
