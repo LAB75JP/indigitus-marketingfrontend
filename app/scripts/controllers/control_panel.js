@@ -24,19 +24,19 @@ angular.module('indigitusMarketingApp')
 
     socket.on('ping', function (data) {
 	  if (data === null) return;
-      $scope.pingsItem++;
-      $scope.pingsItem %= 10;
       $scope.$apply(function () {
-	    var total = 0;
-		var values = $scope.pingsData[0].values;
-	    //for (var v = 0, vl = values.length; v < vl; v++) {
-		//  console.log(values[v]);
-		  // total += values[v][1];
-		//}
-		$scope.pingsAverage = (total / $scope.pingsData[0].values.length).toFixed(2);
-        $scope.pingsData[0].values[$scope.pingsItem] = [data.sequence, data.time];
-		if ($scope.pingsData[0].values.length === 10) {
+	    if (data.sequence > 0) {
+	      var total = 1;
+		  var values = $scope.pingsData[0].values;
+	      for (var v = 0, vl = values.length; v < vl; v++) {
+		    total += values[v][1];
+		  }
+		  $scope.pingsAverage = (total / $scope.pingsData[0].values.length).toFixed(2);
+          $scope.pingsData[0].values[$scope.pingsItem] = [data.sequence, data.time];
+          $scope.pingsItem++;
+		} else {
 		  $scope.pingsActive = false;
+          $scope.pingsItem   = 0;
 		}
       });
 
@@ -70,11 +70,12 @@ angular.module('indigitusMarketingApp')
 	  if (data === null) return false;
 	  console.log('TRACEROUTE RESULT', data);
 	  $scope.$apply(function () {
-	    $scope.tracerouteItem++;
 		if (data.sequence > 0) {
 	      $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence + ' (' + data.host + ')', data.time];
+		  $scope.tracerouteItem++;
 		} else {
 		  $scope.tracerouteActive = false;
+		  $scope.tracerouteItem   = 0;
 		}
 	  });
 	});
@@ -111,7 +112,7 @@ angular.module('indigitusMarketingApp')
 
 
     $scope.barColor = function () {
-      return '#000';
+      return '#00cc00';
     };
 
     $scope.colorFunction = function () {
