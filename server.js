@@ -1,6 +1,15 @@
 'use strict';
 var _fs = require('fs');
 
+var getTemplateServer = function(servers){
+  for(var i=0; i < servers.length; i++){
+    if(servers[i].name==='marketing_template'){
+      return servers[i];
+    }
+  }
+  return null;
+};
+
 var Nova = require('openclient').Nova;
 
 var client = new Nova({
@@ -23,16 +32,16 @@ client.authenticate({
 
       // Callbacks receive the result of the call;
       success: function (servers) {
-        
-        console.log('Servers');
-        console.log(servers[0].addresses);
+        var templateServer = getTemplateServer(servers);
+        if(!templateServer) return;
         var serverData = {
-          name: '_TEST_SERVER',
-          imageRef: servers[0].image.links[0].href,
-          flavorRef: servers[0].flavor.links[0].href,
+          name: 'marketing_server_' + servers.length,
+          imageRef: templateServer.image.links[0].href,
+          flavorRef: templateServer.flavor.links[0].href,
           networks: [{
             uuid: 'a7a76164-ef12-4adb-96c0-b703e71f7355'
-          }]
+          }],
+          key_name: 'marketing_key'
         };
         console.log('SERVER DATA', serverData);
         var newServer = client.servers.create({
