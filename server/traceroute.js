@@ -4,24 +4,50 @@
 	var _exec = require('child_process').exec;
 	var _ssh  = require('ssh2');
 
-	var _parse = function(line) {
+	var _filter = function(str) {
 
-		var str = line.split(' ');
-		if (str[0].match(/\n([0-9]{1,4})/)) {
+		for (var s = 0, sl = str.length; s < sl; s++) {
 
-			var data = {
-				host:     str[3].match(/\(/g) ? str[3] : str[2],
-				sequence: parseInt(str[0], 10)
-			};
+			if (
+				str[s] === ''
+			) {
 
-			console.log(data);
+				str.splice(s, 1);
+				sl--;
+				s--;
 
-			return data;
+			}
 
 		}
 
 
-		return null;
+		return str;
+
+	};
+
+	var _parse = function(buffer, socket) {
+
+		var lines = buffer.split('\n');
+		for (var l = 0, ll = lines.length; l < ll; l++) {
+
+			var str = _filter(lines[l].split(' '));
+			if (
+				typeof str[0] === 'string'
+				&& str[0].match(/([0-9]{1,4})/)
+			) {
+
+				var data = {
+					host:     str[1],
+					sequence: parseInt(str[0], 10),
+					time:     parseFloat(str[3], 10)
+				};
+
+
+				socket.emit('traceroute', data);
+
+			}
+
+		}
 
 	};
 
@@ -35,11 +61,23 @@
 
 			tunnel.exec('traceroute ' + data.target, function(err, stream) {
 
-				stream.on('data', function(line) {
+				var buffer = '';
 
-					var data = _parse(line.toString());
-					if (data !== null) {
-						socket.emit('traceroute', data);
+				stream.on('data', function(raw) {
+
+					var str = raw.toString();
+					if (str.match(/\n/)) {
+
+						buffer += str.substr(0, str.indexOf('\n'));
+
+						_parse(buffer, socket);
+
+						buffer = str.substr(str.indexOf('\n') + 1);
+
+					} else {
+
+						buffer += str;
+
 					}
 
 				});

@@ -9,13 +9,12 @@ var _urls = {
 	var _exec = require('child_process').exec;
 	var _ssh  = require('ssh2');
 
-	var _parse = function(line) {
+	var _filter = function(str) {
 
-		var str = line.split(' ');
 		for (var s = 0, sl = str.length; s < sl; s++) {
 
 			if (
-				   str[s][0] === '.'
+				   str[s].substr(0, 1) === '.'
 				|| str[s] === ''
 			) {
 
@@ -28,19 +27,30 @@ var _urls = {
 		}
 
 
-		if (str[0].indexOf('%') !== -1) {
+		return str;
 
-			var data = {
-				percentage: parseInt(str[0].replace(/%/g, ''), 10)
-			};
+	};
 
+	var _parse = function(buffer, socket) {
 
-			return data;
+		var lines = buffer.split('\n');
+		for (var l = 0, ll = lines.length; l < ll; l++) {
+
+			var str = _filter(lines[l].split(' '));
+			if (
+				typeof str[1] === 'string'
+				&& str[1].indexOf('%') !== -1
+			) {
+
+				var data = {
+					percentage: parseInt(str[1].replace(/%/g, ''), 10)
+				};
+
+				socket.emit('download', data);
+
+			}
 
 		}
-
-
-		return null;
 
 	};
 
@@ -59,17 +69,13 @@ var _urls = {
 				stream.on('data', function(raw) {
 
 					var str = raw.toString();
-
 					if (str.match(/\n/)) {
 
-						buffer += str;
+						buffer += str.substr(0, str.indexOf('\n'));
 
-						var data = _parse(buffer);
-						if (data !== null) {
-							socket.emit('download', data);
-						}
+						_parse(buffer, socket);
 
-						buffer = '';
+						buffer = str.substr(str.indexOf('\n') + 1);
 
 					} else {
 
