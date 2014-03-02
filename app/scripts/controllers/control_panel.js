@@ -1,5 +1,4 @@
 'use strict';
-
 var pings = [];
 
 var initSample = function (i) {
@@ -26,19 +25,31 @@ var pingsData = [{
 
 for (var i = 0; i < pings.length; i++) {
   var label = pings[i].icmp_seq;
-  pingsData[0].values.push({
-    key: label,
-    value: 10,
-    series: 0
-    //value: pings[i].time.toFixed(2)
-  });
-  //pingsData[0].values.push([, ]);
+  pingsData[0].values.push([label, pings[i].time]);
 }
-console.log('PINGS DATA');
-console.log(pingsData);
 
 angular.module('indigitusMarketingApp')
   .controller('ControlPanelCtrl', function ($scope, $http, $location, socket) {
+
+    $scope.fetchData = function () {
+
+      return [{
+        key: 'hello',
+        values: [['hello', 1]]
+      }]
+
+    };
+    $scope.pingsData = $scope.fetchData();
+
+    setInterval(function () {
+      $scope.$apply(function () {
+        var data = $scope.pingsData;
+        data[0].values.push(['hello' + Math.random() * 3, Math.random() * 60]);
+
+        $scope.pingsData = data;
+        console.log($scope.pingsData);
+      })
+    }, 1000);
 
     socket.connect();
 
@@ -47,6 +58,10 @@ angular.module('indigitusMarketingApp')
     $scope.instanceIp = '10.20.30.40';
 
     $scope.ping = function () {};
+
+    $scope.barColor = function () {
+      return '#000';
+    };
 
     $scope.traceroute = function () {
       console.log('TEST!');
@@ -60,7 +75,6 @@ angular.module('indigitusMarketingApp')
     $scope.upload = function () {};
     $scope.download = function () {};
     $scope.command = '';
-    $scope.pingsData = pingsData;
     $scope.commands = [];
     $scope.terminalLines = [];
     $scope.availableCommands = [

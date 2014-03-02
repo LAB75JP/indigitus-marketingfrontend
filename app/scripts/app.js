@@ -9,7 +9,7 @@ angular.module('indigitusMarketingApp', [
 	'ui.bootstrap',
 	'vcRecaptcha',
 	'nvd3ChartDirectives'
-]).config(function($routeProvider, $locationProvider) {
+]).config(function ($routeProvider, $locationProvider) {
 
 	$routeProvider
 		.when('/', {
@@ -31,4 +31,3 @@ angular.module('indigitusMarketingApp', [
 	$locationProvider.html5Mode(false);
 
 });
-
