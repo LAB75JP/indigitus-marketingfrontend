@@ -32,8 +32,18 @@ client.authenticate({
 
       // Callbacks receive the result of the call;
       success: function (servers) {
+        console.log('SERVERS');
+        console.log(JSON.stringify(servers, null, '\t'));
+        
         var templateServer = getTemplateServer(servers);
         if(!templateServer) return;
+        
+        var floating_ips = client.floating_ips.all({
+          success: function(floating_ips){
+            console.log('FLOATING IPS');
+            console.log(floating_ips);
+          }
+        });
         var serverData = {
           name: 'marketing_server_' + servers.length,
           imageRef: templateServer.image.links[0].href,
@@ -44,6 +54,7 @@ client.authenticate({
           key_name: 'marketing_key'
         };
         console.log('SERVER DATA', serverData);
+        return;
         var newServer = client.servers.create({
           data: serverData,
           async: false
