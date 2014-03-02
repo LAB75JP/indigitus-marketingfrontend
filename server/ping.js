@@ -7,18 +7,28 @@
 
 		var str = line.split(' ');
 
+		var data = {
+			sequence: null,
+			time: null
+		};
+
 		if (
 			   typeof str[5] === 'string'
-			&& str[5].substr(0, 4) === 'icmp'
+			&& str[5].substr(0, 9) === 'icmp_seq='
+			&& str[7].substr(0, 5) === 'time='
 		) {
 
-console.log('PARSING PING LINE', str);
+			data.sequence = parseInt(  str[5].substr(9), 10);
+			data.time     = parseFloat(str[7].substr(5), 10);
 
 		} else {
 
 console.log('RESULT PING LINE', str);
 
 		}
+
+
+		return data;
 
 	};
 

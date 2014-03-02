@@ -8,10 +8,6 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
@@ -24,6 +20,7 @@ body {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+  background-color: #eee;
 }
 /* Customize container */
 @media (min-width 768px) {
@@ -50,40 +47,96 @@ body {
 .marketing p + h4 {
   margin-top: 28px;
 }
-.main-container {
+.main-container ul {
+  padding-left: 13px;
+}
+.main-container ul li {
+  margin-left: 0;
+}
+.main-container .header .btn-to-tour {
+  background: #e76964;
+  border-color: #e76964;
+  margin-top: 30px;
+}
+.main-container .header .map {
+  max-width: 100%;
+}
+.main-container .intro {
+  margin-top: 20px;
+}
+.main-container .intro ul li {
+  font-size: 18px;
+}
+.main-container .intro p {
+  max-width: 650px;
+}
+.main-container .demo-teaser {
+  margin-top: 50px;
+  padding-bottom: 40px;
+  min-height: 300px;
+}
+.main-container .demo-teaser h2 {
+  margin-bottom: 30px;
+}
+.main-container .control-panel .terminal {
   margin-top: 100px;
+  background-color: #272822;
 }
-.navbar {
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #e5e5e5;
-}
-.navbar .navbar-brand {
+.main-container .logo-wrapper .logo {
+  display: block;
   background: transparent url("/images/logo.svg") no-repeat 0 41px;
-  height: 80px;
   margin-left: 0 !important;
   padding: 0;
   overflow: hidden;
   text-indent: 100%;
-  width: 140px;
-  float: left;
+  width: 300px;
+  height: 100px;
   padding: 0 0;
   font-size: 18px;
   line-height: 20px;
 }
-.animated-ellipsis .one {
-  opacity: 0;
-  -webkit-animation: dot 1.3s infinite;
-  -webkit-animation-delay: 0s;
+.main-container .landing-page .feature ul {
+  margin-top: 15px;
 }
-.animated-ellipsis .two {
-  opacity: 0;
-  -webkit-animation: dot 1.3s infinite;
-  -webkit-animation-delay: 0.2s;
+.main-container .landing-page .feature h3 {
+  text-align: center;
 }
-.animated-ellipsis .three {
+.main-container .landing-page .feature .img-wrapper {
+  text-align: center;
+  width: 100%;
+  height: 200px;
+  background: #eee;
+  padding: 20px;
+}
+.main-container .landing-page .feature .img-wrapper img {
+  background: none;
+  max-width: 150px;
+}
+.main-container .start-instance {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.main-container .start-instance h1 {
+  text-align: center;
+}
+.main-container .start-instance .time-left {
+  font-size: 15px;
+  text-align: center;
+}
+.main-container .start-instance .animated-ellipsis .one {
   opacity: 0;
-  -webkit-animation: dot 1.3s infinite;
-  -webkit-animation-delay: 0.3s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0s;
+}
+.main-container .start-instance .animated-ellipsis .two {
+  opacity: 0;
+  animation: dot 1.3s infinite;
+  animation-delay: 0.2s;
+}
+.main-container .start-instance .animated-ellipsis .three {
+  opacity: 0;
+  animation: dot 1.3s infinite;
+  animation-delay: 0.3s;
 }
 @-webkit-keyframes dot {
   0% {
@@ -98,10 +151,81 @@ body {
     opacity: 1;
   }
 }
-.control-panel .terminal {
-  background-color: #272822;
+@-o-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
-footer {
-  background-color: #eee;
-  padding: 2728220px 0;
+@-moz-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@-ms-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

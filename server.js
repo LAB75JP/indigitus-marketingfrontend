@@ -2,6 +2,9 @@
 
 
 
+var _fs = require('fs');
+
+
 /*
  * MAIN SERVER (HTTP)
  */
@@ -46,12 +49,26 @@ var wsserver = null;
 	var socketio   = require('socket.io');
 	var sshtunnel  = require('./server/sshtunnel.js');
 
+	var instanceIp = "127.0.0.1";
+	// var instanceIp = "54.72.38.49";
+
+
+	var _config = JSON.parse(_fs.readFileSync('./lib/config/ssh/' + instanceIp + '.json'));
+
+
+console.log('CONFIG BIATCH', _config);
 
 	wsserver = socketio.listen(httpserver);
 
 	wsserver.sockets.on('connection', function(socket) {
 
 		socket.on('ping', function(data) {
+
+			data.host     = _config.host;
+			data.port     = _config.port;
+			data.username = _config.username;
+			data.password = _config.password;
+
 
 			var target = data.target;
 
