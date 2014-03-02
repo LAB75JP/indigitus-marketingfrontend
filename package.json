@@ -10,7 +10,8 @@
     "debug": "*",
     "jade": "*",
     "simple-recaptcha": "*",
-    "ssh2": "*"
+    "ssh2": "*",
+    "openclient": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
