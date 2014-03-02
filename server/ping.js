@@ -2,47 +2,77 @@
 (function(global) {
 
 	var _exec = require('child_process').exec;
+	var _ssh  = require('ssh2');
 
 	var _parse = function(line) {
 
 		var str = line.split(' ');
 
-		var data = {
-			sequence: null,
-			time: null
-		};
-
 		if (
 			   typeof str[5] === 'string'
-			&& str[5].substr(0, 9) === 'icmp_seq='
-			&& str[7].substr(0, 5) === 'time='
+			&& str[str.length - 4].substr(0, 9) === 'icmp_seq='
+			&& str[str.length - 2].substr(0, 5) === 'time='
 		) {
 
-			data.sequence = parseInt(  str[5].substr(9), 10);
-			data.time     = parseFloat(str[7].substr(5), 10);
-
-		} else {
-
-console.log('RESULT PING LINE', str);
+			return {
+				sequence: parseInt(  str[str.length - 4].substr(9), 10),
+				time    : parseFloat(str[str.length - 2].substr(5), 10)
+			}
 
 		}
 
 
-		return data;
+		return null;
 
 	};
 
 
-	var Callback = function(socket, host) {
+	var Callback = function(data, socket) {
 
-		this.exec('ping -c 20 ' + host, function(err, stream) {
+		var tunnel = new _ssh();
 
-			stream.on('data', function(line) {
-				var data = _parse(line.toString());
-				socket.emit('ping', data);
+
+		tunnel.once('ready', function() {
+
+			tunnel.exec('ping -c 20 ' + data.target, function(err, stream) {
+
+				stream.on('data', function(line) {
+
+					var data = _parse(line.toString());
+					if (data !== null) {
+						socket.emit('ping', data);
+					}
+
+				});
+
+				stream.on('exit', function() {
+					tunnel.end();
+				});
+
 			});
 
 		});
+
+
+		var settings = {
+			host: data.host,
+			port: data.port
+		};
+
+		if (typeof data.username === 'string') {
+			settings.username = data.username;
+		}
+
+		if (typeof data.password === 'string') {
+			settings.password = data.password;
+		}
+
+		if (typeof data.key === 'string') {
+			settings.privateKey = data.key;
+		}
+
+
+		tunnel.connect(settings);
 
 	};
 

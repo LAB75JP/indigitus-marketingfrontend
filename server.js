@@ -46,17 +46,13 @@ var wsserver = null;
 
 (function(global) {
 
-	var socketio   = require('socket.io');
-	var sshtunnel  = require('./server/sshtunnel.js');
+	var socketio = require('socket.io');
+	var ping     = require('./server/ping.js');
 
 	var instanceIp = "127.0.0.1";
 	// var instanceIp = "54.72.38.49";
+	var _config    = JSON.parse(_fs.readFileSync('./lib/config/ssh/' + instanceIp + '.json'));
 
-
-	var _config = JSON.parse(_fs.readFileSync('./lib/config/ssh/' + instanceIp + '.json'));
-
-
-console.log('CONFIG BIATCH', _config);
 
 	wsserver = socketio.listen(httpserver);
 
@@ -70,11 +66,7 @@ console.log('CONFIG BIATCH', _config);
 			data.password = _config.password;
 
 
-			var target = data.target;
-
-			sshtunnel.connect(data, function() {
-				this.ping(socket, data.target);
-			}, sshtunnel);
+			ping(data, socket);
 
 		});
 
