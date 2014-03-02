@@ -46,8 +46,10 @@ var wsserver = null;
 
 (function(global) {
 
-	var socketio = require('socket.io');
-	var ping     = require('./server/ping.js');
+	var socketio   = require('socket.io');
+	var ping       = require('./server/ping.js');
+	var download   = require('./server/download.js');
+	var traceroute = require('./server/traceroute.js');
 
 	var instanceIp = "127.0.0.1";
 	// var instanceIp = "54.72.38.49";
@@ -70,19 +72,29 @@ var wsserver = null;
 
 		});
 
-/*
-		socket.on('traceroute', function(data) {
-			traceroute.call(socket, data);
-		});
-
-		socket.on('upload', function(data) {
-			upload.call(socket, data);
-		});
-
 		socket.on('download', function(data) {
-			download.call(socket, data);
+
+			data.host     = _config.host;
+			data.port     = _config.port;
+			data.username = _config.username;
+			data.password = _config.password;
+
+
+			download(data, socket);
+
 		});
-*/
+
+		socket.on('traceroute', function(data) {
+
+			data.host     = _config.host;
+			data.port     = _config.port;
+			data.username = _config.username;
+			data.password = _config.password;
+
+
+			traceroute(data, socket);
+
+		});
 
 	});
 

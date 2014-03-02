@@ -18,12 +18,15 @@
       .row 
         .col-md-6 
           h3='Ping'
-          nvd3-discrete-bar-chart( id="pingChart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
+          nvd3-discrete-bar-chart( id="pingsChart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
             extended-nvd3-discrete-bar-chart
           p="Ping google.com 10 times"
           button.btn.btn-primary.btn-block(ng-click="ping()")="Start Test"
         .col-md-6 
           h3='Traceroute'
+          nvd3-discrete-bar-chart( id="tracerouteChart", objectEquality="true", delay="2400", data="tracerouteData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
+            extended-nvd3-discrete-bar-chart
+          p="traceroute google.com"
           button.btn.btn-primary.btn-block(ng-click="traceroute()")="Start Test"
       .row  
         .col-md-6 
@@ -36,10 +39,10 @@
           button.btn.btn-primary.btn-block(ng-click="upload()")="Start Test"
         .col-md-6 
           h3='Download'
-          p="1MB from server XYZ"
+          p="11MB from imgur.com"
           .progress.progress-striped.active
-            .progress-bar(style='width: 60%', role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100')
-                = "60%"
+            .progress-bar(style='width: {{downloadPercentage}}%', role='progressbar', aria-valuenow='{{downloadPercentage}}', aria-valuemin='0', aria-valuemax='100')
+                = "{{downloadPercentage}}%"
           p="Time: {{upload_time}} seconds"
           button.btn.btn-primary.btn-block(ng-click="download()")="Start Test"
   .row 

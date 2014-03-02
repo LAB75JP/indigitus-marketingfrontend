@@ -1,7 +1,9 @@
+"use strict";
+
 angular
   .module('indigitusMarketingApp')
   .directive('extendedNvd3DiscreteBarChart', function () {
-    "use strict";
+
     return {
       restrict: 'E',
       require: '^nvd3DiscreteBarChart',
@@ -22,7 +24,6 @@ angular
 
         }
       }
-    }
-
+    };
 
   });
