@@ -1,58 +1,61 @@
+(function (global) {
 
-(function(global) {
-
-	var _ssh        = require('ssh2');
-	var _ping       = require('./ping.js');
-	var _traceroute = require('./traceroute.js');
-
-
-	var _tunnel = new _ssh();
+  var _ssh = require('ssh2');
+  var _ping = require('./ping.js');
+  var _traceroute = require('./traceroute.js');
 
 
-	module.exports = {
+  var _tunnel = new _ssh();
 
-		ping: function(socket, host) {
-			_ping.call(_tunnel, socket, host);
-		},
 
-		traceroute: function(socket, host) {
-			_traceroute.call(_tunnel, socket, host);
-		},
+  module.exports = {
 
-		connect: function(data, callback, scope) {
+    ping: function (socket, host) {
+      _ping.call(_tunnel, socket, host);
+    },
 
-			var settings = {
-				host: data.host,
-				port: data.port
-			};
+    traceroute: function (socket, host) {
+      _traceroute.call(_tunnel, socket, host);
+    },
 
-			if (typeof data.username === 'string') {
-				settings.username = data.username;
-			}
+    connect: function (data, callback, scope) {
 
-			if (typeof data.password === 'string') {
-				settings.password = data.password;
-			}
+      var settings = {
+        host: data.host,
+        port: data.port
+      };
 
-			if (typeof data.key === 'string') {
-				settings.privateKey = data.key;
-			}
+      if (typeof data.username === 'string') {
+        settings.username = data.username;
+      }
 
-			_tunnel.once('ready', function() {
-				callback.call(scope);
-			});
+      if (typeof data.password === 'string') {
+        settings.password = data.password;
+      }
 
-			// TODO: Pull request for ssh2
-			try {
-				_tunnel.end();
-			} catch(e) {
-			}
+      if (typeof data.key === 'string') {
+        settings.privateKey = data.key;
+      }
 
-			_tunnel.connect(settings);
 
-		}
+      // TODO: Pull request for ssh2
+      try {
+        console.log('END');
+        console.log(_tunnel.end());
+        _tunnel.close();
+      } catch (e) {
 
-	};
+      }
+
+
+      _tunnel.once('ready', function () {
+        callback.call(scope);
+      });
+
+      _tunnel.connect(settings);
+
+    }
+
+  };
 
 })(this);
-

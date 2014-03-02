@@ -1,65 +1,41 @@
 'use strict';
-var pings = [];
-
-var initSample = function (i) {
-  var sample = {
-    bytes: 64,
-    from: '173.194.70.101',
-    icmp_seq: 0,
-    ttl: 50,
-    time: 56.909
-  };
-  sample.time = 50 + (Math.random() * 10);
-  sample.icmp_seq = i;
-  pings[i] = sample;
-};
-
-for (var i = 0; i < 10; i++) {
-  initSample(i);
-}
-
-var pingsData = [{
-  key: 'Pings',
-  values: []
-}];
-
-for (var i = 0; i < pings.length; i++) {
-  var label = pings[i].icmp_seq;
-  pingsData[0].values.push([label, pings[i].time]);
-}
-
 
 
 angular.module('indigitusMarketingApp')
   .controller('ControlPanelCtrl', function ($scope, $http, $location, socket) {
+
+    $scope.pingsItem = 0;
+    $scope.pingsData = [{
+      key: 'Pings',
+      values: []
+    }];
+
+    for (var i = 1; i <= 20; i++) {
+      $scope.pingsData[0].values.push([i, 0]);
+    }
 
     // TODO: Update instanceIp via REST API calls
     $scope.instanceIp = '54.72.38.49';
 
     socket.on('ping', function (data) {
       console.log('PING RESULT', data);
+      $scope.pingsItem++;
+      $scope.pingsItem %= 10;
+      $scope.$apply(function () {
+        $scope.pingsData[0].values[$scope.pingsItem] = [data.sequence, data.time];
+      });
+
     });
 
     $scope.ping = function () {
-
       socket.emit('ping', {
         target: 'martens.ms',
         start: Date.now()
       });
-
     };
 
-    $scope.fetchData = function () {
 
-      return [{
-        key: 'hello',
-        values: [['hello', 1]]
-      }]
-
-    };
-    $scope.pingsData = $scope.fetchData();
-
-    setInterval(function () {
+    /*    setInterval(function () {
       $scope.$apply(function () {
         var data = $scope.pingsData;
         data[0].values.push(['hello' + Math.random() * 3, Math.random() * 60]);
@@ -67,7 +43,7 @@ angular.module('indigitusMarketingApp')
         $scope.pingsData = data;
         console.log($scope.pingsData);
       })
-    }, 1000);
+    }, 1000);*/
 
 
     $scope.barColor = function () {
