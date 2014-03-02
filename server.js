@@ -1,34 +1,84 @@
 'use strict';
 
-var express = require('express');
-var socketio = require('socket.io');
-var Instance = require('./lib/controllers/Instance');
-/**
- * Main application file
+
+
+/*
+ * MAIN SERVER (HTTP)
  */
 
-// Set default node environment to development
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var httpserver = null;
 
-// Application Config
-var config = require('./lib/config/config');
+(function(global) {
 
-var app = express();
+	var express = require('express');
 
-// Express settings
-require('./lib/config/express')(app);
+	// Set default node environment to development
+	process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Routing
-require('./lib/routes')(app);
+	// Application Config
+	var config = require('./lib/config/config');
 
-// Start server
-var server = app.listen(config.port, function () {
-  console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
-});
+	var app = express();
 
-var io = socketio.listen(server);
+	// Express settings
+	require('./lib/config/express')(app);
 
-var instance = new Instance(io);
+	// Routing
+	require('./lib/routes')(app);
 
-// Expose app
-exports = module.exports = app;
+	// Start server
+	httpserver = app.listen(config.port, function () {
+		console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
+	});
+
+})(this);
+
+
+
+/*
+ * WEBSOCKET SERVER
+ */
+
+var wsserver = null;
+
+(function(global) {
+
+	var socketio   = require('socket.io');
+	var sshtunnel  = require('./server/sshtunnel.js');
+
+
+	wsserver = socketio.listen(httpserver);
+
+	wsserver.sockets.on('connection', function(socket) {
+
+		socket.on('ping', function(data) {
+
+			var target = data.target;
+
+			sshtunnel.connect(data, function() {
+				this.ping(socket, data.target);
+			}, sshtunnel);
+
+		});
+
+/*
+		socket.on('traceroute', function(data) {
+			traceroute.call(socket, data);
+		});
+
+		socket.on('upload', function(data) {
+			upload.call(socket, data);
+		});
+
+		socket.on('download', function(data) {
+			download.call(socket, data);
+		});
+*/
+
+	});
+
+})(this);
+
+
+exports = module.exports = httpserver;
+

@@ -42,20 +42,42 @@ console.log(pingsData);
 angular.module('indigitusMarketingApp')
   .controller('ControlPanelCtrl', function($scope, $http, $location, socket) {
 
-window.socket = socket;
+	socket.on('ping', function(data) {
+
+		console.log('PING RESULT', data);
+
+	});
 
 	$scope.ping = function() {
+
+		socket.emit('ping', {
+			host:     '127.0.0.1',
+			username: 'christoph',
+			password: 'muhahaha - topsecret @robert :)',
+			target: 'martens.ms',
+			start: Date.now()
+		});
+
+console.log('PING initiated!');
+
 	};
 
 	$scope.traceroute = function() {
 
-console.log('TEST!');
+console.log('TEST traceroute!');
+
 	};
 
 	$scope.upload = function() {
+
+console.log('TEST upload!');
+
 	};
 
 	$scope.download = function() {
+
+console.log('TEST download!');
+
 	};
 
 
