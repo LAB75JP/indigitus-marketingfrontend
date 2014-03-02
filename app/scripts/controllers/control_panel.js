@@ -4,6 +4,15 @@
 angular.module('indigitusMarketingApp')
   .controller('ControlPanelCtrl', function ($scope, $http, $location, socket) {
 
+    // TODO: Update instanceIp via REST API calls
+    $scope.instanceIp = '54.72.38.49';
+
+
+
+	/*
+	 * PING
+	 */
+
     $scope.pingsItem = 0;
     $scope.pingsData = [{
       key: 'Pings',
@@ -14,10 +23,9 @@ angular.module('indigitusMarketingApp')
       $scope.pingsData[0].values.push([i, 0]);
     }
 
-    // TODO: Update instanceIp via REST API calls
-    $scope.instanceIp = '54.72.38.49';
 
     socket.on('ping', function (data) {
+	  if (data === null) return;
       console.log('PING RESULT', data);
       $scope.pingsItem++;
       $scope.pingsItem %= 10;
@@ -28,11 +36,63 @@ angular.module('indigitusMarketingApp')
     });
 
     $scope.ping = function () {
+	  $scope.pingsItem = 0;
       socket.emit('ping', {
-        target: 'martens.ms',
+        target: 'google.com',
         start: Date.now()
       });
     };
+
+
+
+	/*
+	 * TRACEROUTE
+	 */
+
+	$scope.tracerouteItem = 0;
+	$scope.tracerouteData = [{
+	  key: 'Traceroutes',
+	  values: []
+	}];
+
+	socket.on('traceroute', function(data) {
+	  if (data === null) return;
+	  console.log('TRACEROUTE RESULT', data);
+	  $scope.$apply(function () {
+	    $scope.tracerouteItem++;
+	    $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence + ' (' + data.host + ')', data.time];
+	  });
+	});
+
+	$scope.traceroute = function() {
+	  $scope.tracerouteItem = 0;
+	  socket.emit('traceroute', {
+	    target: 'lycheejs.org',
+		start: Date.now()
+	  });
+	};
+
+
+
+	/*
+	 * DOWNLOAD
+	 */
+
+	$scope.downloadPercentage = 0;
+
+	socket.on('download', function(data) {
+	  if (data === null) return;
+	  console.log('DOWNLOAD RESULT', data);
+	  $scope.$apply(function () {
+	    $scope.downloadPercentage = data.percentage;
+	  });
+	});
+
+	$scope.download = function() {
+	  socket.emit('download', {
+	    start: Date.now()
+	  });
+	};
 
 
     /*    setInterval(function () {
@@ -50,22 +110,12 @@ angular.module('indigitusMarketingApp')
       return '#000';
     };
 
-    $scope.traceroute = function () {
-
-      socket.emit('traceroute', {
-        target: 'lycheejs.org',
-        start: Date.now()
-      });
-
-    };
-
     $scope.colorFunction = function () {
       console.log('COLOR FUNCTION');
       return '#000';
     };
 
     $scope.upload = function () {};
-    $scope.download = function () {};
     $scope.command = '';
     $scope.commands = [];
     $scope.terminalLines = [];
