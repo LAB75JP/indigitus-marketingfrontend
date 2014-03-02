@@ -18,8 +18,9 @@
       .row 
         .col-md-6 
           h3='Ping'
-          nvd3-discrete-bar-chart( id="pingChart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
-            extended-nvd3-discrete-bar-chart
+          .ping-chart-wrapper
+            nvd3-discrete-bar-chart( id="pingChart", class="ping-chart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
+              extended-nvd3-discrete-bar-chart
           p="Ping google.com 10 times"
           button.btn.btn-primary.btn-block(ng-click="ping()")="Start Test"
         .col-md-6 

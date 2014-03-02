@@ -42,13 +42,13 @@
       try {
         console.log('END');
         console.log(_tunnel.end());
-        _tunnel.close();
       } catch (e) {
 
       }
 
 
       _tunnel.once('ready', function () {
+        console.log('READY');
         callback.call(scope);
       });
 

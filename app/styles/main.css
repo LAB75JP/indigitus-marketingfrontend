@@ -82,6 +82,27 @@ body {
   margin-top: 100px;
   background-color: #272822;
 }
+.main-container .control-panel .ping-chart-wrapper {
+  background: #272822;
+}
+.main-container .control-panel .ping-chart-wrapper .ping-chart {
+  fill: #0c0;
+}
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-axis .tick line {
+  stroke: #272822;
+}
+.main-container .control-panel .ping-chart-wrapper .ping-chart .domain {
+  fill: #0c0;
+}
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-axis {
+  fill: #0c0;
+}
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nvd3 .nv-axis path {
+  stroke: #0c0;
+}
+.main-container .control-panel .ping-chart-wrapper .ping-chart .nv-bar text {
+  fill: #0c0;
+}
 .main-container .logo-wrapper .logo {
   display: block;
   background: transparent url("/images/logo.svg") no-repeat 0 41px;

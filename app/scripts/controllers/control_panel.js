@@ -7,23 +7,28 @@ angular.module('indigitusMarketingApp')
     $scope.pingsItem = 0;
     $scope.pingsData = [{
       key: 'Pings',
-      values: []
+      values: [[0, 0]]
     }];
 
-    for (var i = 1; i <= 20; i++) {
-      $scope.pingsData[0].values.push([i, 0]);
-    }
-
+    /*for (var i = 1; i <= 10; i++) {
+  $scope.pingsData[0].values.push([i, 0]);
+}*/
     // TODO: Update instanceIp via REST API calls
     $scope.instanceIp = '54.72.38.49';
 
+    $scope.average = 0;
+    var total = 0;
     socket.on('ping', function (data) {
-      console.log('PING RESULT', data);
-      $scope.pingsItem++;
-      $scope.pingsItem %= 10;
-      $scope.$apply(function () {
-        $scope.pingsData[0].values[$scope.pingsItem] = [data.sequence, data.time];
-      });
+      if (data.sequence) {
+        total += data.time;
+        $scope.pingsItem %= 10;
+        $scope.$apply(function () {
+          $scope.pingsData[0].values[$scope.pingsItem] = [data.sequence, data.time];
+          $scope.average = total / $scope.pingsItem;
+        });
+        $scope.pingsItem++;
+
+      }
 
     });
 
@@ -34,20 +39,8 @@ angular.module('indigitusMarketingApp')
       });
     };
 
-
-    /*    setInterval(function () {
-      $scope.$apply(function () {
-        var data = $scope.pingsData;
-        data[0].values.push(['hello' + Math.random() * 3, Math.random() * 60]);
-
-        $scope.pingsData = data;
-        console.log($scope.pingsData);
-      })
-    }, 1000);*/
-
-
     $scope.barColor = function () {
-      return '#000';
+      return '#00CC00';
     };
 
     $scope.traceroute = function () {
