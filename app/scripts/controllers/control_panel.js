@@ -28,8 +28,26 @@ for (var i = 0; i < pings.length; i++) {
   pingsData[0].values.push([label, pings[i].time]);
 }
 
+
+
 angular.module('indigitusMarketingApp')
   .controller('ControlPanelCtrl', function ($scope, $http, $location, socket) {
+
+    // TODO: Update instanceIp via REST API calls
+    $scope.instanceIp = '54.72.38.49';
+
+    socket.on('ping', function (data) {
+      console.log('PING RESULT', data);
+    });
+
+    $scope.ping = function () {
+
+      socket.emit('ping', {
+        target: 'martens.ms',
+        start: Date.now()
+      });
+
+    };
 
     $scope.fetchData = function () {
 
@@ -51,20 +69,18 @@ angular.module('indigitusMarketingApp')
       })
     }, 1000);
 
-    socket.connect();
-
-    window.socket = socket;
-
-    $scope.instanceIp = '10.20.30.40';
-
-    $scope.ping = function () {};
 
     $scope.barColor = function () {
       return '#000';
     };
 
     $scope.traceroute = function () {
-      console.log('TEST!');
+
+      socket.emit('traceroute', {
+        target: 'lycheejs.org',
+        start: Date.now()
+      });
+
     };
 
     $scope.colorFunction = function () {
