@@ -14,7 +14,7 @@ var _fs = require('fs');
         var download         = require('./download.js');
         var traceroute       = require('./traceroute.js');
         var instance_start   = require('./instance_start.js');
-        var instance_command = require('./command_instance.js');
+        var instance_command = require('./instance_command.js');
 
         var instance_ip = "127.0.0.1";
         var _config = JSON.parse(_fs.readFileSync(__dirname + '/../lib/config/ssh/' + instance_ip + '.json'));

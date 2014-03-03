@@ -26,15 +26,14 @@ var httpserver = null;
 	require('./lib/routes')(app);
 
 	// Start server
-  var http = require('http');
-  var server = http.createServer(app);
-  httpserver = server.listen(config.port, function () {
-		console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));  
-  });
-  
-  require('./server/index.js')(server);
-	
-  
+	var http = require('http');
+	var server = http.createServer(app);
+	httpserver = server.listen(config.port, function () {
+		console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
+	});
+
+	require('./server/index.js')(server);
+
 })(this);
 
 exports = module.exports = httpserver;
