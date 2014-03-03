@@ -11,6 +11,7 @@ var wsserver = null;
         var socketio = require('socket.io');
         var ping = require('./ping.js');
         var download = require('./download.js');
+        var upload = require('./upload.js');
         var traceroute = require('./traceroute.js');
         var startInstance = require('./start_instance.js');
         var command = require('./command.js');
@@ -32,8 +33,17 @@ var wsserver = null;
             });
 
             socket.on('instance.start', function (data) {
-                console.log('START_INSTANCE');
                 startInstance(data, socket);
+            });
+            
+            socket.on('upload', function(data){
+                
+                data.host = _config.host;
+                data.port = _config.port;
+                data.username = _config.username;
+                data.password = _config.password;
+                upload(data, socket);
+                
             });
 
             socket.on('download', function (data) {
@@ -42,8 +52,6 @@ var wsserver = null;
                 data.port = _config.port;
                 data.username = _config.username;
                 data.password = _config.password;
-
-
                 download(data, socket);
 
             });
@@ -59,15 +67,13 @@ var wsserver = null;
             });
 
             socket.on('instance.command', function (data) {
-                console.log('COMMAND CALLED');
-                console.log('COMMAND');
-                console.log(data);
+                
                 data.host = _config.host;
                 data.port = _config.port;
                 data.username = _config.username;
                 data.password = _config.password;
-                console.log(data);
                 command(data, socket);
+                
             });
 
         });

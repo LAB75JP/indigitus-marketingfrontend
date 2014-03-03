@@ -55,7 +55,6 @@
 
     });
 
-
     var settings = {
       host: data.host,
       port: data.port
@@ -72,8 +71,7 @@
     if (typeof data.key === 'string') {
       settings.privateKey = data.key;
     }
-
-
+    
     tunnel.connect(settings);
 
   };

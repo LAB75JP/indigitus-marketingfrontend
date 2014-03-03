@@ -6,11 +6,8 @@
     var Callback = function (data, socket) {
 
         var tunnel = new _ssh();
-        console.log('COMMAND');
         tunnel.once('ready', function () {
-            console.log('TUNNEL READY')
             tunnel.exec(data.command, function (err, stream) {
-                console.log(data.command);
                 stream.on('data', function (raw) {
                     if (err) {
                         socket.emit('instance.command_error', {
@@ -24,7 +21,6 @@
                 });
             });
         });
-
 
         var settings = {
             host: data.host,
@@ -46,7 +42,6 @@
         tunnel.connect(settings);
 
     };
-
 
     module.exports = Callback;
 
