@@ -111,8 +111,6 @@ var _urls = {
 			settings.privateKey = data.key;
 		}
 
-console.log(settings);
-
 		tunnel.connect(settings);
 
 	};
