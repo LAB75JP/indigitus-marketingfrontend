@@ -11,7 +11,8 @@
     "jade": "*",
     "simple-recaptcha": "*",
     "ssh2": "*",
-    "openclient": "*"
+    "openclient": "*",
+    "geoip2ws" : "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

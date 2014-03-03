@@ -19,7 +19,7 @@
         .col-md-12 
           h3='Ping'
           .ping-chart-wrapper
-            nvd3-discrete-bar-chart( id="pingChart", class="ping-chart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
+            nvd3-discrete-bar-chart( id="pingChart",  noData="Start Test", class="ping-chart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
               extended-nvd3-discrete-bar-chart
           .ping-info
             p(ng-if="pingLines.length > 0").text-right="Average {{pingsAverage}}"
@@ -33,15 +33,14 @@
         .col-md-12 
           h3='Traceroute'
           .traceroute-chart-wrapper
-            nvd3-discrete-bar-chart( id="tracerouteChart", objectEquality="true", delay="2400", data="tracerouteData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true", class="traceroute-chart", tooltips="true", tooltipcontent="tracerouteTooltip")
+            nvd3-discrete-bar-chart( id="tracerouteChart", noData="Start Test", objectEquality="true", delay="2400", data="tracerouteData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true", class="traceroute-chart", tooltips="true", tooltipcontent="tracerouteTooltip")
               extended-nvd3-discrete-bar-chart
           .traceroute-info 
-            div(ng-if="tracerouteLines")
+            div(ng-if="tracerouteLines.length > 0")
               p="Output"
               ul 
                 li(ng-repeat="line in tracerouteLines")
                   {{line}}
-          p="traceroute google.com"
           button.btn.btn-primary.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start Test"
       .row  
         .col-md-6 
@@ -56,7 +55,7 @@
           h3='Download'
           p="11MB from imgur.com"
           .progress.progress-striped.active
-            .progress-bar(style='width: {{downloadPercentage}}%', role='progressbar', aria-valuenow='{{downloadPercentage}}', aria-valuemin='0', aria-valuemax='100')
+            .progress-bar(style='width: {{downloadPercentage}}%',role='progressbar', aria-valuenow='{{downloadPercentage}}', aria-valuemin='0', aria-valuemax='100')
                 = "{{downloadPercentage}}%"
           p="Time: {{upload_time}} seconds"
           button.btn.btn-primary.btn-block(ng-click="download()")="Start Test"

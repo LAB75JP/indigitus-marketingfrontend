@@ -82,6 +82,7 @@ angular.module('indigitusMarketingApp')
                     $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence, data.time];
                     $scope.tracerouteItem++;
                     $scope.tracerouteLines.push(data.line);
+                    console.log($scope.tracerouteLines);
                 } else {
                     $scope.tracerouteActive = false;
                     $scope.tracerouteItem = 0;
@@ -146,8 +147,6 @@ angular.module('indigitusMarketingApp')
         var terminal = null;
 
         socket.on('instance.command_output', function (data) {
-            console.log('COMMAND OUTPUT');
-            console.log(data);
             terminal.pause();
             if (data.exit) {
                 terminal.resume();
