@@ -13,14 +13,13 @@ var wsserver = null;
         var download = require('./download.js');
         var traceroute = require('./traceroute.js');
         var startInstance = require('./start_instance.js');
+        var command = require('./command.js');
 
         var instanceIp = "127.0.0.1";
         var _config = JSON.parse(_fs.readFileSync(__dirname + '/../lib/config/ssh/' + instanceIp + '.json'));
 
         wsserver = socketio.listen(httpserver);
         wsserver.sockets.on('connection', function (socket) {
-
-            console.log('READY');
 
             socket.on('ping', function (data) {
 
@@ -57,6 +56,18 @@ var wsserver = null;
                 data.password = _config.password;
                 traceroute(data, socket);
 
+            });
+
+            socket.on('instance.command', function (data) {
+                console.log('COMMAND CALLED');
+                console.log('COMMAND');
+                console.log(data);
+                data.host = _config.host;
+                data.port = _config.port;
+                data.username = _config.username;
+                data.password = _config.password;
+                console.log(data);
+                command(data, socket);
             });
 
         });

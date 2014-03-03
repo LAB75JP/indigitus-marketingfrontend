@@ -1,6 +1,5 @@
 (function (global) {
 
-  var _exec = require('child_process').exec;
   var _ssh = require('ssh2');
 
   var _parse = function (line) {

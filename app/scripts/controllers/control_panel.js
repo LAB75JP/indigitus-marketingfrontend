@@ -136,16 +136,18 @@ angular.module('indigitusMarketingApp')
         $scope.commands = [];
         $scope.terminalLines = [];
         $scope.availableCommands = [
-      'You have a limited set of commands available for testing out the instance:',
-      'ls: Description',
-      'ping: Description',
-      'traceroute: Description'
-    ];
+          'You have a limited set of commands available for testing out the instance:',
+          'ls: Description',
+          'ping: Description',
+          'traceroute: Description'
+        ];
 
 
         var terminal = null;
 
         socket.on('instance.command_output', function (data) {
+            console.log('COMMAND OUTPUT');
+            console.log(data);
             terminal.pause();
             if (data.exit) {
                 terminal.resume();
@@ -166,6 +168,8 @@ angular.module('indigitusMarketingApp')
                 term.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
                 return;
             } else {
+                console.log('INSTANCE COMMAND');
+                console.log(command);
                 socket.emit('instance.command', {
                     command: command
                 });

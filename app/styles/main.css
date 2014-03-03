@@ -78,6 +78,9 @@ body {
 .main-container .demo-teaser h2 {
   margin-bottom: 30px;
 }
+.main-container .control-panel .btn-start {
+  margin-top: 20px;
+}
 .main-container .control-panel .ping-info,
 .main-container .control-panel .traceroute-info {
   min-height: 300px;
@@ -163,6 +166,12 @@ body {
 .main-container .landing-page .feature .img-wrapper img {
   background: none;
   max-width: 150px;
+}
+.main-container .terminal-output {
+  color: #0c0;
+}
+.main-container .terminal-output .prompt {
+  color: #0c0 !important;
 }
 .main-container .start-instance {
   max-width: 500px;
