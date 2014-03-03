@@ -16,26 +16,31 @@
     .col-md-12
       h1='Performance View'
       .row 
-        .col-md-6 
+        .col-md-12 
           h3='Ping'
           .ping-chart-wrapper
             nvd3-discrete-bar-chart( id="pingChart", class="ping-chart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
               extended-nvd3-discrete-bar-chart
           .ping-info
-              p="Average {{pingsAverage}}"
+            p(ng-if="pingLines.length > 0").text-right="Average {{pingsAverage}}"
+            div(ng-if="pingLines.length > 0")
+              p="Output"
               ul 
                 li(ng-repeat="line in pingLines")
                     {{line}}
           button.btn.btn-primary.btn-block(ng-click="ping()", ng-disabled="pingsActive")="Start Test"
-        .col-md-6 
+      .row
+        .col-md-12 
           h3='Traceroute'
           .traceroute-chart-wrapper
             nvd3-discrete-bar-chart( id="tracerouteChart", objectEquality="true", delay="2400", data="tracerouteData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true", class="traceroute-chart", tooltips="true", tooltipcontent="tracerouteTooltip")
               extended-nvd3-discrete-bar-chart
           .traceroute-info 
-            ul 
-              li(ng-repeat="line in tracerouteLines")
-                {{line}}
+            div(ng-if="tracerouteLines")
+              p="Output"
+              ul 
+                li(ng-repeat="line in tracerouteLines")
+                  {{line}}
           p="traceroute google.com"
           button.btn.btn-primary.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start Test"
       .row  

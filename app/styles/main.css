@@ -83,6 +83,12 @@ body {
   min-height: 300px;
   color: #0c0;
   background: #272822;
+  border-top: 1px solid #0c0;
+  padding: 20px;
+}
+.main-container .control-panel .ping-info ul li,
+.main-container .control-panel .traceroute-info ul li {
+  list-style-type: none;
 }
 .main-container .control-panel .terminal {
   margin-top: 100px;
