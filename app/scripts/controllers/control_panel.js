@@ -82,7 +82,6 @@ angular.module('indigitusMarketingApp')
                     $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence, data.time];
                     $scope.tracerouteItem++;
                     $scope.tracerouteLines.push(data.line);
-                    console.log($scope.tracerouteLines);
                 } else {
                     $scope.tracerouteActive = false;
                     $scope.tracerouteItem = 0;

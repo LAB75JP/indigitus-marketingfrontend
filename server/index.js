@@ -13,7 +13,7 @@ var _fs = require('fs');
         var ping             = require('./ping.js');
         var download         = require('./download.js');
         var traceroute       = require('./traceroute.js');
-        var instance_start   = require('./start_instance.js');
+        var instance_start   = require('./instance_start.js');
         var instance_command = require('./command_instance.js');
 
         var instance_ip = "127.0.0.1";
