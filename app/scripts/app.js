@@ -8,7 +8,8 @@ angular.module('indigitusMarketingApp', [
 	'ngAnimate',
 	'ui.bootstrap',
 	'vcRecaptcha',
-	'nvd3ChartDirectives'
+	'nvd3ChartDirectives',
+    'leaflet-directive'
 ]).config(function ($routeProvider, $locationProvider) {
 
 	$routeProvider

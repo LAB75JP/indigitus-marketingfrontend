@@ -1,8 +1,8 @@
 {
-  "name": "indigitus-demonstration",
+  "name": "indigitus-marketingfrontend",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2.13",
+    "angular": "1.2.11",
     "json3": "~3.2.6",
     "es5-shim": "~2.1.0",
     "jquery": "~1.11.0",
@@ -20,14 +20,19 @@
     "nvd3": "*",
     "angularjs-nvd3-directives": "*",
     "socket.io": "*",
-    "jquery-mousewheel": "*"
+    "jquery-mousewheel": "*",
+    "angular-leaflet-directive": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.2.11",
     "angular-scenario": "1.2.11"
   },
   "resolutions": {
-    "angular": "1.2.13",
-    "d3": "3.4.3"
+    "angular": "1.2.11",
+    "d3": "3.4.3",
+    "jquery": ">= 1.9.0",
+    "angular-route": "1.2.6",
+    "angular-animate": "1.2.6",
+    "angular-mocks": "1.2.11"
   }
 }

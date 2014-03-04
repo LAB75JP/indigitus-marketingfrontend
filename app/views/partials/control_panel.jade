@@ -1,8 +1,6 @@
 
-
-
-
 .container.control-panel
+
   .row 
     .col-md-4
       .logo-wrapper 
@@ -28,6 +26,7 @@
               ul 
                 li(ng-repeat="line in pingLines")
                     {{line}}
+
           button.btn.btn-primary.btn-block.btn-start(ng-click="ping()", ng-disabled="pingsActive")="Start Test"
       .row
         .col-md-12 
@@ -39,9 +38,12 @@
             div(ng-if="tracerouteLines.length > 0")
               p="Output"
               ul 
-                li(ng-repeat="line in tracerouteLines")
+                li(ng-repeat="line in tracerouteLines track by $index")
                   {{line}}
+          .traceroute-map
+            <leaflet center="center" markers="markers" paths="paths" defaults="defaults" height="500"></leaflet>
           button.btn.btn-primary.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start Test"
+
       .row  
         .col-md-6 
           h3='Upload'
@@ -62,3 +64,4 @@
   .row 
     .col-md-12 
       <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
+
