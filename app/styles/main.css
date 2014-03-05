@@ -1,6 +1,5 @@
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 0 !important;
 }
 .leaflet-map-pane,
 .leaflet-objects-pane,
@@ -32,12 +31,6 @@ body {
   margin-top: -74px;
   margin-left: 179px;
   top: -70px;
-}
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -83,6 +76,10 @@ body {
 }
 .main-container ul li {
   margin-left: 0;
+}
+.main-container .header {
+  padding: 0 20px 20px 20px;
+  background: #eee;
 }
 .main-container .header .btn-to-tour {
   background: #e76964;
@@ -180,6 +177,15 @@ body {
   padding: 0 0;
   font-size: 18px;
   line-height: 20px;
+}
+.main-container .landing-page #recaptcha_table {
+  margin: 0 auto !important;
+}
+.main-container .landing-page #recaptcha_logo,
+.main-container .landing-page #recaptcha_whatsthis_btn,
+.main-container .landing-page #recaptcha_switch_audio_btn,
+.main-container .landing-page #recaptcha_reload_btn {
+  display: none;
 }
 .main-container .landing-page .feature ul {
   margin-top: 15px;
