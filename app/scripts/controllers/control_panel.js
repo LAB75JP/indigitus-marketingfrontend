@@ -8,7 +8,6 @@ angular.module('indigitusMarketingApp')
         $scope.instanceIp = '54.72.38.49';
 
 
-
         /*
          * PING
          */
@@ -79,9 +78,14 @@ angular.module('indigitusMarketingApp')
 
         $scope.lastLocation = null;
         $scope.addMarker = function (sequence, host, location) {
-            console.log('SEQUENCE', sequence);
-            console.log('HOST', host);
-            console.log('LOCATION', location);
+            for(var key in $scope.markers){
+                var marker = $scope.markers[key];
+                if(marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)){
+                    console.log('RETURN');
+                    return;
+                }
+            }
+
             $scope.markers['m' + sequence] = {
                 lat: parseFloat(location.latitude),
                 lng: parseFloat(location.longitude),
@@ -95,6 +99,7 @@ angular.module('indigitusMarketingApp')
                     shadowAnchor: [0, 0]
                 }
             };
+
         };
 
         $scope.paths = {
@@ -121,25 +126,71 @@ angular.module('indigitusMarketingApp')
             };
 
         };
+        $scope.pathItems = 0;
+        $scope.updatePath = function(){
+            var latlngs = $scope.paths.p1.latlngs;
+            for(var i = 1; i <= $scope.tracerouteList.length; i++){
+                var traceroute = $scope.tracerouteList[i];
+                var add = true;
+                if(traceroute){
+                    if(traceroute.location){
+
+                        for( var y in latlngs){
+                            if(latlngs[y]){
+                                if(latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng === traceroute.location.longitude){
+                                    console.log('CONTINUE');
+                                    console.log('LAT LNG', traceroute.location.latitude, traceroute.location.longitude);
+                                    add = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if(add){
+                            $scope.paths.p1.latlngs[$scope.pathItems++] = {
+                               lat: traceroute.location.latitude,
+                               lng: traceroute.location.longitude
+                            };
+                        }
+
+
+
+                    }
+                }
+            }
+        };
         // TODO: Order Traceroute by sequence!
         $scope.tracerouteHosts = {};
         $scope.tracerouteLines = [];
+        $scope.tracerouteList = [];
         socket.on('traceroute', function (data) {
-            console.log('TRACEROUTEDATA', data);
             if (data === null) return false;
             $scope.$apply(function () {
                 if (data.sequence > 0) {
 
                     $scope.tracerouteHosts[data.sequence] = data.host;
-                    $scope.tracerouteData[0].values[$scope.tracerouteItem] = [data.sequence, data.time];
                     $scope.tracerouteItem++;
-                    $scope.tracerouteLines.push(data.line);
+                    $scope.tracerouteLines[data.sequence] = data.line;
+                    $scope.tracerouteData[0].values[data.sequence] = [data.sequence, data.time];
+                    $scope.tracerouteList[data.sequence] = data;
+                    for(var i = 0; i < data.sequence; i++){
+                        if(!$scope.tracerouteData[0].values[i]){
+                            $scope.tracerouteData[0].values[i] = [i+1, 0];
+                        }
+
+                        if(!$scope.tracerouteList[i+1]){
+                            $scope.tracerouteList[i+1] = null;
+                        }
+
+                        if(!$scope.tracerouteLines[i]){
+                            $scope.tracerouteLines[i] = '';
+                        }
+                    }
 
                     if (data.location) {
                         var time = (data.time) ? ' ' + data.time + 'ms':'';
                         var label = data.host + time;
                         $scope.addMarker(data.sequence, label, data.location);
-                        $scope.addPath(data.sequence, data.host, data.location);
+                        $scope.updatePath();
                     }
 
                 }
@@ -160,6 +211,7 @@ angular.module('indigitusMarketingApp')
                 }
             };
             $scope.markers = {};
+            $scope.pathItems = 0;
             if ($scope.tracerouteActive === true) return false;
             $scope.lastLocation = null;
             $scope.tracerouteHosts = [];
@@ -245,9 +297,9 @@ angular.module('indigitusMarketingApp')
         };
 
         $scope.center = {
-            lat: 48,
-            lng: 4,
-            zoom: 4
+            lat: 7.79,
+            lng: 21.28,
+            zoom: 2
         };
 
         $scope.defaults = {
