@@ -21,18 +21,19 @@
 				} else {
 
 					stream.on('data', function (line) {
-
 						socket.emit('instance.command_output', {
 							output: line.toString()
 						});
-
 					});
 
 				}
 
-
 				stream.on('exit', function () {
-					tunnel.end();
+					socket.emit('instance.command_output', {
+                        exit: true
+                    });
+
+                    tunnel.end();
 				});
 
 			});
