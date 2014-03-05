@@ -17,7 +17,7 @@ var httpserver = null;
 
 	app.set('config', _CONFIG);
 
-	require('./lib/express')(app);
+	require('./lib/config/express')(app);
 	require('./lib/routes')(app);
 
 
