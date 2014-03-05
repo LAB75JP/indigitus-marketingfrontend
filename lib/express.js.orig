@@ -1,16 +1,19 @@
 'use strict';
 
-var express = require('express'),
-    path = require('path'),
-    debug = require('debug'),
-    stylus = require('stylus');
+
+var express = require('express');
+var path    = require('path');
+var debug   = require('debug');
+var stylus  = require('stylus');
+
+
 
 /**
  * Express configuration
  */
 module.exports = function (app) {
 
-    app.set('config', config);
+	var config = app.get('config');
 
     app.configure('development', function () {
         app.use(require('connect-livereload')());
@@ -61,3 +64,7 @@ module.exports = function (app) {
 
     });
 };
+<<<<<<< HEAD:lib/config/express.js
+=======
+
+>>>>>>> 2a602246f4299fad30d5115898772a8288229efb:lib/express.js

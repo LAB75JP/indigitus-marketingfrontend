@@ -1,5 +1,9 @@
 'use strict';
-var _fs = require('fs');
+
+var _CONFIG  = require('./lib/config/config');
+var _express = require('express');
+var _fs      = require('fs');
+
 
 /*
  * MAIN SERVER (HTTP)
@@ -9,27 +13,19 @@ var httpserver = null;
 
 (function(global) {
 
-	var express = require('express');
+	var app = _express();
 
-	// Set default node environment to development
-	process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+	app.set('config', _CONFIG);
 
-	// Application Config
-	var config = require('./lib/config/config');
-
-	var app = express();
-
-	// Express settings
-	require('./lib/config/express')(app);
-
-	// Routing
+	require('./lib/express')(app);
 	require('./lib/routes')(app);
+
 
 	// Start server
 	var http = require('http');
 	var server = http.createServer(app);
-	httpserver = server.listen(config.port, function () {
-		console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
+	httpserver = server.listen(_CONFIG.port, function () {
+		console.log('Express server listening on port %d in %s mode', _CONFIG.port, app.get('env'));
 	});
 
 	require('./server/index.js')(server);

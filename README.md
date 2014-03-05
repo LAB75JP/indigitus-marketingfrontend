@@ -20,6 +20,12 @@ _Additional Dependencies_
 
 ## Testing
 
+1. sudo apt-get install ssh
+2. sudo adduser devtest
+3. Follow the wizard and finally enter "devtest" as password
+4. sudo adduser devtest ssh
+5. grunt serve
+
 _Not yet implemented_
 
 ## Deploying
