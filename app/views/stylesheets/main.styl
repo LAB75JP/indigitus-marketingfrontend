@@ -1,9 +1,8 @@
 term_green = #00CC00  
 term_brown = #272822
 
-body
-  padding-top 20px
-  padding-bottom 20px
+body 
+  padding-top 0 !important
 
 .leaflet-map-pane
 .leaflet-objects-pane
@@ -38,11 +37,6 @@ body
     margin-left 179px
     top -70px
 
-.header,
-.marketing,
-.footer 
-  padding-left 15px
-  padding-right 15px
 
 /* Make the masthead heading the same height as the navigation */
 .header h3 
@@ -95,6 +89,8 @@ body
       margin-left 0
 
   .header 
+    padding 0 20px 20px 20px
+    background #eee
     .btn-to-tour 
       background rgb(231,105,100)
       border-color rgb(231,105,100)
@@ -174,6 +170,13 @@ body
     
 
   .landing-page
+    #recaptcha_table
+      margin 0 auto !important
+    #recaptcha_logo
+    #recaptcha_whatsthis_btn
+    #recaptcha_switch_audio_btn
+    #recaptcha_reload_btn
+      display none
     .feature
       ul
         margin-top 15px
