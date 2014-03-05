@@ -1,8 +1,7 @@
-/*global angular, console*/
+'use strict';
 
-angular.module('indigitusMarketingApp')
-    .controller('ControlPanelCtrl', function ($scope, $http, $location, $timeout, socket) {
-        'use strict';
+
+angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function ($scope, $http, $location, $timeout, socket) {
 
         // TODO: Update instanceIp via REST API calls
         $scope.instanceIp = '54.72.38.49';

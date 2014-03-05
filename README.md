@@ -12,13 +12,19 @@ _Dependencies_
 4. cd indigitus-marketingfrontend
 5. npm install
 6. bower install 
-7. grunt server 
+7. grunt server
 
 _Additional Dependencies_
 
 1. Livereload https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 
 ## Testing
+
+1. sudo apt-get install ssh
+2. sudo adduser devtest
+3. Follow the wizard and finally enter "devtest" as password
+4. sudo adduser devtest ssh
+5. grunt serve
 
 _Not yet implemented_
 

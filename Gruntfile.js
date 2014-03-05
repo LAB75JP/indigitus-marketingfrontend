@@ -27,28 +27,32 @@ module.exports = function (grunt) {
             app: require('./bower.json').appPath || 'app',
             dist: 'dist'
         },
+
         express: {
             options: {
                 port: process.env.PORT || 9000
             },
             dev: {
                 options: {
-                    script: 'server.js',
-                    debug: true
+                    script:   'server.js',
+					node_env: 'development',
+                    debug:    true
                 }
             },
             prod: {
                 options: {
-                    script: 'dist/server.js',
+                    script:   'server.js',
                     node_env: 'production'
                 }
             }
         },
+
         open: {
             server: {
                 url: 'http://localhost:<%= express.options.port %>'
             }
         },
+
         watch: {
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
@@ -373,6 +377,7 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('serve', function (target) {
+
         if (target === 'dist') {
             return grunt.task.run(['build', 'express:prod', 'open', 'express-keepalive']);
         }
@@ -383,10 +388,12 @@ module.exports = function (grunt) {
             'bower',
             'concurrent:server',
             'autoprefixer',
-            'express:dev',
+            'express:prod',
+            // 'express:dev',
             'open',
             'watch'
         ]);
+
     });
 
     grunt.registerTask('test', [

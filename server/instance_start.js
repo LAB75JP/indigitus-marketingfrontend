@@ -3,8 +3,8 @@
  * HELPERS
  */
 
-var _Nova = require('openclient').Nova;
-
+var _Nova   = require('openclient').Nova;
+var _CONFIG = require('../lib/config/config');
 
 
 /*
@@ -13,10 +13,8 @@ var _Nova = require('openclient').Nova;
 
 (function(global) {
 
-	var _CONFIG = global.CONFIG;
-
 	var _client = new _Nova({
-		url:   global.CONFIG.nova,
+		url:   _CONFIG.nova,
 		debug: true
 	});
 
