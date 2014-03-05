@@ -12,7 +12,7 @@ _Dependencies_
 4. cd indigitus-marketingfrontend
 5. npm install
 6. bower install 
-7. grunt server 
+7. grunt serve
 
 _Additional Dependencies_
 
@@ -28,5 +28,5 @@ _Not yet implemented_
 
 ## Contributing changes
 
-- _For new features open up a new branch that gives an idear about what problem you are trying to solve_
+- _For new features open up a new branch that gives an idea about what problem you are trying to solve_
 - _"Please open github issues"_
