@@ -68,7 +68,8 @@
         p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
       .col-md-5 
         form
-          | <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+          alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
+            = "{{alert.msg}}"
           div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
           button.btn.btn-block.btn-default(ng-click="checkCaptcha()")
             = "Try now!"

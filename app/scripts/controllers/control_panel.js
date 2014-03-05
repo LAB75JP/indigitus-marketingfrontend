@@ -235,7 +235,6 @@ angular.module('indigitusMarketingApp')
         var downloadTime = 0;
         var updateTimer = function(){
             downloadTime += 100;
-            console.log('DOWNLOAD TIME', downloadTime);
             var elapsed = Math.floor(downloadTime / 100) / 10;
             if(Math.round(elapsed) == elapsed) { elapsed += '.0'; }
             $scope.downloadTimeDisplay = elapsed;
@@ -252,6 +251,8 @@ angular.module('indigitusMarketingApp')
 
         $scope.download = function () {
             downloadTime = 0;
+            $scope.downloadTimeDisplay = 0;
+            $scope.downloadPercentage = 0;
             socket.emit('download', {
                 start: Date.now()
             });

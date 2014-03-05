@@ -255,8 +255,7 @@ module.exports = function (grunt) {
         },
 
         bower: {
-            install: {
-            }
+            install: {}
         },
 
         // Copies remaining files to places other tasks can use
@@ -272,7 +271,9 @@ module.exports = function (grunt) {
                      '.htaccess',
                      'bower_components/**/*',
                      'images/{,*/}*.{webp}',
-                     'fonts/**/*'
+                     'fonts/**/*',
+                     'scripts/**/*',
+                     'styles/**/*'
                      ]
                      }, {
                     expand: true,
@@ -291,7 +292,8 @@ module.exports = function (grunt) {
                     src: [
                      'package.json',
                      'server.js',
-                     'lib/**/*'
+                     'lib/**/*',
+                     'server/**/*'
                      ]
                      }]
             },
@@ -373,6 +375,7 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('serve', function (target) {
+        console.log(target);
         if (target === 'dist') {
             return grunt.task.run(['build', 'express:prod', 'open', 'express-keepalive']);
         }
@@ -401,15 +404,15 @@ module.exports = function (grunt) {
         'bower-install',
         'useminPrepare',
         'concurrent:dist',
-        'autoprefixer',
-        'concat',
-        'ngmin',
+        //'autoprefixer',
+        //'concat',
+        //'ngmin',
         'copy:dist',
-        'cdnify',
-        'cssmin',
-        'uglify',
-        'rev',
-        'usemin'
+        //'cdnify',
+        //'cssmin',
+        //'uglify',
+        //'rev',
+        //'usemin'
     ]);
 
     grunt.registerTask('heroku', function () {
