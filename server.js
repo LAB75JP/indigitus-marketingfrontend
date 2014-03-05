@@ -1,5 +1,8 @@
 'use strict';
-var _fs = require('fs');
+
+var _express = require('express');
+var _fs      = require('fs');
+
 
 /*
  * MAIN SERVER (HTTP)
@@ -9,18 +12,18 @@ var httpserver = null;
 
 (function(global) {
 
-	var express = require('express');
+	var config = JSON.parse(_fs.readFileSync('./lib/config/env.json'));
 
-	// Set default node environment to development
-	process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+	global.CONFIG      = config[process.env.NODE_ENV || 'development'];
+	global.CONFIG.root = path.normalize('./');
+	global.CONFIG.port = process.env.PORT || 3000;
 
-	// Application Config
-	var config = require('./lib/config/config');
 
-	var app = express();
+
+	var app = _express();
 
 	// Express settings
-	require('./lib/config/express')(app);
+	require('./lib/express')(app);
 
 	// Routing
 	require('./lib/routes')(app);
