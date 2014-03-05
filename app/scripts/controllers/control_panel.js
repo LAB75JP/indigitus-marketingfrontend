@@ -19,6 +19,7 @@ angular.module('indigitusMarketingApp')
             key: 'Pings',
             values: []
         }];
+        $scope.markers = {};
 
 
         socket.on('ping', function (data) {
@@ -138,8 +139,6 @@ angular.module('indigitusMarketingApp')
                         for( var y in latlngs){
                             if(latlngs[y]){
                                 if(latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng === traceroute.location.longitude){
-                                    console.log('CONTINUE');
-                                    console.log('LAT LNG', traceroute.location.latitude, traceroute.location.longitude);
                                     add = false;
                                     break;
                                 }
@@ -164,7 +163,7 @@ angular.module('indigitusMarketingApp')
         $scope.tracerouteList = [];
         socket.on('traceroute', function (data) {
             if (data === null) return false;
-            $scope.$apply(function () {
+                $scope.$apply(function () {
                 if (data.sequence > 0) {
 
                     $scope.tracerouteHosts[data.sequence] = data.host;
@@ -231,7 +230,19 @@ angular.module('indigitusMarketingApp')
          */
 
         $scope.downloadPercentage = 0;
+        $scope.downloadTimeDisplay = 0;
 
+        var downloadTime = 0;
+        var updateTimer = function(){
+            downloadTime += 100;
+            console.log('DOWNLOAD TIME', downloadTime);
+            var elapsed = Math.floor(downloadTime / 100) / 10;
+            if(Math.round(elapsed) == elapsed) { elapsed += '.0'; }
+            $scope.downloadTimeDisplay = elapsed;
+            if($scope.downloadPercentage !== 100 ){
+                $timeout(updateTimer, 100);
+            }
+        };
         socket.on('download', function (data) {
             if (data === null) return;
             $scope.$apply(function () {
@@ -240,9 +251,11 @@ angular.module('indigitusMarketingApp')
         });
 
         $scope.download = function () {
+            downloadTime = 0;
             socket.emit('download', {
                 start: Date.now()
             });
+            $timeout(updateTimer, 100);
         };
 
 
@@ -306,7 +319,6 @@ angular.module('indigitusMarketingApp')
             tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
         };
 
-        $scope.markers = {};
 
 
     });
