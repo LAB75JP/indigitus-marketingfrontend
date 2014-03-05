@@ -59,7 +59,7 @@
           .progress.progress-striped.active
             .progress-bar(style='width: {{downloadPercentage}}%',role='progressbar', aria-valuenow='{{downloadPercentage}}', aria-valuemin='0', aria-valuemax='100')
                 = "{{downloadPercentage}}%"
-          p="Time: {{upload_time}} seconds"
+          p="Time: {{downloadTimeDisplay}} seconds"
           button.btn.btn-default.btn-block(ng-click="download()")="Start Test"
   .row 
     .col-md-12 
