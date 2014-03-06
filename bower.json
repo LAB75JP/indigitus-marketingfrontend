@@ -21,7 +21,8 @@
     "angularjs-nvd3-directives": "*",
     "socket.io": "*",
     "jquery-mousewheel": "*",
-    "angular-leaflet-directive": "*"
+    "angular-leaflet-directive": "*",
+    "font-awesome": "~3.2.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.11",

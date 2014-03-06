@@ -12,6 +12,8 @@ module.exports = function (grunt) {
 
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('grunt-contrib-less');
+
 
 
     grunt.loadNpmTasks('grunt-npm-install');
@@ -20,12 +22,29 @@ module.exports = function (grunt) {
 
     // Define the configuration for all the tasks
     grunt.initConfig({
-
         // Project settings
         yeoman: {
-            // configurable paths
             app: require('./bower.json').appPath || 'app',
             dist: 'dist'
+        },
+        less: {
+            dev: {
+                options: {
+                    paths: ["<%= yeoman.app %>/views/stylesheets/**/*"],
+                    yuicompress: true
+                },
+                files: {
+                    "<%= yeoman.app %>/styles/main.css":"<%= yeoman.app %>/views/stylesheets/main.less"
+                }
+            },
+            prod: {
+                options: {
+                    paths: ["<%= yeoman.app %>/views/stylesheets/**/*"]
+                },
+                files: {
+                    "<%= yeoman.dist %>/styles/main.css":"<%= yeoman.app %>/views/styles/main.less"
+                }
+            }
         },
         express: {
             options: {
@@ -51,6 +70,10 @@ module.exports = function (grunt) {
             }
         },
         watch: {
+            less: {
+                files: "<%= yeoman.app %>/views/stylesheets/*.less",
+                tasks: ['less']
+            },
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
                 tasks: ['newer:jshint:all'],
@@ -255,11 +278,6 @@ module.exports = function (grunt) {
             }
         },
 
-        bower: {
-            install: {
-            }
-        },
-
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
@@ -385,7 +403,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'npm-install',
-            'bower',
+            'less',
             'concurrent:server',
             'autoprefixer',
             'express:dev',
@@ -403,9 +421,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'bower-install',
         'useminPrepare',
         'concurrent:dist',
+        'less:prod',
         //'autoprefixer',
         //'concat',
         //'ngmin',
