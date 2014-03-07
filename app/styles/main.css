@@ -7298,3 +7298,263 @@ fieldset[disabled] .btn-inverse.active {
   border-right: 0;
   padding-right: 10px;
 }
+.leaflet-map-pane,
+.leaflet-objects-pane,
+.leaflet-overlay-pane,
+.leaflet-zoom-animated,
+.leaflet-marker-pane {
+  height: 100%;
+  width: 100%;
+}
+.leaflet-zoom-animated {
+  margin-left: 24px;
+  margin-top: 10px;
+}
+.traceroute-map {
+  position: relative;
+}
+.leaflet-popup {
+  margin-left: 5px;
+  position: relative;
+  width: 200px;
+}
+.leaflet-popup-content-wrapper {
+  width: 200px;
+}
+.leaflet-popup-content-wrapper {
+  margin-top: -75px;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  margin-top: -74px;
+  margin-left: 179px;
+  top: -70px;
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
+.leaflet-control-layers label {
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+.leaflet-popup-content {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 5px;
+}
+.leaflet-sidebar {
+  z-index: 1020;
+}
+.leaflet-sidebar .close {
+  right: 0px;
+  top: 5px;
+  background: transparent;
+}
+h3 .glyphicon {
+  margin-right: 15px;
+}
+.main-container {
+  margin-bottom: -20px;
+}
+.start-instance {
+  min-height: 800px;
+  overflow: hidden;
+}
+.landing-page h1,
+.landing-page h2,
+.landing-page h3 {
+  margin: 10px 0;
+}
+.landing-page .intro {
+  margin-top: 50px;
+}
+.landing-page .alert {
+  padding: 5px;
+  margin: 0;
+}
+.landing-page .feature-highlight {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.landing-page .try-for-free {
+  margin-top: 50px;
+}
+.landing-page .demo-teaser {
+  margin: 10px 0;
+  padding: 30px 30px 30px 30px;
+  background: #eee;
+}
+.landing-page .map {
+  max-height: 450px;
+}
+.landing-page #recaptcha_table {
+  margin: 0 auto !important;
+}
+.landing-page #recaptcha_logo,
+.landing-page #recaptcha_whatsthis_btn,
+.landing-page #recaptcha_switch_audio_btn,
+.landing-page #recaptcha_reload_btn {
+  display: none;
+}
+.landing-page .btn-to-tour {
+  background: #e76964;
+  border-color: #e76964;
+  margin-top: 10px;
+}
+.landing-page .feature ul {
+  margin-top: 15px;
+}
+.landing-page .feature h3 {
+  text-align: center;
+}
+.landing-page .feature .img-wrapper {
+  text-align: center;
+  width: 100%;
+  height: 200px;
+  background: #eee;
+  padding: 20px;
+}
+.landing-page .feature img {
+  background: none;
+  max-width: 150px;
+}
+.animated-ellipsis .one {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.0s;
+}
+.animated-ellipsis .two {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.2s;
+}
+.animated-ellipsis .three {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.3s;
+}
+@keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.control-panel h1,
+.control-panel h2,
+.control-panel h3,
+.control-panel h4 {
+  margin: 0;
+}
+.control-panel .btn-default {
+  margin-bottom: 20px;
+}
+.control-panel .ping {
+  padding-bottom: 10px;
+}
+.control-panel .card {
+  padding: 10px 10px;
+}
+.control-panel .terminal {
+  background-color: #272822;
+  font: 'Ubuntu Mono', Arial, Sans Serif;
+}
+.control-panel ul {
+  list-style-type: none;
+}
+.control-panel small {
+  margin-left: 10px;
+}
+.control-panel .card {
+  min-height: 20px;
+}
+.control-panel .upload-download .col-md-6:nth-child(even) {
+  border-left: 0;
+}
+.control-panel .instance-stats .col-md-6 {
+  min-height: 260px;
+}
+.control-panel .instance-stats .col-md-6:nth-child(even) {
+  border-left: 0;
+}
+.control-panel .instance-stats .instance-link {
+  display: block;
+  font-size: 30px;
+  text-align: center;
+  margin: 20px auto;
+}
+.control-panel .instance-stats span {
+  display: block;
+  float: left;
+}
+.control-panel .instance-stats .glyphicon {
+  display: block;
+  font-size: 25px;
+  margin-top: -5px;
+  margin-right: 10px;
+}
+.control-panel .instance-stats .stat-info {
+  display: block;
+  float: right;
+  margin-right: 25px;
+}
+.control-panel .instance-stats table td:nth-child(odd) {
+  text-align: left;
+}
+.control-panel .instance-stats table td:nth-child(even) {
+  text-align: right;
+}
+.control-panel .instance-stats .logo {
+  max-width: 100px;
+}
+.control-panel .instance-stats h3 {
+  text-align: center;
+  font-size: 30px;
+}
+.control-panel .traceroute-map {
+  border: 1px solid black;
+}
+.control-panel .intro {
+  margin-bottom: 100px;
+}

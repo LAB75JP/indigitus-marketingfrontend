@@ -1,15 +1,15 @@
 .navbar.navbar-fixed-top
-  .container
-    .navbar-header
-      a.navbar-brand(href="/#/")
-        = "Indigitus"
+    .container
+        .navbar-header
+          a.navbar-brand(href="/#/")
+            = "Indigitus"
 
 .container.container.landing-page
   .row.header
     .col-md-12
       .row
-        .col-md-6
-          h1
+        .col-md-5
+          h2
             ="Say Hello"
             br
             ="to Cloud Computing"
@@ -20,11 +20,11 @@
             br
             ="to make cloud computing painless"
             br
-        .col-md-6
-          img.map(src='images/map.png')
-      .row
-        .col-md-12
-          a.btn.btn-primary.btn-to-tour(href="#demo-teaser", ng-click="scrollToDemo()")="Try the Demo for Free"
+          .row
+            .col-md-12
+              a.btn.btn-primary.btn-to-tour(href="#demo-teaser", ng-click="scrollToDemo()")="Try the Demo for Free"
+        .col-md-7
+            img.map(src='images/map.png')
   .row.intro
     .col-md-4
         h3="Indigitus means needed"
@@ -36,11 +36,11 @@
     .col-md-8
         h3="Private cloud on public infrastructure"
         p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-  .row 
+  .row.feature-highlight
     .col-md-12
         h2.text-center="Feature Highlight"
-  .row 
-    .col-md-4.feature
+  .row.feature 
+    .col-md-4
         h3="SETUP"
         .img-wrapper
           img(src="images/setup.png")
@@ -65,19 +65,25 @@
             li="Pay as you go"
             li="Have total control of costs"
             li="Setup project-based payment"
-            
+  .row.try-for-free 
+    .col-md-12
+        h2.text-center="Try the demo for free"
+      
   #demo-teaser.row.demo-teaser
-      h2.text-center="Try the demo for free"
-      .col-md-5.col-md-offset-1
+      .col-md-6
         p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
-      .col-md-5 
-        form
-          alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
-            = "{{alert.msg}}"
-          div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
-          button.btn.btn-block.btn-default(ng-click="checkCaptcha()")
-            = "Try now!"
+      .col-md-6 
+        .row 
+            .col-md-8
+                alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
+                    = "{{alert.msg}}"                
+                form
+                  div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
 
+            .col-md-4
+              button.btn.btn-block.btn-default(ng-click="checkCaptcha()")
+                = "Try now!"
+          
 .footer
   .container
     .row
@@ -91,6 +97,5 @@
       .col-md-4
         <leaflet center="center" markers="markers" defaults="defaults" height="200"></leaflet>
       .col-md-4
-        h3="About us"
         p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accu "
 

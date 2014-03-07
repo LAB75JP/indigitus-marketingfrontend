@@ -19,7 +19,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             values: []
         }];
         $scope.markers = {};
-
+        $scope.pingList = [];
 
         socket.on('ping', function (data) {
             if (data === null) {
@@ -37,6 +37,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
                     }
                     $scope.pingsAverage = (total / $scope.pingsData[0].values.length).toFixed(2);
                     $scope.pingsData[0].values[$scope.pingsItem] = [data.sequence, data.time];
+                    $scope.pingList[data.sequence] = data;
                     $scope.pingLines.push(data.line);
                     $scope.pingsItem++;
                 } else {
@@ -46,13 +47,20 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             });
 
         });
+    
+        $scope.pingTooltip = function (label, index) {
+            console.log('DATA', $scope.pingList[index]);
+            return $scope.pingList[index].from + ' <strong>' + $scope.pingList[index].time + 'ms</strong>';
+        };
 
         $scope.ping = function () {
+            $scope.hidePing = false;
             if ($scope.pingsActive === true) {return false; }
             $scope.pingsActive = true;
             $scope.pingsItem = 0;
             $scope.pingsData[0].values = [];
             $scope.pingLines = [];
+            $scope.pingList = [];
             socket.emit('ping', {
                 target: 'google.com',
                 start: Date.now()
@@ -201,6 +209,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         });
 
         $scope.traceroute = function () {
+            $scope.hideTraceroute = false;
             $scope.paths = {
                 p1: {
                     color: '#000',
@@ -249,6 +258,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         });
 
         $scope.download = function () {
+            $scope.hideDownload = false;
             downloadTime = 0;
             $scope.downloadTimeDisplay = 0;
             $scope.downloadPercentage = 0;
@@ -260,14 +270,16 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
 
 
         $scope.barColor = function () {
-            return '#00cc00';
+            return '#4d4d70';
         };
 
         $scope.colorFunction = function () {
             return '#000';
         };
 
-        $scope.upload = function () {};
+        $scope.upload = function () {
+            $scope.hideUpload = false;
+        };
         $scope.command = '';
         $scope.commands = [];
         $scope.terminalLines = [];
@@ -316,9 +328,16 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         };
 
         $scope.defaults = {
-            tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png"
+            tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
+            scrollWheelZoom: false
         };
-
-
+        
+        $scope.hideTerminal = true;
+        $scope.hideUpload = true;
+        $scope.hideDownload = true;
+        $scope.hidePing = true;
+        $scope.hideTraceroute = true;
+        $scope.hidePingOutput = true;
+        $scope.hideTracerouteOutput = true;
 
     });

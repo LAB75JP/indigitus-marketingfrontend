@@ -7,6 +7,11 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	$scope.timeLeft = 60;
 
 	socket.emit('instance.start');
+	
+	$timeout(function(){
+		console.log('CALLED');
+		$location.path('/control_panel').replace();
+	}, 1000);
 
 	socket.on('instance.step', function(data) {
 		console.log('DAT STEP');

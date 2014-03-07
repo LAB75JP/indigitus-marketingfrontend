@@ -1,2 +1,305 @@
-body {
+.leaflet-map-pane,
+.leaflet-objects-pane,
+.leaflet-overlay-pane,
+.leaflet-zoom-animated,
+.leaflet-marker-pane {
+  height: 100%;
+  width: 100%;
 }
+
+.leaflet-zoom-animated {
+  margin-left: 24px;
+  margin-top: 10px;
+}
+    
+
+.traceroute-map {
+  position: relative;
+}
+  
+.leaflet-popup {
+  margin-left: 5px;
+  position: relative;
+  width: 200px;
+}
+  
+
+.leaflet-popup-content-wrapper {
+  width: 200px;
+}
+  
+.leaflet-popup-content-wrapper {
+  margin-top: -75px;
+}
+  
+.leaflet-container { 
+  a.leaflet-popup-close-button {
+    margin-top: -74px;
+    margin-left: 179px;
+    top: -70px;
+  }
+}
+
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+
+.leaflet-control-layers label {
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+
+.leaflet-popup-content {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 5px;
+}
+.leaflet-sidebar {
+  z-index: 1020;
+}
+.leaflet-sidebar .close {
+  right: 0px;
+  top: 5px;
+  background: transparent;
+}
+
+
+h3 {
+    .glyphicon {
+        margin-right: 15px;
+    }
+}
+
+.main-container {
+    margin-bottom: -20px;
+}
+
+.start-instance {
+    min-height: 800px;
+    overflow: hidden;
+}
+
+.landing-page {
+    h1, h2, h3 {
+        margin: 10px 0;
+    }
+    .intro {
+        margin-top: 50px;
+    }
+    .alert {
+        padding: 5px;
+        margin: 0;
+    }
+    .feature-highlight {
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+    .try-for-free {
+        margin-top: 50px;
+    }
+    .demo-teaser {
+        margin: 10px 0;
+        padding: 30px 30px 30px 30px;
+        background: #eee;
+    }
+    .map {
+        max-height: 450px;
+    }
+    #recaptcha_table {
+      margin: 0 auto !important;
+    }
+    #recaptcha_logo,
+    #recaptcha_whatsthis_btn,
+    #recaptcha_switch_audio_btn,
+    #recaptcha_reload_btn {
+      display: none;
+    }
+    
+    .btn-to-tour { 
+      background: rgb(231,105,100);
+      border-color: rgb(231,105,100);
+      margin-top: 10px;
+    }
+    
+    .feature {
+        ul {
+            margin-top: 15px;
+        }
+        h3 { 
+            text-align: center;
+        }
+        .img-wrapper {
+            text-align: center;
+            width: 100%;
+            height: 200px; 
+            background: #eee;
+            padding: 20px;
+        } 
+        img {
+            background: none;
+            max-width: 150px;
+        }
+    }
+}
+
+.animated-ellipsis {
+    .one {
+        opacity: 0;
+        -webkit-animation: dot 1.3s infinite;
+        -webkit-animation-delay: 0.0s;
+    }
+    .two {
+        opacity: 0;
+        -webkit-animation: dot 1.3s infinite;
+        -webkit-animation-delay: 0.2s;
+    }
+    .three {
+        opacity: 0;
+        -webkit-animation: dot 1.3s infinite;
+        -webkit-animation-delay: 0.3s;
+    }    
+}
+
+@keyframes dot {
+    0% {
+        opacity: 0; 
+    }
+    50% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes dot {
+    0% {
+        opacity: 0; 
+    }
+    50% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@-o-keyframes dot {
+    0% {
+        opacity: 0; 
+    }
+    50% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+
+@-moz-keyframes dot {
+    0% {
+        opacity: 0; 
+    }
+    50% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+.control-panel {
+
+    h1, h2, h3 ,h4 {
+        margin: 0;
+    }
+    .btn-default {
+        margin-bottom: 20px;
+    }
+    .ping {
+        padding-bottom: 10px;
+    }
+    .card {
+        padding: 10px 10px;
+    }
+    .terminal {
+        background-color: #272822;
+        font: 'Ubuntu Mono', Arial, Sans Serif;
+    }
+    ul {
+        list-style-type: none;
+    }
+    small {
+        margin-left: 10px;
+    }
+    .card {
+        min-height: 20px;
+    }
+    .upload-download {
+        .col-md-6:nth-child(even){
+            border-left: 0;
+        }
+    }
+    .instance-stats {
+        
+        .col-md-6 {
+            min-height: 260px;
+        }
+        .col-md-6:nth-child(even){
+            border-left: 0;
+        }
+        .instance-link {
+            display: block;
+            font-size: 30px;
+            text-align: center;
+            margin: 20px auto;
+        }
+        span {
+            display: block;
+            float: left;
+        }
+        .glyphicon {
+            display: block;
+            font-size: 25px;
+            margin-top: -5px;
+            margin-right: 10px;
+        }
+        .stat-info {
+            display: block;
+            float: right;
+            margin-right: 25px;
+        }
+        table {
+            td:nth-child(odd) {
+                text-align: left;
+            }
+            td:nth-child(even){
+                text-align: right;
+            }
+        }
+        .logo {
+            max-width: 100px;
+        }
+        h3 {
+            text-align: center;
+            font-size: 30px;
+        }
+    }
+    .traceroute-map {
+        border: 1px solid black;
+    }
+    .intro {
+        margin-bottom: 100px;
+    }
+}
+
+
+
