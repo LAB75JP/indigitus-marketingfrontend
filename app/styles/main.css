@@ -7364,10 +7364,48 @@ h3 .glyphicon {
   min-height: 800px;
   overflow: hidden;
 }
+.landing-page #recaptcha_table td {
+  padding-left: 0 !important;
+}
+.landing-page #recaptcha_table {
+  border: none !important;
+}
+.landing-page #recaptcha_challenge_image {
+  border: none !important;
+}
+.landing-page .recaptchatable #recaptcha_image {
+  border: none !important;
+}
+.landing-page .contact-us {
+  margin-top: 20px;
+}
+.landing-page .contact-us h1 {
+  margin-bottom: 20px;
+}
+.landing-page #recaptcha_response_field {
+  margin-top: 10px;
+  border-width: 0 0 1px !important;
+  font-size: 18px !important;
+  line-height: 20px !important;
+  padding-top: 7px !important;
+  padding-right: 0 !important;
+  -webkit-transition: border-color ease-in-out 0.15s, color ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, color ease-in-out 0.15s;
+}
+.landing-page .captcha-wrapper {
+  padding: 10px;
+  background: #eee;
+}
 .landing-page h1,
 .landing-page h2,
 .landing-page h3 {
   margin: 10px 0;
+}
+.landing-page .captcha-wrapper {
+  margin-top: 20px;
+}
+.landing-page .recaptchatable {
+  border: 0;
 }
 .landing-page .intro {
   margin-top: 50px;
@@ -7389,16 +7427,16 @@ h3 .glyphicon {
   background: #eee;
 }
 .landing-page .map {
-  max-height: 450px;
-}
-.landing-page #recaptcha_table {
-  margin: 0 auto !important;
+  max-height: 600px;
 }
 .landing-page #recaptcha_logo,
 .landing-page #recaptcha_whatsthis_btn,
 .landing-page #recaptcha_switch_audio_btn,
 .landing-page #recaptcha_reload_btn {
   display: none;
+}
+.landing-page .recaptchatable .recaptcha_image_cell {
+  padding: 0;
 }
 .landing-page .btn-to-tour {
   background: #e76964;
@@ -7486,9 +7524,6 @@ h3 .glyphicon {
 .control-panel h3,
 .control-panel h4 {
   margin: 0;
-}
-.control-panel .btn-default {
-  margin-bottom: 20px;
 }
 .control-panel .ping {
   padding-bottom: 10px;

@@ -331,7 +331,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
             scrollWheelZoom: false
         };
-        
         $scope.hideTerminal = true;
         $scope.hideUpload = true;
         $scope.hideDownload = true;

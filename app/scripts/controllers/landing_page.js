@@ -2,7 +2,8 @@
 
 angular.module('indigitusMarketingApp')
     .controller('LandingPageCtrl', function ($scope, $http, $location, vcRecaptchaService) {
-
+        
+        $scope.hideCaptchaForm = true;
 
         $scope.center= {
             lat: 47.184371,
@@ -15,12 +16,13 @@ angular.module('indigitusMarketingApp')
                 lng: 8.5177285,
                 icon: {
                     iconAnchor: [0, 20]
-                }
+                },
+                message: "<strong>Indigitus AG</strong><br />Lindenstrasse 4<br />CH-6340 Baar",
+                focus: true
             }
         };
         $scope.defaults = {
-
-
+            scrollWheelZoom: false
         };
 
         var scrollTo = function (target) {

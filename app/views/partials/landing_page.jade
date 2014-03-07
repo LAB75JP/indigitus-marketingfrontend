@@ -1,89 +1,89 @@
 .navbar.navbar-fixed-top
     .container
         .navbar-header
-          a.navbar-brand(href="/#/")
-            = "Indigitus"
+            a.navbar-brand(href="/#/")
+                = "Indigitus"
 
 .container.container.landing-page
-  .row.header
-    .col-md-12
-      .row
-        .col-md-5
-          h2
-            ="Say Hello"
-            br
-            ="to Cloud Computing"
-            br
-            ="from Switzerland"
-          p
-            ="We offer secure and flexible infrastructures"
-            br
-            ="to make cloud computing painless"
-            br
-          .row
-            .col-md-12
-              a.btn.btn-primary.btn-to-tour(href="#demo-teaser", ng-click="scrollToDemo()")="Try the Demo for Free"
-        .col-md-7
-            img.map(src='images/map.png')
-  .row.intro
-    .col-md-4
-        h3="Indigitus means needed"
-        ul
-            li="Swiss Location and neutrality"
-            li="No NSA strings attached"
-            li="DevOps support"
-            li="Based on OpenStack"
-    .col-md-8
-        h3="Private cloud on public infrastructure"
-        p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
-  .row.feature-highlight
-    .col-md-12
-        h2.text-center="Feature Highlight"
-  .row.feature 
-    .col-md-4
-        h3="SETUP"
-        .img-wrapper
-          img(src="images/setup.png")
-        ul
-            li="Launch instances within 60 sec."
-            li="Have independently scalable storages"
-            li="Setup project templates & users"
-    .col-md-4.feature
-        h3="DASHBOARD"
-        .img-wrapper 
-          img(src="images/dashboard.png")
-        ul 
-            li="Love the hassle-free interface"
-            li="Configure reports & dashboard"
-            li="Visual guidance will help you, if needed"
+    .row.header
+        .col-md-12
+            .row
+                .col-md-5
+                    .row 
+                        .col-md-12
+                            h2
+                                ="Say Hello"
+                                br
+                                ="to Cloud Computing"
+                                br
+                                ="from Switzerland"
+                            p
+                                ="We offer secure and flexible infrastructures"
+                                br
+                                ="to make cloud computing painless"
+                                br
+                    .row
+                        .col-md-12
+                            button.btn.btn-to-tour(ng-hide="hideCaptchaForm === false", ng-click="hideCaptchaForm = !hideCaptchaForm")="Try now!"
+                    .row.captcha-wrapper(collapse="hideCaptchaForm")
+                        .col-md-8
+                            .row 
+                                h3="We will start a instance..."
+                            .row
+                                alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
+                                    = "{{alert.msg}}"                
+                                form
+                                    div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+                            .row
+                                button.btn.btn-block.pull-left.btn-default(ng-click="checkCaptcha()")
+                                    = "Start"        
+                .col-md-7
+                    img.map(src='images/map.png')
+    .row.intro
+        .col-md-4
+            h3="Indigitus means needed"
+            ul
+                li="Swiss Location and neutrality"
+                li="No NSA strings attached"
+                li="DevOps support"
+                li="Based on OpenStack"
+        .col-md-8
+            h3="Private cloud on public infrastructure"
+            p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, "
+    .row.feature-highlight
+        .col-md-12
+            h2.text-center="Feature Highlight"
+    .row.feature 
+        .col-md-4
+            h3="SETUP"
+            .img-wrapper
+                img(src="images/setup.png")
+            ul
+                li="Launch instances within 60 sec."
+                li="Have independently scalable storages"
+                li="Setup project templates & users"
+        .col-md-4.feature
+            h3="DASHBOARD"
+            .img-wrapper 
+                img(src="images/dashboard.png")
+            ul 
+                li="Love the hassle-free interface"
+                li="Configure reports & dashboard"
+                li="Visual guidance will help you, if needed"
 
-    .col-md-4.feature
-        h3="PAYMENT"
-        .img-wrapper 
-          img(src="images/money.png")
-        ul 
-            li="Pay as you go"
-            li="Have total control of costs"
-            li="Setup project-based payment"
-  .row.try-for-free 
-    .col-md-12
-        h2.text-center="Try the demo for free"
-      
-  #demo-teaser.row.demo-teaser
-      .col-md-6
-        p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, "
-      .col-md-6 
-        .row 
-            .col-md-8
-                alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
-                    = "{{alert.msg}}"                
-                form
-                  div(vc-recaptcha='', ng-model="model.captcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
-
-            .col-md-4
-              button.btn.btn-block.btn-default(ng-click="checkCaptcha()")
-                = "Try now!"
-          
+        .col-md-4.feature
+            h3="PAYMENT"
+            .img-wrapper 
+                img(src="images/money.png")
+            ul 
+                li="Pay as you go"
+                li="Have total control of costs"
+                li="Setup project-based payment"
+                
+    .row.contact-us
+        .col-md-12
+            h1="Where we are"
+            <leaflet center="center" markers="markers" defaults="defaults" height="300"></leaflet>
 .footer
   .container
     .row
@@ -94,8 +94,6 @@
           ©2014 Indigitus AG • Lindenstrasse 4 • CH-6340 Baar<br>Trade Register Number CH-170.3.038.029-3
           br
           Board of Directors: Thomas C. Bächtold
-      .col-md-4
-        <leaflet center="center" markers="markers" defaults="defaults" height="200"></leaflet>
-      .col-md-4
-        p="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accu "
-
+      .col-md8
+      
+      
