@@ -118,16 +118,22 @@ var _CONFIG = require('../lib/config/config');
 
 				if (data.length > 0) {
 
-					_client.servers.add_floating_ip({
-						id: server.id,
-						endpoint_type: 'publicURL',
-						success: function(result) {
-							success.call(scope, result);
-						},
-						error: function(err) {
-							error.call(scope, 'Could not assign Floating IP to instance');
-						}
-					});
+					// This timeout was added due to this error:
+					// (400) "No nw_info cache associated with instance"
+					setTimeout(function() {
+
+						_client.servers.add_floating_ip({
+							id: server.id,
+							endpoint_type: 'publicURL',
+							success: function(result) {
+								success.call(scope, result);
+							},
+							error: function(err) {
+								error.call(scope, 'Could not assign Floating IP to instance');
+							}
+						});
+
+					}, 3000);
 
 				} else {
 					error.call(scope, 'No Floating IPs available');
@@ -136,6 +142,21 @@ var _CONFIG = require('../lib/config/config');
 			},
 			error: function(err) {
 				error.call(scope, 'Could not retrieve floating IPs');
+			}
+		});
+
+	};
+
+	var _get_server = function(server, success, error, scope) {
+
+		_client.servers.get({
+			endpoint_type: 'publicURL',
+			id: server.id,
+			success: function(data) {
+				success.call(scope, data);
+			},
+			error: function(err) {
+				error.call(scope, 'Could not get server');
 			}
 		});
 
@@ -194,8 +215,12 @@ var _CONFIG = require('../lib/config/config');
 
 					_assign_ip(server, function(result) {
 
-console.log('RESULT of ASSIGNMENT', result);
-_on_error.call(this);
+						_get_server(server, function(data) {
+
+console.log('GET SERVER RESULTED IN', JSON.stringify(data));
+
+// _on_error.call(this);
+						}, _on_error, this);
 
 					}, _on_error, this);;
 
