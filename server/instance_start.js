@@ -14,8 +14,9 @@ var _CONFIG = require('../lib/config/config');
 (function(global) {
 
 	var _client = new _Nova({
-		url:   _CONFIG.nova,
-		debug: true
+		url:           _CONFIG.nova,
+		debug:         true,
+		enforce_https: true
 	});
 
 
