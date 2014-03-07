@@ -120,6 +120,7 @@ var _CONFIG = require('../lib/config/config');
 
 					_client.servers.add_floating_ip({
 						id: server.id,
+						endpoint_type: 'publicURL',
 						success: function(result) {
 							success.call(scope, result);
 						},
