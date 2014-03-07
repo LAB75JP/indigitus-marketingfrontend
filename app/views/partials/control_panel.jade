@@ -3,6 +3,7 @@
     .navbar-header
       a.navbar-brand(href="/#/")
         = "Indigitus"
+        
 .container.control-panel
 
     .row
@@ -17,7 +18,7 @@
             .row
                 .col-md-6.card
                     h3="Your instance is available:"
-                    a.btn.btn-default.instance-link.btn-primary(href="http://google.de")="See http://1.2.3.4.5"
+                    a.btn.btn-default.instance-link(href="http://google.de")="See http://1.2.3.4.5"
                     h3
                         strong="30"
                         =" minutes left"
@@ -46,7 +47,7 @@
                         ="Ping"
                         small="Ping google.com from your instance"
                 .col-md-4
-                    button.btn.btn-small.btn-default.btn-block.btn-start.btn-primary(ng-click="ping()", ng-disabled="pingsActive")="Start"
+                    button.btn.btn-small.btn-default.btn-block.btn-start(ng-click="ping()", ng-disabled="pingsActive")="Start"
             .row(collapse="hidePing")
                 .col-md-12
                     .row 
@@ -75,7 +76,7 @@
                         ="Traceroute"
                         small="Traceroute google.com from your instance"
                 .col-md-4
-                    button.btn.btn-default.btn-block.btn-primary(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start"    
+                    button.btn.btn-default.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start"    
             .row(collapse="hideTraceroute")
                 .col-md-12
                     .row
@@ -88,10 +89,10 @@
                                 <leaflet center="center" markers="markers" paths="paths" defaults="defaults" height="500"></leaflet>
                     .row
                         .col-md-12.traceroute-info 
-                            a(ng-click="hideTracerouteOutput = !hideTracerouteOutput")="Show Raw Output >"
+                            a(ng-click="hideTracerouteOutput = !hideTracerouteOutput")= "Show Raw Output >"
                             div(collapse="hideTracerouteOutput")
                                 div.well
-                                    h3(ng-if="tracerouteLines.length === 0").text-center="No output yet"
+                                    h3(ng-if="tracerouteLines.length === 0").text-center= "No output yet"
                                     div(ng-if="tracerouteLines.length > 0")
                                         ul 
                                             li(ng-repeat="line in tracerouteLines track by $index")
@@ -107,7 +108,7 @@
                         ="Upload"
                         small="To another indigitus instance!"
                 .col-md-4
-                    button.btn.btn-default.btn-start.btn-block.btn-primary(ng-click="upload()")="Start Test"
+                    button.btn.btn-default.btn-start.btn-block(ng-click="upload()")="Start Test"
             .row(collapse="hideUpload")
                 .col-12
                     .progress.progress-striped.active
@@ -122,7 +123,7 @@
                         ='Download'
                         small="11MB from imgur.com"
                 .col-md-4
-                    button.btn.btn-default.btn-block.btn-primary(ng-click="download()")="Start Test"
+                    button.btn.btn-default.btn-block(ng-click="download()")="Start Test"
             .row(collapse="hideDownload")
                 .col-12
                     .progress.progress-striped.active
@@ -139,7 +140,7 @@
                         ='Terminal'
                         small="Connect to your instance and directly issue commands in a shell"
                 .col-md-4
-                    button.btn.btn-default.btn-block.btn-primary(ng-click="hideTerminal=false")="Start Test"
+                    button.btn.btn-default.btn-block(ng-click="hideTerminal=false")="Start Test"
             .row(collapse="hideTerminal")
                 .col-md-12.card.terminal-wrapper
                     <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
