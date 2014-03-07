@@ -1,18 +1,20 @@
+.navbar.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href="/#/")
+                = "Indigitus"
 .container.start-instance
-  .row 
-    .col-md-12
-      .logo-wrapper 
-        a.logo(href='/')=Indigitus
-  .row 
-    .col-md-12
-      <h1>Starting instance
-      <span class="animated-ellipsis">
-      <span class="one">.</span>
-      <span class="two">.</span>
-      <span class="three">.</span>​
-      </span>
-      </h1>
-      <p class="time-left">Time to completion <strong>{{timeLeft}}</strong> seconds</p>
-      <div class="steps">
-      <p ng-repeat="step in steps">{{$index+1}} . {{step}}</p>
-      </div>
+    .row 
+        .col-md-12
+            h1.text-center
+                ="Starting instance"
+                span.animated-ellipsis
+                    span.one="."
+                    span.two="."
+                    span.three="."
+            p.time-left.text-center
+                ="Time to completion "
+                strong="{{timeLeft}} seconds"
+                .steps
+                    p(ng-repeat="step in steps")
+                        ="{{$index+1}} . {{step}}"

@@ -1,0 +1,99 @@
+.tray {
+  background-color: #959595;
+  color: #fff;
+  font-size: 18px;
+  font-weight: normal;
+  visibility: hidden;
+
+  & > div {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  h3 {
+    font-weight: 300;
+    line-height: 34px;
+    margin: 0 0 30px;
+  }
+
+  .list-unstyled {
+    border-right: 1px solid #7c7c7c;
+    border-left: 1px solid #7c7c7c;
+    margin-left: -10px;
+    margin-right: -11px;
+    padding-left: 21px;
+    padding-right: 21px;
+  }
+
+  li {
+    margin-bottom: 20px;
+
+    & > a {
+      color: #fff;
+      display: block;
+      font-weight: 600;
+    }
+
+    & > a:hover,
+    & > a:focus {
+      text-decoration: underline;
+    }
+
+    & > a:hover small,
+    & > a:focus small {
+      color: inherit;
+    }
+  }
+
+  .form-control:-moz-placeholder {
+  color: #e5e5e5;
+  }
+  .form-control::-moz-placeholder {
+    color: #e5e5e5;
+  }
+  .form-control:-ms-input-placeholder {
+    color: #e5e5e5;
+  }
+  .form-control::-webkit-input-placeholder {
+    color: #e5e5e5;
+  }
+
+  .form-control {
+    background-color: #959595;
+    border-color: #fff;
+  }
+
+  .form-control:focus {
+    border-color: #fff;
+    color: #fff;
+  }
+  .form-control:focus + .input-group-addon,
+  .form-control:focus + .input-group-btn > .btn {
+    border-color: #fff;
+    color: #fff;
+  }
+  .btn {
+    background-color: transparent;
+    border-color: #fff;
+    color: #fff;
+  }
+  .close {
+    color: #fff;
+    line-height: 36px;
+    margin-left: 20px;
+  }
+}
+
+
+
+.tray [class*="col-"]:first-child .list-unstyled {
+  border-left: 0;
+  padding-left: 10px;
+}
+.tray [class*="col-"]:last-child .list-unstyled {
+  border-right: 0;
+  padding-right: 10px;
+}
+
+
+

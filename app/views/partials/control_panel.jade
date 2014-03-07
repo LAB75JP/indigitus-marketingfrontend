@@ -1,67 +1,147 @@
-
+.navbar.navbar-fixed-top
+  .container
+    .navbar-header
+      a.navbar-brand(href="/#/")
+        = "Indigitus"
 .container.control-panel
 
-  .row 
-    .col-md-4
-      .logo-wrapper 
-        a.logo(href='/')=Indigitus
-      p="Your Test Instance can be found at"
-      a(href='http://{{instanceIp}}')='http://{{instanceIp}}'
-    .col-md-8
-      //- p='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
-  .row 
-    .col-md-12
-      h1='Performance View'
-      .row 
-        .col-md-12 
-          h3='Ping'
-          .ping-chart-wrapper
-            nvd3-discrete-bar-chart( id="pingChart",  noData="Start Test", class="ping-chart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true")
-              extended-nvd3-discrete-bar-chart
-          .ping-info
-            p(ng-if="pingLines.length > 0").text-right="Average {{pingsAverage}}"
-            div(ng-if="pingLines.length > 0")
-              p="Output"
-              ul 
-                li(ng-repeat="line in pingLines")
-                    {{line}}
+    .row
+        .col-md-2
+            <img src="images/setup.png">
+        .col-md-10.intro
+            h3="Try it out"
+            p='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+    
+    .row.instance-stats
+        .col-md-12
+            .row
+                .col-md-6.card
+                    h3="Your instance is available:"
+                    a.btn.btn-default.instance-link.btn-primary(href="http://google.de")="See http://1.2.3.4.5"
+                    h3
+                        strong="30"
+                        =" minutes left"
+                .col-md-6.card
+                    h4="Instance Info:"
+                    table.table.table-striped
+                        tr
+                            td
+                                p
+                                    span.glyphicon.glyphicon-off
+                                    span="Operating System:"
+                            td 
+                                img.logo(src="images/ubuntu_logo.png")
+                        tr 
+                            td 
+                                span.glyphicon.glyphicon-floppy-disk
+                                ="Space:"
+                            td
+                                span.stat-info="3GB"
+    .row 
+        .col-md-12.card
+            .row 
+                .col-md-8
+                    h3
+                        span.glyphicon.glyphicon-bell
+                        ="Ping"
+                        small="Ping google.com from your instance"
+                .col-md-4
+                    button.btn.btn-small.btn-default.btn-block.btn-start.btn-primary(ng-click="ping()", ng-disabled="pingsActive")="Start"
+            .row(collapse="hidePing")
+                .col-md-12
+                    .row 
+                        .col-md-12
+                            .ping-chart-wrapper
+                                nvd3-discrete-bar-chart( id="pingChart",  noData="Start Test", class="ping-chart", objectEquality="true", delay="2400", data="pingsData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true", tooltips="true", tooltipcontent="pingTooltip")
+                                    extended-nvd3-discrete-bar-chart
+                    .row
+                        .col-md-12
+                            .ping-info
+                                a(ng-click="hidePingOutput = !hidePingOutput")="<Toggle Raw Output>"
+                                div(collapse="hidePingOutput")
+                                    div.well
+                                        h3(ng-if="pingLines.length === 0").text-center="No output yet"
+                                        p(ng-if="pingLines.length > 0").text-right="Average {{pingsAverage}}"
+                                        div(ng-if="pingLines.length > 0")
+                                            ul 
+                                                li(ng-repeat="line in pingLines")
+                                                    {{line}}
+    .row
+        .col-md-12.card
+            .row 
+                .col-md-8
+                    h3
+                        span.glyphicon.glyphicon-map-marker
+                        ="Traceroute"
+                        small="Traceroute google.com from your instance"
+                .col-md-4
+                    button.btn.btn-default.btn-block.btn-primary(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start"    
+            .row(collapse="hideTraceroute")
+                .col-md-12
+                    .row
+                        .col-md-12.traceroute-chart-wrapper
+                            nvd3-discrete-bar-chart( id="tracerouteChart", noData="Start Test", objectEquality="true", delay="2400", data="tracerouteData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true", class="traceroute-chart", tooltips="true", tooltipcontent="tracerouteTooltip")
+                                  extended-nvd3-discrete-bar-chart
+                    .row(ng-if="!hideTraceroute")
+                        .col-md-12
+                            .traceroute-map
+                                <leaflet center="center" markers="markers" paths="paths" defaults="defaults" height="500"></leaflet>
+                    .row
+                        .col-md-12.traceroute-info 
+                            a(ng-click="hideTracerouteOutput = !hideTracerouteOutput")="Show Raw Output >"
+                            div(collapse="hideTracerouteOutput")
+                                div.well
+                                    h3(ng-if="tracerouteLines.length === 0").text-center="No output yet"
+                                    div(ng-if="tracerouteLines.length > 0")
+                                        ul 
+                                            li(ng-repeat="line in tracerouteLines track by $index")
+                                                {{line}}
+                    
 
-          button.btn.btn-small.btn-default.btn-block.btn-start(ng-click="ping()", ng-disabled="pingsActive")="Start Test"
-      .row
-        h3='Traceroute'
-        .col-md-6
-          .traceroute-chart-wrapper
-            nvd3-discrete-bar-chart( id="tracerouteChart", noData="Start Test", objectEquality="true", delay="2400", data="tracerouteData", color="barColor", showXAxis="true", showYAxis="true", showValues="true", showLegend="true", class="traceroute-chart", tooltips="true", tooltipcontent="tracerouteTooltip")
-              extended-nvd3-discrete-bar-chart
-          .traceroute-info 
-            div(ng-if="tracerouteLines.length > 0")
-              p="Output"
-              ul 
-                li(ng-repeat="line in tracerouteLines track by $index")
-                  {{line}}
-        .col-md-6
-          .traceroute-map
-            <leaflet center="center" markers="markers" paths="paths" defaults="defaults" height="500"></leaflet>
-          button.btn.btn-default.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")="Start Test"
+    .row.upload-download  
+        .col-md-6.card
+            .row 
+                .col-md-8
+                    h3
+                        span.glyphicon.glyphicon-cloud-upload
+                        ="Upload"
+                        small="To another indigitus instance!"
+                .col-md-4
+                    button.btn.btn-default.btn-start.btn-block.btn-primary(ng-click="upload()")="Start Test"
+            .row(collapse="hideUpload")
+                .col-12
+                    .progress.progress-striped.active
+                        .progress-bar(style='width: 60%', role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100')
+                            = "60%"
+                    p="Time: {{upload_time}} seconds"
+           
+        .col-md-6.card 
+            .row 
+                .col-md-8                
+                    h3
+                        ='Download'
+                        small="11MB from imgur.com"
+                .col-md-4
+                    button.btn.btn-default.btn-block.btn-primary(ng-click="download()")="Start Test"
+            .row(collapse="hideDownload")
+                .col-12
+                    .progress.progress-striped.active
+                        .progress-bar(style='width: {{downloadPercentage}}%',role='progressbar', aria-valuenow='{{downloadPercentage}}', aria-valuemin='0', aria-valuemax='100')
+                            = "{{downloadPercentage}}%"
+                    p="Time: {{downloadTimeDisplay}} seconds"
+    
+    .row 
+        .col-md-12.card
+            .row
+                .col-md-8
+                    h3
+                        span.glyphicon.glyphicon-list-alt
+                        ='Terminal'
+                        small="Connect to your instance and directly issue commands in a shell"
+                .col-md-4
+                    button.btn.btn-default.btn-block.btn-primary(ng-click="hideTerminal=false")="Start Test"
+            .row(collapse="hideTerminal")
+                .col-md-12.card.terminal-wrapper
+                    <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
 
-      .row  
-        .col-md-6 
-          h3='Upload'
-          p="1MB to server XYZ"
-          .progress.progress-striped.active
-            .progress-bar(style='width: 60%', role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100')
-                = "60%"
-          p="Time: {{upload_time}} seconds"
-          button.btn.btn-default.btn-block.btn-start(ng-click="upload()")="Start Test"
-        .col-md-6 
-          h3='Download'
-          p="11MB from imgur.com"
-          .progress.progress-striped.active
-            .progress-bar(style='width: {{downloadPercentage}}%',role='progressbar', aria-valuenow='{{downloadPercentage}}', aria-valuemin='0', aria-valuemax='100')
-                = "{{downloadPercentage}}%"
-          p="Time: {{downloadTimeDisplay}} seconds"
-          button.btn.btn-default.btn-block(ng-click="download()")="Start Test"
-  .row 
-    .col-md-12 
-      <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
 
