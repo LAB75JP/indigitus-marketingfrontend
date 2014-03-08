@@ -140,19 +140,23 @@ var async = require('async');
 						_delete_server(server.id);
 						error.call(scope, 'No available floating IP found');						
 					}
-					setTimeout(function() {
-
-						_client.servers.add_floating_ip({
-							data: {
-								id: server.id,
-								address: floatingIp.ip
-							}
-						}, function(){
+					
+					_client.servers.add_floating_ip({
+						data: {
+							id: server.id,
+							address: floatingIp.ip
+						},
+						success: function(response){
 							console.log(arguments);
 							_delete_server(server.id);
-						});
 
-					}, 3000);
+						},
+						error: function(err){
+							console.log(arguments);
+							_delete_server(server.id);								
+						}
+					});
+
 
 				} else {
 					error.call(scope, 'No Floating IPs available');
