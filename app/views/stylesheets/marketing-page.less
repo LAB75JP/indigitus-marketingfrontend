@@ -74,6 +74,7 @@
 h3 {
     .glyphicon {
         margin-right: 15px;
+        margin-top: 5px;
     }
 }
 
@@ -87,6 +88,20 @@ h3 {
 }
 
 .landing-page {
+    
+    .demo {
+        background: #eee;
+        padding: 20px;
+        margin-top: 50px;
+        box-shadow: 1px 1px 5px black;
+        .captcha-form {
+            width: 307px;   
+            
+        }
+        .alert {
+            margin-bottom: 10px;
+        }
+    }
     #recaptcha_table td {
         padding-left: 0 !important;
     }
@@ -108,7 +123,7 @@ h3 {
     #recaptcha_response_field {
         margin-top: 10px;
         border-width: 0 0 1px !important;
-        font-size: 18px !important;
+        font-size: 14px !important;
         line-height: 20px !important;
         padding-top: 7px !important;
         padding-right: 0 !important;
@@ -164,9 +179,10 @@ h3 {
     }
     
     .btn-to-tour { 
-      background: rgb(231,105,100);
-      border-color: rgb(231,105,100);
-      margin-top: 10px;
+        background: rgb(231,105,100);
+        border-color: rgb(231,105,100);
+        margin-top: 10px;
+        color: white;
     }
     
     .feature {
@@ -258,7 +274,18 @@ h3 {
 }
 
 .control-panel {
-
+    
+    .well {
+        padding: 5px 20px 20px 20px;
+    }
+    
+    .glyphicon-chevron-right, .glyphicon-chevron-down {
+        margin-right: 10px;
+    }
+    
+    a:hover {
+        text-decoration: none;
+    }
     h1, h2, h3 ,h4 {
         margin: 0;
     }
@@ -270,6 +297,7 @@ h3 {
     }
     .terminal {
         background-color: #272822;
+        font-size: 15px;
         font: 'Ubuntu Mono', Arial, Sans Serif;
     }
     ul {
@@ -286,19 +314,42 @@ h3 {
             border-left: 0;
         }
     }
+    .row-test {
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #4d4d70;
+    }
+    h1 {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    a {
+        span {
+            cursor: pointer;
+        }
+    }
+    
+    .download, .upload  {
+        .progress {
+            margin-top: 20px;
+        }
+    }
     .instance-stats {
         
-        .col-md-6 {
-            min-height: 260px;
+        
+        .instace-available  {
+            margin-top: 10px;
         }
+
+        .raw-output-link {
+            margin-top: 10px;
+        }
+        
         .col-md-6:nth-child(even){
             border-left: 0;
         }
         .instance-link {
-            display: block;
-            font-size: 30px;
-            text-align: center;
-            margin: 20px auto;
         }
         span {
             display: block;
@@ -329,6 +380,9 @@ h3 {
         h3 {
             text-align: center;
             font-size: 30px;
+            .glyphicon {
+                margin-top: 5px;
+            }
         }
     }
     .traceroute-map {

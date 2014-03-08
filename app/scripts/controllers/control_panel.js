@@ -290,6 +290,11 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
           'traceroute: Description'
         ];
 
+        $scope.instanceStopping = false;
+        $scope.stopInstance = function(){
+            console.log('STOP INSTANCE');
+            $scope.instanceStopping = true;
+        };
 
         var terminal = null;
 
@@ -331,6 +336,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
             scrollWheelZoom: false
         };
+    
+    
         $scope.hideTerminal = true;
         $scope.hideUpload = true;
         $scope.hideDownload = true;

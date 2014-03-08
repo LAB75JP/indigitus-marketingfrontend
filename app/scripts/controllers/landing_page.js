@@ -36,8 +36,7 @@ angular.module('indigitusMarketingApp')
         $scope.alerts = [];
 
         $scope.scrollToDemo = function () {
-            scrollTo('#demo-teaser');
-
+            scrollTo('#demo');
         };
 
         $scope.closeAlert = function (index) {
