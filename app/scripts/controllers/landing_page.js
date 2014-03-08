@@ -22,6 +22,7 @@ angular.module('indigitusMarketingApp')
             }
         };
         $scope.defaults = {
+            tileLayer: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             scrollWheelZoom: false
         };
 
@@ -71,7 +72,6 @@ angular.module('indigitusMarketingApp')
                     vcRecaptchaService.reload();
                 }
                 if (data.success) {
-                    console.log('IS CORRECT');
                     $location.path('/start_instance').replace();
                     return;
                 }
