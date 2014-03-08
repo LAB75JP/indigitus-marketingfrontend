@@ -5,19 +5,21 @@
 
 var _Nova   = require('openclient').Nova;
 var _CONFIG = require('../lib/config/config');
-
+var async = require('async');
 
 /*
  * IMPLEMENTATION
  */
 
 (function(global) {
-
+	
+	console.log('CONFIG', _CONFIG);
+	
 	var _server = null;
 	var _client = new _Nova({
 		url:           _CONFIG.nova,
 		debug:         true,
-		enforce_https: true
+		enforce_https: false
 	});
 
 
@@ -51,6 +53,8 @@ var _CONFIG = require('../lib/config/config');
 
 			success: function(servers) {
 
+				console.log('CONFIG', _CONFIG);
+				console.log('SERVERS', servers);
 				var template = null;
 				for (var s = 0, sl = servers.length; s < sl; s++) {
 					if (servers[s].name === _CONFIG.template) {
@@ -58,6 +62,8 @@ var _CONFIG = require('../lib/config/config');
 						break;
 					}
 				}
+				
+				console.log('TEMPLATE', template.links);
 
 
 				if (template !== null) {
@@ -111,26 +117,39 @@ var _CONFIG = require('../lib/config/config');
 	};
 
 	var _assign_ip = function(server, success, error, scope) {
-
+		
 		_client.floating_ips.available({
 			endpoint_type: 'publicURL',
+			
 			success: function(data) {
-
+				console.log('FLOATING IPS', data);
 				if (data.length > 0) {
+					var floatingIp = null
+					for(var i = 0; i < data.length; i++){
+						if(data[i].instance_id === null){
+							floatingIp = data[i];
+							break;
+						}
+					}
 
 					// This timeout was added due to this error:
 					// (400) "No nw_info cache associated with instance"
+					
+					console.log('FLOATING IP', floatingIp);
+					if(!floatingIp){
+						_delete_server(server.id);
+						error.call(scope, 'No available floating IP found');						
+					}
 					setTimeout(function() {
 
 						_client.servers.add_floating_ip({
-							id: server.id,
-							endpoint_type: 'publicURL',
-							success: function(result) {
-								success.call(scope, result);
-							},
-							error: function(err) {
-								error.call(scope, 'Could not assign Floating IP to instance');
+							data: {
+								id: server.id,
+								address: floatingIp.ip
 							}
+						}, function(){
+							console.log(arguments);
+							_delete_server(server.id);
 						});
 
 					}, 3000);
@@ -161,9 +180,17 @@ var _CONFIG = require('../lib/config/config');
 		});
 
 	};
+	
+	
 
-
+	
 	var Callback = function(data, socket) {
+		
+		var _step = function(msg){
+			socket.emit('instance.step', {
+				line: msg
+			});
+		};
 
 		var _on_error = function(message) {
 
@@ -176,50 +203,34 @@ var _CONFIG = require('../lib/config/config');
 			}
 
 		};
-
-
-
-		socket.emit('instance.step', {
-			line: 'Booting up an Instance just for you ...'
-		});
-
-
-		socket.emit('instance.step', {
-			line: 'Authenticating ...'
-		});
+		
+		_step('Booting up an Instance just for you...');
+		_step('Authenticating...');
 
 		_authenticate(function(tokens) {
-
-			socket.emit('instance.step', {
-				line: 'Authentication successful.'
-			});
-
-			socket.emit('instance.step', {
-				line: 'Cloning template ...'
-			});
-
+			
+			_step('Authentication successful.');
+			_step('Clonging template ...');
 
 			_clone_template(function(data) {
-
-				socket.emit('instance.step', {
-					line: 'Creating server instance "' + data.name + '" ...'
-				});
+				
+				_step('Creating server instance "' + data.name + '" ...');
 
 				_create_server(data, function(server) {
 
 					_server = server;
-
-					socket.emit('instance.step', {
-						line: 'Assigning Floating IP to instance ...'
-					});
-
+					
+					_step('Assigning Floating IP to Instance ...');
+			
+					console.log('ASSIGN IP');
 					_assign_ip(server, function(result) {
 
 						_get_server(server, function(data) {
+							console.log('GET SERVER');
+							console.log('GET SERVER RESULTED IN', JSON.stringify(data));
+							_delete_server(_server.id);
 
-console.log('GET SERVER RESULTED IN', JSON.stringify(data));
 
-// _on_error.call(this);
 						}, _on_error, this);
 
 					}, _on_error, this);;

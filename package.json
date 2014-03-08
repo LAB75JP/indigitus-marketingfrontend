@@ -12,7 +12,8 @@
     "simple-recaptcha": "*",
     "ssh2": "*",
     "openclient": "git://github.com/LAB75JP/js-openclient.git",
-    "geoip2ws" : "*"
+    "geoip2ws" : "*",
+    "async" : "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

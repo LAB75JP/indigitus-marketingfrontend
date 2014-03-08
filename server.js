@@ -17,11 +17,9 @@ var httpsServer = null;
 	var app = _express();
 
 	app.set('config', _CONFIG);
-	console.log('CONFIG', _CONFIG);
 
 	require('./lib/config/express')(app);
 	require('./lib/routes')(app);
-
 
 	// Start server
 	var privateKey  = _fs.readFileSync('lib/config/cert/private.pem', 'utf8');
@@ -31,12 +29,11 @@ var httpsServer = null;
 		key: privateKey,
 		cert: certificate
 	};
+	
 	var http = require('http');
 	var https = require('https');
 	var server = http.createServer(app);
 	var secureServer = https.createServer(credentials, app);
-	
-	
 	
 	httpServer = server.listen(_CONFIG.port, function () {
 		console.log('Express server listening on port %d in %s mode', _CONFIG.port, app.get('env'));
@@ -46,10 +43,9 @@ var httpsServer = null;
 		console.log('Express htts server listening on port %d in %s mode', _CONFIG.securePort, app.get('env'));
 	});
 	
-
 	require('./server/index.js')(server);
 	require('./server/index.js')(secureServer);
-
+	
 })(this);
 
 exports = module.exports = httpServer;
