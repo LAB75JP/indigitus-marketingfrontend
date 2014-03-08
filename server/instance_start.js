@@ -13,6 +13,7 @@ var _CONFIG = require('../lib/config/config');
 
 (function(global) {
 
+	var _server = null;
 	var _client = new _Nova({
 		url:           _CONFIG.nova,
 		debug:         true,
@@ -46,7 +47,7 @@ var _CONFIG = require('../lib/config/config');
 
 		_client.servers.all({
 
-			endpoint_type: 'adminURL',
+			endpoint_type: 'publicURL',
 
 			success: function(servers) {
 
@@ -83,6 +84,84 @@ var _CONFIG = require('../lib/config/config');
 
 	};
 
+	var _create_server = function(data, success, error, scope) {
+
+		_client.servers.create({
+			endpoint_type: 'publicURL',
+			data: data,
+
+			success: function(data) {
+				success.call(scope, data);
+			},
+			error: function(err) {
+				error.call(scope, err);
+			}
+		})
+
+	};
+
+	var _delete_server = function(id) {
+
+		_client.servers.del({
+			endpoint_type: 'publicURL',
+			id:    id,
+			async: false
+		});
+
+	};
+
+	var _assign_ip = function(server, success, error, scope) {
+
+		_client.floating_ips.available({
+			endpoint_type: 'publicURL',
+			success: function(data) {
+
+				if (data.length > 0) {
+
+					// This timeout was added due to this error:
+					// (400) "No nw_info cache associated with instance"
+					setTimeout(function() {
+
+						_client.servers.add_floating_ip({
+							id: server.id,
+							endpoint_type: 'publicURL',
+							success: function(result) {
+								success.call(scope, result);
+							},
+							error: function(err) {
+								error.call(scope, 'Could not assign Floating IP to instance');
+							}
+						});
+
+					}, 3000);
+
+				} else {
+					error.call(scope, 'No Floating IPs available');
+				}
+
+			},
+			error: function(err) {
+				error.call(scope, 'Could not retrieve floating IPs');
+			}
+		});
+
+	};
+
+	var _get_server = function(server, success, error, scope) {
+
+		_client.servers.get({
+			endpoint_type: 'publicURL',
+			id: server.id,
+			success: function(data) {
+				success.call(scope, data);
+			},
+			error: function(err) {
+				error.call(scope, 'Could not get server');
+			}
+		});
+
+	};
+
 
 	var Callback = function(data, socket) {
 
@@ -91,6 +170,10 @@ var _CONFIG = require('../lib/config/config');
 			socket.emit('instance.error', {
 				line: message
 			});
+
+			if (_server !== null) {
+				_delete_server(_server.id);
+			}
 
 		};
 
@@ -116,9 +199,32 @@ var _CONFIG = require('../lib/config/config');
 			});
 
 
-			_clone_template(function(instance) {
+			_clone_template(function(data) {
 
-console.log(instance);
+				socket.emit('instance.step', {
+					line: 'Creating server instance "' + data.name + '" ...'
+				});
+
+				_create_server(data, function(server) {
+
+					_server = server;
+
+					socket.emit('instance.step', {
+						line: 'Assigning Floating IP to instance ...'
+					});
+
+					_assign_ip(server, function(result) {
+
+						_get_server(server, function(data) {
+
+console.log('GET SERVER RESULTED IN', JSON.stringify(data));
+
+// _on_error.call(this);
+						}, _on_error, this);
+
+					}, _on_error, this);;
+
+				}, _on_error, this);
 
 			}, _on_error, this);
 

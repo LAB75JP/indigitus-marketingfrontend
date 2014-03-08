@@ -1,5 +1,5 @@
 
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'development';
 
 var instance_start = require('./server/instance_start');
 
