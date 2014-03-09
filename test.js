@@ -1,5 +1,5 @@
 
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = "development_NEVERTOUCHTHIS_SERIOUSLY_GO_AWAY";
 
 var instance_start = require('./server/instance_start');
 

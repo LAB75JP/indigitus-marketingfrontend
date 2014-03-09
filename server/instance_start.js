@@ -21,6 +21,20 @@ var _CONFIG = require('../lib/config/config');
 		enforce_https: false
 	});
 
+	var _is_public_ip = function(addr) {
+
+		var tmp = addr.split('.');
+
+		if (tmp[0] === '10')                      return false;
+		if (tmp[0] === '192' && tmp[1] === '168') return false;
+		if (tmp[0] === '172' && tmp[1] === '16')  return false;
+		// TODO: 172.16 - 172.32
+
+
+		return true;
+
+	};
+
 
 
 	/*
@@ -168,10 +182,14 @@ var _CONFIG = require('../lib/config/config');
 
 	};
 
-	var _pollhandle = function(id) {
+	var _pollhandle = function(id, steps) {
 
-		this.id   = id;
-		this.step = 0;
+		steps = typeof steps === 'number' ? (steps | 0) : 60;
+
+
+		this.id    = id;
+		this.step  = 0;
+		this.steps = steps;
 
 
 		var that = this;
@@ -186,7 +204,7 @@ var _CONFIG = require('../lib/config/config');
 
 				that.step++;
 
-				if (that.step > 10) {
+				if (that.step > that.steps) {
 					clearInterval(that.id);
 				}
 
@@ -198,10 +216,16 @@ var _CONFIG = require('../lib/config/config');
 
 	var _poll = function(timeout, callback, scope) {
 
-		var handle = new _pollhandle(1337);
+		var handle;
 
-		handle.id = setInterval(function() {
+		var id = setInterval(function() {
+
+			if (handle === undefined) {
+				handle = new _pollhandle(id);
+			}
+
 			callback.call(scope, handle);
+
 		}, timeout);
 
 	};
@@ -250,11 +274,11 @@ var _CONFIG = require('../lib/config/config');
 
 					_step('Assigning Floating IP to Instance ...');
 
-					_assign_ip(server, function(result) {
+					_assign_ip(server, function() {
 
-						_step('Floating IP is ' + result);
+						_step('Polling to Instance ...');
 
-						_poll(3000, function(handle) {
+						_poll(1000, function(handle) {
 
 							_get_server(server, function(data) {
 
@@ -268,7 +292,16 @@ var _CONFIG = require('../lib/config/config');
 
 									if (data.addresses) {
 
-console.log('ADDRESSES', typeof data.addresses, JSON.stringify(data.addresses, '\t'));
+										var network = Object.keys(data.addresses)[0];
+										for (var iface = 0; iface < data.addresses[network].length; iface++) {
+
+											var addr = data.addresses[network][iface].addr || null;
+											if (_is_public_ip(addr) === true) {
+   												ip = addr;
+												break;
+											}
+
+										}
 
 									}
 
@@ -283,14 +316,16 @@ console.log('ADDRESSES', typeof data.addresses, JSON.stringify(data.addresses, '
 
 										handle(true);
 
-										return;
+									} else {
+
+										handle(true);
+										_on_error.call(this, 'No public Floating IPs available');
 
 									}
 
+								} else {
+									handle(false);
 								}
-
-
-								handle(false);
 
 							}, _on_error, this);
 
