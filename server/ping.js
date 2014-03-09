@@ -6,24 +6,21 @@
 	var _parse = function (line) {
 
 		var str = line.split(' ');
-console.log(str);
 		if (
-//			   typeof str[5] === 'string'
-			   str[str.length - 4].substr(0, 9) === 'icmp_seq='
+			str.length > 5
+			// Thanks to Debian, wasting 2 hours of time, you stupid fuckers!
+			// https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=609853
+			&& (
+				   str[str.length - 4].substr(0, 9) === 'icmp_seq='
+				|| str[str.length - 4].substr(0, 9) === 'icmp_req='
+			)
 			&& str[str.length - 2].substr(0, 5) === 'time='
 		) {
-
-			console.log('STRING', str);
-			var from = '';
-			if(str[4] !== 'bytes'){
-				from = str[3] + ' ' + str[4]
-			}
 
 			return {
 				line:     line,
 				sequence: parseInt(str[str.length - 4].substr(9), 10),
-				time:     parseFloat(str[str.length - 2].substr(5), 10),
-				from:     from
+				time:     parseFloat(str[str.length - 2].substr(5), 10)
 			};
 
 		} else {

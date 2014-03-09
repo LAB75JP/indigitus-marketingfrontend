@@ -49,8 +49,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
     });
 
     $scope.pingTooltip = function (label, index) {
-        console.log('DATA', $scope.pingList[index]);
-        return $scope.pingList[index].from + ' <strong>' + $scope.pingList[index].time + 'ms</strong>';
+        return 'google.com '+ ' <strong>' + $scope.pingList[index].time + 'ms</strong>';
     };
 
     $scope.ping = function () {
