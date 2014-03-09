@@ -265,7 +265,8 @@ var _CONFIG = require('../lib/config/config');
 
 		};
 
-		_step('Booting up an Instance just for you...');
+
+		_step('Creating a new Instance just for you...');
 		_step('Authenticating...');
 
 		_authenticate(function(tokens) {
@@ -285,7 +286,7 @@ var _CONFIG = require('../lib/config/config');
 
 					_assign_ip(server, function() {
 
-						_step('Polling to Instance ...');
+						_step('Booting up Instance ...');
 
 						_poll(1000, function(handle) {
 
