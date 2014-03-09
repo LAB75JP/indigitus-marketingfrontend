@@ -3,7 +3,7 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function ($scope, $http, $location, $timeout, socket, sharedProperties) {
 
-    $scope.instanceIp = sharedProperties.get('instanceIp');
+    $scope.host = sharedProperties.get('host');
 
 
     /*
@@ -63,7 +63,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         $scope.pingLines = [];
         $scope.pingList = [];
         socket.emit('ping', {
-			host:   $scope.instanceIp,
+			host:   $scope.host,
             target: 'google.com',
             start:  Date.now()
         });
@@ -228,7 +228,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         $scope.tracerouteActive = true;
         $scope.tracerouteLines = [];
         socket.emit('traceroute', {
-            host:   $scope.instanceIp,
+            host:   $scope.host,
             target: 'facebook.com',
             start:  Date.now()
         });
@@ -268,7 +268,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         $scope.downloadTimeDisplay = 0;
         $scope.downloadPercentage = 0;
         socket.emit('download', {
-            host: $scope.instanceIp,
+            host: $scope.host,
             start: Date.now()
         });
         $timeout(updateTimer, 100);
@@ -315,7 +315,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             return;
         } else {
             socket.emit('instance.command', {
-                host: $scope.instanceIp,
+                host:    $scope.host,
                 command: command
             });
             term.pause();

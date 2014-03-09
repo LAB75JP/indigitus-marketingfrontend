@@ -21,6 +21,7 @@ var _CONFIG = require('../lib/config/config');
 		enforce_https: false
 	});
 
+
 	var _is_public_ip = function(addr) {
 
 		var tmp = addr.split('.');
@@ -84,7 +85,7 @@ var _CONFIG = require('../lib/config/config');
 						imageRef:  template.image.links[0].href,
 						flavorRef: template.flavor.links[0].href,
 						networks:  _CONFIG.networks,
-						key_name:  _CONFIG.sshkey || ''
+						key_name:  _CONFIG.template
 					};
 
 					success.call(scope, data);
@@ -236,7 +237,7 @@ var _CONFIG = require('../lib/config/config');
 	 * IMPLEMENTATION
 	 */
 
-	var Callback = function(data, socket) {
+	var Callback = function(data, socket, ubercallback, uberscope) {
 
 		var _step = function(msg){
 			socket.emit('instance.step', {
@@ -309,8 +310,12 @@ var _CONFIG = require('../lib/config/config');
 
 										_step('Server ready!');
 
+										ubercallback.call(uberscope, {
+											host: ip
+										});
+
 										socket.emit('instance.ready', {
-											ip: ip
+											host: ip
 										});
 
 

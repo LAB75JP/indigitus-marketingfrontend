@@ -3,7 +3,8 @@
  * WEBSOCKET SERVER
  */
 
-var _fs = require('fs');
+var _CONFIG = require('../lib/config/config');
+var _fs     = require('fs');
 
 (function () {
 
@@ -11,7 +12,33 @@ var _fs = require('fs');
 	 * HELPERS
 	 */
 
-	var _extend_data = function(data) {
+	var _template_config = _fs.readFileSync(__dirname + '/../lib/config/ssh/' + _CONFIG.environment + '/' + _CONFIG.template + '.json');
+	var _template_key    = _fs.readFileSync(__dirname + '/../lib/config/ssh/' + _CONFIG.environment + '/' + _CONFIG.template + '.id_rsa');
+
+	var _create_profile = function(data) {
+
+		console.log('CREATING PROFILE FOR INSTANCE ' + data.host);
+
+		if (typeof data.host === 'string') {
+
+			var path   = __dirname + '/../lib/config/ssh/target/' + data.host;
+			var config = JSON.parse(_template_profile);
+
+			for (var prop in data) {
+				config[prop] = data[prop];
+			}
+
+			var profile = JSON.stringify(config, '\t');
+			var key     = _template_key;
+
+			_fs.writeFileSync(path + '.json',   profile);
+			_fs.writeFileSync(path + '.id_rsa', key);
+
+		}
+
+	};
+
+	var _dispatch_profile = function(data) {
 
 		if (typeof data.host !== 'string') {
 			data.host = '54.72.71.168';
@@ -73,37 +100,38 @@ var _fs = require('fs');
         var instance_delete  = require('./instance_delete.js');
 
 
+		var that     = this;
         var wsserver = socketio.listen(httpserver);
 
         wsserver.sockets.on('connection', function (socket) {
 
             socket.on('ping', function (data) {
-				_extend_data(data);
+				_dispatch_profile(data);
                 ping(data, socket);
             });
 
             socket.on('download', function (data) {
-				_extend_data(data);
+				_dispatch_profile(data);
                 download(data, socket);
             });
 
             socket.on('traceroute', function (data) {
-				_extend_data(data);
+				_dispatch_profile(data);
                 traceroute(data, socket);
             });
 
             socket.on('instance.delete', function(data){
-				_extend_data(data);
+				_dispatch_profile(data);
                 instance_delete(data, socket);
             });
 
             socket.on('instance.command', function (data) {
-				_extend_data(data);
+				_dispatch_profile(data);
                 instance_command(data, socket);
             });
 
             socket.on('instance.start', function (data) {
-                instance_start(data, socket);
+                instance_start(data, socket, _create_profile, that);
             });
 
         });
