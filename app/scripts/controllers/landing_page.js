@@ -26,7 +26,7 @@ angular.module('indigitusMarketingApp')
             }
         };
         $scope.defaults = {
-            tileLayer: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            tileLayer: "https://{s}.tiles.mapbox.com/v3/lab75.hfmjfap1/{z}/{x}/{y}.png",
             scrollWheelZoom: false
         };
 
