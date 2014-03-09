@@ -117,7 +117,6 @@ var _CONFIG = require('../lib/config/config');
 
 		_client.floating_ips.available({
 			endpoint_type: 'publicURL',
-
 			success: function(data) {
 
 				if (data.length > 0) {
@@ -170,8 +169,49 @@ var _CONFIG = require('../lib/config/config');
 
 	};
 
+	var _pollhandle = function(id) {
+
+		this.id   = id;
+		this.step = 0;
 
 
+		var that = this;
+
+		return function(value) {
+
+			if (value === true) {
+
+				clearInterval(that.id);
+
+			} else if (value === false) {
+
+				that.step++;
+
+				if (that.step > 10) {
+					clearInterval(that.id);
+				}
+
+			}
+
+		};
+
+	};
+
+	var _poll = function(timeout, callback, scope) {
+
+		var handle = new _pollhandle(1337);
+
+		handle.id = setInterval(function() {
+			callback.call(scope, handle);
+		}, timeout);
+
+	};
+
+
+
+	/*
+	 * IMPLEMENTATION
+	 */
 
 	var Callback = function(data, socket) {
 
@@ -215,11 +255,45 @@ var _CONFIG = require('../lib/config/config');
 
 						_step('Floating IP is ' + result);
 
-						_get_server(server, function(data) {
+						_poll(3000, function(handle) {
 
-							console.log('GET SERVER RESULTED IN', JSON.stringify(data));
+							_get_server(server, function(data) {
 
-							_delete_server(_server.id);
+								if (
+									   data instanceof Object
+									&& data.status === 'ACTIVE'
+									&& data.addresses
+								) {
+
+									var ip = null;
+
+									if (data.addresses) {
+
+console.log('ADDRESSES', typeof data.addresses, JSON.stringify(data.addresses, '\t'));
+
+									}
+
+									if (ip !== null) {
+
+										_step('Server ready!');
+
+										socket.emit('instance.ready', {
+											ip: ip
+										});
+
+
+										handle(true);
+
+										return;
+
+									}
+
+								}
+
+
+								handle(false);
+
+							}, _on_error, this);
 
 						}, _on_error, this);
 
@@ -231,43 +305,6 @@ var _CONFIG = require('../lib/config/config');
 
 		}, _on_error, this);
 
-
-
-return;
-
-      var time = 0;
-      var stepPresets = {
-        1: 'Request Start of Instance',
-        2: 'Instance booting',
-        3: 'Setting up Phoronix Test Suite',
-        4: 'Starting Lazers',
-        5: 'Running Test Suite',
-        6: 'Starting HTTP Server',
-        7: 'etc. 1',
-        8: 'etc. 2',
-        9: 'etc. 3',
-        10: 'etc. 4'
-      };
-
-      var send = function() {
-        console.log('SEND SOMETHING');
-        var scopePreset = '';
-        time++;
-        if (time > 10) {
-          socket.emit('instance.ready');
-        } else {
-          scopePreset = stepPresets[time.toFixed()];
-          if (scopePreset) {
-            socket.emit('instance.step', {
-              step: scopePreset
-            });
-          }
-          myTimeout = setTimeout(send, 1000);
-        }
-
-      };
-
-      var myTimeout = setTimeout(send, 1000);
 	};
 
 

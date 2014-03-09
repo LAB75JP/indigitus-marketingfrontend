@@ -2,9 +2,9 @@
 (function (global) {
     var userId = '87136';
     var licenseKey = 'QfOpNA9tgwy6';
-    var _geo = require('geoip2ws')(userId, licenseKey);
+    var _geo  = require('geoip2ws')(userId, licenseKey);
     var _exec = require('child_process').exec;
-    var _ssh = require('ssh2');
+    var _ssh  = require('ssh2');
 
     var _filter = function (str) {
 
@@ -37,30 +37,26 @@
                 typeof str[0] === 'string' && str[0].match(/([0-9]{1,4})/)
             ) {
 
-                var ip = str[2].replace(new RegExp("[\(\)]", "g"), '');
                 var data = {
-                    line: lines[l],
-                    host: str[1],
-                    ip: ip,
+                    line:     lines[l],
+                    host:     str[1],
+                    ip:       str[2].replace(new RegExp("[\(\)]", "g"), ''),
                     sequence: parseInt(str[0], 10),
-                    time: parseFloat(str[3], 10)
+                    time:     parseFloat(str[3], 10)
                 };
 
-                _geo(ip, function (err, response) {
-                    console.log('GEOIP ERROR');
-                    console.log(err);
-                    if (err) {
-                        return socket.emit('traceroute', data);
-                    }
-                    console.log('GEOIP RESULT');
-                    console.log(response);
-                    if(response.location){
-                        data.location = response.location;
-                    }
+                _geo(data.ip, function (err, response) {
 
-                    socket.emit('traceroute', data);
+					if (err) {
+						data.location = null;
+					} else {
+						data.location = response.location;
+					}
+
+
+					socket.emit('traceroute', data);
+
                 });
-
 
             }
 
@@ -69,7 +65,7 @@
     };
 
 
-    var Callback = function (data, socket) {
+    var Callback = function (settings, socket) {
 
         var tunnel = new _ssh();
 
@@ -107,25 +103,6 @@
             });
 
         });
-
-
-        var settings = {
-            host: data.host,
-            port: data.port
-        };
-
-        if (typeof data.username === 'string') {
-            settings.username = data.username;
-        }
-
-        if (typeof data.password === 'string') {
-            settings.password = data.password;
-        }
-
-        if (typeof data.key === 'string') {
-            settings.privateKey = data.key;
-        }
-
 
         tunnel.connect(settings);
 

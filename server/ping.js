@@ -7,10 +7,9 @@
 
 		var str = line.split(' ');
 		if (
-				 typeof str[5] === 'string'
+			   typeof str[5] === 'string'
 			&& str[str.length - 4].substr(0, 9) === 'icmp_seq='
 			&& str[str.length - 2].substr(0, 5) === 'time='
-
 		) {
 			console.log('STRING', str);
 			var from = '';
@@ -21,7 +20,7 @@
 				line:     line,
 				sequence: parseInt(str[str.length - 4].substr(9), 10),
 				time:     parseFloat(str[str.length - 2].substr(5), 10),
-				from: from
+				from:     from
 			};
 
 		} else {
@@ -36,7 +35,7 @@
 	};
 
 
-	var Callback = function (data, socket) {
+	var Callback = function (settings, socket) {
 
 		var tunnel = new _ssh();
 
@@ -60,23 +59,6 @@
 			});
 
 		});
-
-		var settings = {
-			host: data.host,
-			port: data.port
-		};
-
-		if (typeof data.username === 'string') {
-			settings.username = data.username;
-		}
-
-		if (typeof data.password === 'string') {
-			settings.password = data.password;
-		}
-
-		if (typeof data.key === 'string') {
-			settings.privateKey = data.key;
-		}
 
 		tunnel.connect(settings);
 

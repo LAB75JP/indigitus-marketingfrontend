@@ -11,12 +11,20 @@ var _fs = require('fs');
 	 * HELPERS
 	 */
 
-	var _config = null;
+	var _extend_data = function(data) {
 
-	(function() {
+		if (typeof data.host !== 'string') {
+			data.host = '54.72.71.168';
+		}
 
-		var path = __dirname + '/../lib/config/ssh/target/54.72.71.168';
-    	_config  = JSON.parse(_fs.readFileSync(path + '.json'));
+
+		/*
+		 * This is done here to be sure the data is up2date
+		 * TODO: Move this to server/instance_create logic
+		 */
+
+		var path    = __dirname + '/../lib/config/ssh/target/' + data.host;
+    	var _config = JSON.parse(_fs.readFileSync(path + '.json'));
 
 		var _key = null;
 		try {
@@ -24,13 +32,10 @@ var _fs = require('fs');
 		} catch(e) {
 		}
 
+		if (_config !== null && _key !== null) {
+			_config.privateKey = _key;
+		}
 
-		_config.privateKey = _key;
-
-	})();
-
-
-	var _extend_data = function(data) {
 
 		if (_config !== null) {
 
@@ -65,7 +70,7 @@ var _fs = require('fs');
         var traceroute       = require('./traceroute.js');
         var instance_start   = require('./instance_start.js');
         var instance_command = require('./instance_command.js');
-
+        var instance_delete  = require('./instance_delete.js');
 
 
         var wsserver = socketio.listen(httpserver);
@@ -85,6 +90,11 @@ var _fs = require('fs');
             socket.on('traceroute', function (data) {
 				_extend_data(data);
                 traceroute(data, socket);
+            });
+
+            socket.on('instance.delete', function(data){
+				_extend_data(data);
+                instance_delete(data, socket);
             });
 
             socket.on('instance.command', function (data) {

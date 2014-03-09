@@ -1,13 +1,13 @@
 
-var _urls = {
-	'imgur.com': 'http://i.imgur.com/3oOQkCu.jpg'
-};
-
-
 (function(global) {
 
 	var _exec = require('child_process').exec;
 	var _ssh  = require('ssh2');
+
+	var _urls = {
+		'imgur.com': 'http://i.imgur.com/3oOQkCu.jpg'
+	};
+
 
 	var _filter = function(str) {
 
@@ -55,7 +55,7 @@ var _urls = {
 	};
 
 
-	var Callback = function(data, socket) {
+	var Callback = function(settings, socket) {
 
 		var tunnel = new _ssh();
 
@@ -92,24 +92,6 @@ var _urls = {
 			});
 
 		});
-
-
-		var settings = {
-			host: data.host,
-			port: data.port
-		};
-
-		if (typeof data.username === 'string') {
-			settings.username = data.username;
-		}
-
-		if (typeof data.password === 'string') {
-			settings.password = data.password;
-		}
-
-		if (typeof data.key === 'string') {
-			settings.privateKey = data.key;
-		}
 
 		tunnel.connect(settings);
 
