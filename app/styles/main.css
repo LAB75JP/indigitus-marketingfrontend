@@ -7505,6 +7505,9 @@ h3 .glyphicon {
 .landing-page #recaptcha_reload_btn {
   display: none;
 }
+.landing-page .terminal-wrapper h3 {
+  margin-bottom: 20px;
+}
 .landing-page .recaptchatable .recaptcha_image_cell {
   padding: 0;
 }
@@ -7616,6 +7619,7 @@ h3 .glyphicon {
   background-color: #272822;
   font-size: 15px;
   font: 'Ubuntu Mono', Arial, Sans Serif;
+  margin-top: 20px;
 }
 .control-panel ul {
   list-style-type: none;

@@ -20,7 +20,11 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	
 	socket.on('instance.step', function(data) {
 		$scope.$apply(function(){
-			$scope.steps.push(data.line);
+			console.log('DATA', data);
+			console.log('PERCENTAGE', data.percentage);
+			if($scope.steps.indexOf(data.line) === -1 ){
+				$scope.steps.push(data.line);
+			}
 			$scope.percentage = data.percentage;
 		});
 	});
