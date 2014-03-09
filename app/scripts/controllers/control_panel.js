@@ -228,6 +228,22 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		});
 
 	});
+	
+	
+	$scope.deletingInstance = false;
+	$scope.stopInstance = function(){
+		$scope.deletingInstance = true;
+		socket.emit('instance.delete', {host: $scope.host});
+	};
+	
+	socket.on('instance.deleted', function(){
+		console.log('INSTANCE DELETED');
+		$scope.$apply(function(){
+			$location.path('/').replace();
+		});
+		console.log('INSTANCE DELETED');
+		
+	});
 
 	$scope.traceroute = function () {
 

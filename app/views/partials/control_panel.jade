@@ -55,14 +55,14 @@
                     br
                     a.btn.btn-default.btn-xs.btn-stop-now.pull-right(ng-click="stopInstance()")
 
-                        span(ng-if="instanceStopping")
+                        span(ng-if="deletingInstance")
                             ="Stopping, you will be redirected to the front page in a second"
                             span.animated-ellipsis(style="float: right")
                                 span.one="."
                                 span.two="."
                                 span.three="."
 
-                        span(ng-if="!instanceStopping")    
+                        span(ng-if="!deletingInstance")    
                             ="Stop your instance now"
     .row
         .col-md-12
@@ -209,7 +209,7 @@
     .row
         .col-md-12
             h1="Advanced"
-    .row.row-test
+    .row.row-test.terminal-wrapper
         .col-md-12
             .row
                 .col-md-10
@@ -220,7 +220,7 @@
                 .col-md-2
                     a.btn.btn-default.btn-block(ng-click="hideTerminal=false")="Test"
             .row(collapse="hideTerminal")
-                .col-md-12.card.terminal-wrapper
+                .col-md-12.terminal-wrapper
                     <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
 
 

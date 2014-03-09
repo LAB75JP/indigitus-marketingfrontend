@@ -54,10 +54,21 @@ var async = require('async');
 			success: function(servers) {
 				for(var i = 0; i < servers.length; i++){
 					if(servers[i].addresses){
-						var publicIp = data.addresses[Object.keys(servers[i].addresses)[0]][0].addr;
-						if(publicIp === ip){
-							success.call(scope, servers[i]);
-							break;
+						var publicIp = null;
+						var ips = null;
+						console.log('SERVER ADDRESSES',servers[i].addresses);
+						for(var network in servers[i].addresses){
+							console.log('NETWORK', network);
+							ips = servers[i].addresses[network];
+							for(var y = 0; y < ips.length; y++){
+								publicIp = ips[y].addr;
+								if(publicIp === ip){
+									success.call(scope, servers[i]);
+									break;
+								}
+							}
+							console.log('PUBLIC IP', publicIp);
+							
 						}
 					}
 				};
@@ -71,6 +82,8 @@ var async = require('async');
     var Callback = function(data, socket){
     	_authenticate(function(tokens){
 			_identifyServer(data.host, function(server){
+				console.log('IDENTIFIED SERVER');
+				console.log('SERVER', server);
 				_deleteServer(server.id, function(){
 					socket.emit('instance.deleted');
 				}, function(err){
