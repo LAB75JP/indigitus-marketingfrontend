@@ -76,12 +76,11 @@ module.exports = function (grunt) {
             },
             js: {
                 files: [
-					'<%= yeoman.app %>/scripts/{,*/}*.js',
-					'!<% yeoman.app %>/lib/config/ssh/target/*.json'
+					'<%= yeoman.app %>/scripts/{,*/}*.js'
 				],
                 tasks: ['newer:jshint:all'],
                 options: {
-                    livereload: false
+                    livereload: true
                 }
             },
             jsTest: {
@@ -99,11 +98,12 @@ module.exports = function (grunt) {
                 files: [
                     'server.js',
                     'lib/**/*.{js,json}',
-                    'server/**/*.{js,json}'
+                    'server/**/*.{js,json}',
+					'!lib/config/ssh/target/*.json'
                 ],
                 tasks: ['newer:jshint:server', 'express:dev', 'wait'],
                 options: {
-					livereload: false,
+					livereload: true,
                     nospawn: true
                 }
             }
