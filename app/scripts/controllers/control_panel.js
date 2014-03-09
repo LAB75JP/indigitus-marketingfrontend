@@ -47,7 +47,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             });
 
         });
-    
+
         $scope.pingTooltip = function (label, index) {
             console.log('DATA', $scope.pingList[index]);
             return $scope.pingList[index].from + ' <strong>' + $scope.pingList[index].time + 'ms</strong>';
@@ -143,7 +143,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
                 if(traceroute){
                     if(traceroute.location){
 
-                        for( var y in latlngs){
+                        for(var y in latlngs){
                             if(latlngs[y]){
                                 if(latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng === traceroute.location.longitude){
                                     add = false;
@@ -336,8 +336,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
             tileLayer: "https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
             scrollWheelZoom: false
         };
-    
-    
+
+
         $scope.hideTerminal = true;
         $scope.hideUpload = true;
         $scope.hideDownload = true;

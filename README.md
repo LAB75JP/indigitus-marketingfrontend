@@ -36,3 +36,21 @@ _Not yet implemented_
 
 - _For new features open up a new branch that gives an idea about what problem you are trying to solve_
 - _"Please open github issues"_
+
+## SSH-Keys
+
+- all required SSH keys are located in the *./lib/config/ssh/$environment/* folder.
+- no password
+- private key is $environment/$template.id\_rsa
+- public key is $environment/$template.id\_rsa.pub
+- they are all assigned to indigitus@lab75.jp
+
+1. cd lib/config/production
+2. ssh-keygen
+3. ./$template.id\_rsa [Enter] # replace $template with the correct value in env.json
+4. [Enter] # no passphrase
+5. [Enter] # confirm no passphrase
+6. Replace the local name@host inside id\_rsa.pub file with indigitus@lab75.jp
+
+
+
