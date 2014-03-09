@@ -32,8 +32,8 @@ var https_server = null;
 
 
 	var https_server = _https.createServer({
-		key: _fs.readFileSync('lib/config/cert/private.pem', 'utf8'),
-		cert: _fs_readFileSync('lib/config/cert/mycert.crt', 'utf8')
+		key:  _fs.readFileSync('lib/config/cert/private.pem', 'utf8'),
+		cert: _fs.readFileSync('lib/config/cert/mycert.crt', 'utf8')
 	}, app);
 
 	https_server.listen(_CONFIG.securePort, function(){
