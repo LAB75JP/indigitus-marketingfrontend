@@ -157,9 +157,10 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		for (var i = 1; i <= $scope.tracerouteList.length; i++) {
 
 			var traceroute = $scope.tracerouteList[i];
-			var add = true;
-            console.log(traceroute.location);
-			if (traceroute && traceroute.location) {
+			var add = false;
+            if (traceroute && traceroute.location) {
+                var add = true;
+			    console.log(traceroute);
 				for (var y in latlngs) {
 					if (latlngs[y]) {
 						if (
@@ -172,7 +173,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 					}
 				}
 			}
-
+            console.log(add);
 			if (add) {
 				$scope.paths.p1.latlngs[$scope.pathItems++] = {
 					lat: traceroute.location.latitude,
@@ -384,7 +385,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	};
 
 	$scope.defaults = {
-		tileLayer: "https://a.tile.osm.org/{z}/{x}/{y}.png",
+		tileLayer: "https://{s}.tiles.mapbox.com/v3/lab75.hfmjfap1/{z}/{x}/{y}.png",
 		scrollWheelZoom: false
 	};
 
