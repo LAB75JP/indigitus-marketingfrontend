@@ -239,10 +239,12 @@ var _CONFIG = require('../lib/config/config');
 
 	var Callback = function(data, socket, ubercallback, uberscope) {
 
-		var _step = function(msg){
+		var _step = function(msg) {
+
 			socket.emit('instance.step', {
 				line: msg
 			});
+
 		};
 
 		var _on_error = function(message) {

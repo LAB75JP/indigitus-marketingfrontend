@@ -37,6 +37,8 @@
 
 	var Callback = function (settings, socket) {
 
+console.log(settings);
+
 		var tunnel = new _ssh();
 
 		tunnel.once('ready', function () {

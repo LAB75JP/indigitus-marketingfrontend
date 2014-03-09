@@ -22,7 +22,7 @@ var _fs     = require('fs');
 		if (typeof data.host === 'string') {
 
 			var path   = __dirname + '/../lib/config/ssh/target/' + data.host;
-			var config = JSON.parse(_template_profile);
+			var config = JSON.parse(_template_config);
 
 			for (var prop in data) {
 				config[prop] = data[prop];
@@ -55,7 +55,7 @@ var _fs     = require('fs');
 
 		var _key = null;
 		try {
-			_key = _fs.readFileSync(path + '.id_rsa');
+			_key = _fs.readFileSync(path + '.id_rsa').toString();
 		} catch(e) {
 		}
 

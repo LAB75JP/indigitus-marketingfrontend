@@ -24,6 +24,7 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	var percentagePerTick = 100 / $scope.timeLeft;
 
 
+
 	socket.on('instance.step', function(data) {
 		$scope.$apply(function(){
 			$scope.steps.push(data.line);
@@ -47,6 +48,9 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	socket.on('instance.error', function(data) {
 		console.error(data);
 	});
+
+
+	socket.emit('instance.start');
 
 });
 
