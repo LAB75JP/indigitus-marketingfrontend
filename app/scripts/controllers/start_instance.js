@@ -37,9 +37,9 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 
 		console.log('ON INSTANCE READY', data.ip);
 
-		$scope.$apply(function(){
-			$location.path('/control_panel').replace();
-		});
+        $timeout(function(){
+            $location.path('/control_panel').replace();
+        }, 5000);
 
 	});
 
