@@ -113,6 +113,8 @@
                         = "{{alert.msg}}"                
                     form.captcha-form.pull-right
                         div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+                        a.btn.btn-default(ng-click="reloadCaptcha()")
+                            span.glyphicon.glyphicon-refresh
                         button.btn.btn-default.pull-right(ng-click="checkCaptcha()")
                             = "Start your Instance now!"       
 

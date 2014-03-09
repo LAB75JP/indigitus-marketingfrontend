@@ -47,6 +47,10 @@ angular.module('indigitusMarketingApp')
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
         };
+        
+		$scope.reloadCaptcha = function(){
+			Recaptcha.reload()  
+        };
 
         $scope.checkCaptcha = function () {
 
