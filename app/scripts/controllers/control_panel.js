@@ -266,13 +266,13 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.uploadTimeDisplay = 0;
 
 	var uploadTime = 0;
-	var updateTimer = function () {
+	var uploadUpdateTimer = function () {
 
 		uploadTime += 100;
 		var elapsed = ((uploadTime / 100) / 10).toFixed(2);
 		$scope.uploadTimeDisplay = elapsed;
-		if ($scope.uploadPercentage <= 99) {
-			$timeout(updateTimer, 100);
+		if ($scope.uploadPercentage <= 98) {
+			$timeout(uploadUpdateTimer, 100);
 		} else {
 			$scope.uploadPercentage = 100;
 		}
@@ -281,21 +281,26 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	socket.on('upload', function (data) {
 		if (data === null) return;
-			$scope.$apply(function () {
+		$scope.$apply(function () {
 			$scope.uploadPercentage = data.percentage;
 		});
 	});
 
 	$scope.upload = function () {
+
 		$scope.hideUpload = false;
+
 		uploadTime = 0;
 		$scope.uploadTimeDisplay = 0;
 		$scope.uploadPercentage = 0;
+
 		socket.emit('upload', {
 			host:  $scope.host,
 			start: Date.now()
 		});
-		$timeout(updateTimer, 100);
+
+		$timeout(uploadUpdateTimer, 100);
+
 	};
 
 
@@ -315,13 +320,20 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		var elapsed = ((downloadTime / 100) / 10).toFixed(2);
 		$scope.downloadTimeDisplay = elapsed;
 
-		if ($scope.downloadPercentage <= 99) {
-			$timeout(updateTimer, 100);
+		if ($scope.downloadPercentage <= 98) {
+			$timeout(downloadUpdateTimer, 100);
 		} else {
 			$scope.downloadPercentage = 100;
 		}
 
 	};
+
+	socket.on('download', function(data) {
+		if (data === null) return;
+		$scope.$apply(function () {
+			$scope.downloadPercentage = data.percentage;
+		});
+	});
 
 	$scope.download = function () {
 
@@ -339,6 +351,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$timeout(downloadUpdateTimer, 100);
 
 	};
+
 
 
 	$scope.barColor = function () {
