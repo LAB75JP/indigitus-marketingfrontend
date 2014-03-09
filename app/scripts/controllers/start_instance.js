@@ -2,15 +2,58 @@
 
 
 angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties) {
-
+	
+	var test = true;
+	
 	$scope.steps = [];
 	$scope.timeLeft = 60;
-
-	socket.emit('instance.start');
+	$scope.percentage = 0;
+	
+	var stepPresets = [
+		'Botting Instance',
+		'jdhashgsahdgsahdghasgdsa',
+		'dasjkldhsahgdashgdh saghdas',
+		'dahdgdsagdsaghagdhsagdh saghdgashjdgas',
+		'dahdjsgdgdsagdhasgdhagdh gdasjhdgahdgashjdgsa',
+		'dahdhsagdhagdhgdashgdgasjhdgasdh',
+		'dakjsidhgaszdgsahdgbahjdgas dashdgsgsgagjh',
+		'dasjdksabdjkashdjaskdhsaid zhiuhz89husadasas',
+		'dasjdkjsagh dhasgdhsagddga sjhdgasjhasgd',
+		'agsbdagdagvjhghjgashdgasuz 6fdasd sad sadsadsadsa',
+		'd asd sadsadsadsadsadsa das dsadsasada asdsadsasdasd'
+	];
+	var stepPresetsCounter = 0;
+	var percentagePerTick = 100 / $scope.timeLeft;
+	if(test){
+		
+		var addTestStep = function(){
+			
+			$scope.steps.push(stepPresets[stepPresetsCounter++]);
+			if(stepPresetsCounter < stepPresets.length){
+				$timeout(addTestStep, 1000);		
+			}
+			if($scope.percentage < 100){
+				$scope.percentage += Math.floor(percentagePerTick + Math.random() * 10);
+			}
+		};
+		
+		$timeout(addTestStep, 1000);
+		
+	}
+	
+	if(!test){
+		socket.emit('instance.start');
+	}
+	
+	
+	
+	
 	
 	var decreaseTimer = function(){
-		$scope.timeLeft--;
-		$timeout(decreaseTimer, 1000);
+		if($scope.timeLeft > 0){
+			$scope.timeLeft--;
+			$timeout(decreaseTimer, 1000);
+		}
 	};
 	
 	$timeout(decreaseTimer, 1000)

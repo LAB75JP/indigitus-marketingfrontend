@@ -27,43 +27,38 @@ var _fs = require('fs');
 
                 data.key = _config.sshkey;
                 data.port = _config.sshport;
-                console.log('DATA', data);
                 ping(data, socket);
 
             });
 
             socket.on('download', function (data) {
 
-                data.host = _config.host;
-                data.port = _config.port;
                 data.key = _config.sshkey;
-                data.username = _config.username;
-                data.password = _config.password;
+                data.port = _config.sshport;
                 download(data, socket);
 
             });
 
             socket.on('traceroute', function (data) {
 
-                data.host = _config.host;
-                data.port = _config.port;
                 data.key = _config.sshkey;
-                data.username = _config.username;
-                data.password = _config.password;
+                data.port = _config.sshport;
                 traceroute(data, socket);
 
             });
             
             socket.on('instance.delete', function(data){
+                
                 data.key = _config.sshkey;
+                data.port = _config.sshport;
                 instance_delete(data, socket);
+                
             });
 
             socket.on('instance.command', function (data) {
 
                 data.key = _config.sshkey;
-                //data.username = _config.username;
-                //data.password = _config.password;
+                data.port = _config.sshport;
                 instance_command(data, socket);
 
             });

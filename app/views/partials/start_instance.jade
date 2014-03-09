@@ -1,20 +1,26 @@
+div(style="-webkit-transition: width 1s;background-color: rgba(76,76,110, 0.5); width: {{percentage}}%; position: absolute; top: 0; left: 0; z-index: 1; height: 100%;")
 .navbar.navbar-fixed-top
     .container
         .navbar-header
             a.navbar-brand(href="/#/")
                 = "Indigitus"
-.container.start-instance
+
+p.time-left.pull-right
+    strong="{{timeLeft}}s"
+    
+.container.start-instance.fill
     .row 
         .col-md-12
-            h1.text-center
-                ="Starting instance"
-                span.animated-ellipsis
-                    span.one="."
-                    span.two="."
-                    span.three="."
-            p.time-left.text-center
-                ="Time to completion "
-                strong="{{timeLeft}} seconds"
+            .row 
+                .col-md-12
+                    h1.text-center
+                        ="Starting instance"
+                        span.animated-ellipsis
+                            span.one="."
+                            span.two="."
+                            span.three="."
+            .row
+
                 .steps
-                    p(ng-repeat="step in steps")
-                        ="{{$index+1}} . {{step}}"
+                    p.fade-in(ng-repeat="step in steps")
+                        ="{{step}}"

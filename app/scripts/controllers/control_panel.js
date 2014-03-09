@@ -293,16 +293,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
     $scope.command = '';
     $scope.commands = [];
     $scope.terminalLines = [];
-    $scope.availableCommands = [
-          'You have a limited set of commands available for testing out the instance:',
-          'ls: Description',
-          'ping: Description',
-          'traceroute: Description'
-        ];
-
+    
     $scope.instanceStopping = false;
     $scope.stopInstance = function () {
-        console.log('STOP INSTANCE');
         socket.emit('instance.delete');
         socket.on('instance.deleted', function(){
             $scope.$apply(function(){    
