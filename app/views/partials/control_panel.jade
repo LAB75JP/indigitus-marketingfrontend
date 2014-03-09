@@ -43,13 +43,13 @@
                                     span="Operating System:"
                             td 
                                 ="Linux"
-                                img.logo(src="images/tux.png")
+                                img.logo(src="images/tux.png", style="max-width: 50px; margin-right: 20px;")
                         tr 
                             td 
                                 span.glyphicon.glyphicon-floppy-disk
                                 ="Space:"
                             td
-                                span.stat-info="3GB"
+                                span.stat-info="20GB"
                                 
             .row
                 .col-md-12
@@ -207,10 +207,10 @@
                             = "{{downloadPercentage}}%"
                     p="Time: {{downloadTimeDisplay}} seconds"
     
-    .row
+    .row(ng-hide="hideTerminalRow")
         .col-md-12
             h1="Advanced"
-    .row.row-test.terminal-wrapper
+    .row.row-test.terminal-wrapper(ng-hide="hideTerminalRow")
         .col-md-12
             .row
                 .col-md-10

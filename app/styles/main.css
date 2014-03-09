@@ -7298,14 +7298,6 @@ fieldset[disabled] .btn-inverse.active {
   border-right: 0;
   padding-right: 10px;
 }
-.leaflet-map-pane,
-.leaflet-objects-pane,
-.leaflet-overlay-pane,
-.leaflet-zoom-animated,
-.leaflet-marker-pane {
-  height: 100%;
-  width: 100%;
-}
 body,
 html {
   width: 100%;
@@ -7316,6 +7308,14 @@ html {
   right: 30px;
   top: 120px;
   font-size: 50px;
+}
+.leaflet-map-pane,
+.leaflet-objects-pane,
+.leaflet-overlay-pane,
+.leaflet-zoom-animated,
+.leaflet-marker-pane {
+  height: 100%;
+  width: 100%;
 }
 .leaflet-zoom-animated {
   margin-left: 24px;

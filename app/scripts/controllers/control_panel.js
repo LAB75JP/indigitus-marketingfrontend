@@ -158,11 +158,14 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 			var traceroute = $scope.tracerouteList[i];
 			var add = true;
-
+            console.log(traceroute.location);
 			if (traceroute && traceroute.location) {
 				for (var y in latlngs) {
 					if (latlngs[y]) {
-						if (latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng === traceroute.location.longitude) {
+						if (
+                            latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng ===           
+                            traceroute.location.longitude
+                        ) {
 							add = false;
 							break;
 						}
@@ -266,7 +269,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.tracerouteLines = [];
 		socket.emit('traceroute', {
 			host:   $scope.host,
-			target: 'www.nsa.ch',
+			target: '173.252.110.27',
 			start:  Date.now()
 		});
 
@@ -421,7 +424,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
     	}
   	};
 	
+    
 	$scope.hideUpload = true;
+    $scope.hideTerminalRow = true;
 	$scope.hideTerminal = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
