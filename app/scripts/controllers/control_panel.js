@@ -365,7 +365,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	};
 
 	$scope.defaults = {
-		tileLayer: "https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
+		tileLayer: "https://a.tile.osm.org/{z}/{x}/{y}.png",
 		scrollWheelZoom: false
 	};
 

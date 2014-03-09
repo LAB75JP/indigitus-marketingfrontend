@@ -15,9 +15,13 @@ angular.module('indigitusMarketingApp')
                 lat: 47.184371,
                 lng: 8.5177285,
                 icon: {
-                    iconAnchor: [0, 20]
-                },
-                message: "<strong>Indigitus AG</strong><br />Lindenstrasse 4<br />CH-6340 Baar",
+                    iconUrl: 'images/marker.png',
+					iconAnchor: [5, 0],
+					iconSize: [20, 20],
+					shadowSize: [0, 0],
+					popupAnchor: [0,-15]
+				},
+				message: "<strong>Indigitus AG</strong><br />Lindenstrasse 4<br />CH-6340 Baar",
                 focus: true
             }
         };

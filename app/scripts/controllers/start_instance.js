@@ -7,27 +7,21 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	$scope.timeLeft = 60;
 	$scope.percentage = 0;
 
-	var stepPresets = [
-		'Botting Instance',
-		'jdhashgsahdgsahdghasgdsa',
-		'dasjkldhsahgdashgdh saghdas',
-		'dahdgdsagdsaghagdhsagdh saghdgashjdgas',
-		'dahdjsgdgdsagdhasgdhagdh gdasjhdgahdgashjdgsa',
-		'dahdhsagdhagdhgdashgdgasjhdgasdh',
-		'dakjsidhgaszdgsahdgbahjdgas dashdgsgsgagjh',
-		'dasjdksabdjkashdjaskdhsaid zhiuhz89husadasas',
-		'dasjdkjsagh dhasgdhsagddga sjhdgasjhasgd',
-		'agsbdagdagvjhghjgashdgasuz 6fdasd sad sadsadsadsa',
-		'd asd sadsadsadsadsadsa das dsadsasada asdsadsasdasd'
-	];
-	var stepPresetsCounter = 0;
-	var percentagePerTick = 100 / $scope.timeLeft;
-
-
-
+	var timeLeft = 60000;
+	var decreaseTimeLeft = function(){
+		timeLeft -= 100;	
+		$scope.timeLeft = Math.floor(timeLeft / 100) / 10;
+		if(Math.round($scope.timeLeft) == $scope.timeLeft) { $scope.timeLeft += '.0'; }
+		if(timeLeft > 0){
+			$timeout(decreaseTimeLeft, 100);
+		}
+	};
+	$timeout(decreaseTimeLeft, 100);
+	
 	socket.on('instance.step', function(data) {
 		$scope.$apply(function(){
 			$scope.steps.push(data.line);
+			$scope.percentage = data.percentage;
 		});
 	});
 
