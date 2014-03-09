@@ -1,6 +1,6 @@
 {
 	"host": null,
 	"port": 22,
-	"username": "ubuntu",
+	"username": "cirros",
 	"password": null
 }
