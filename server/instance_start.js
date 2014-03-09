@@ -115,7 +115,7 @@ var _CONFIG = require('../lib/config/config');
 
 	var _assign_ip = function(server, success, error, scope) {
 
-		_client.floating_ips.available({
+		_client.floating_ips.all({
 			endpoint_type: 'publicURL',
 			success: function(data) {
 
@@ -127,13 +127,12 @@ var _CONFIG = require('../lib/config/config');
 					setTimeout(function() {
 
 						_client.servers.add_floating_ip({
+							endpoint_type: 'publicURL',
 							data: {
-								id: server.id,
-								address: floatingIp.ip
+								id: server.id
 							},
 							success: function(result) {
 								success.call(scope, result);
-
 							},
 							error: function(err) {
 								error.call(scope, err);
