@@ -266,7 +266,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.tracerouteLines = [];
 		socket.emit('traceroute', {
 			host:   $scope.host,
-			target: 'facebook.com',
+			target: 'www.nsa.ch',
 			start:  Date.now()
 		});
 
@@ -391,38 +391,37 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 * TERMINAL
 	 */
 
-/*
+    var terminal = null;
+	socket.on('instance.command_output', function(data) {
+    	terminal.pause();
+    	if (data.exit) {
+      		terminal.resume();
+    	}
+    	if (data.code === 127) {
+      		terminal.error('type "help" for available commands');
+    	}
+    	if (data.output) {
+      		terminal.echo(data.output);
+    	}
+    	terminal.resume();
+  	});
 
-  socket.on('instance.command_output', function(data) {
-    terminal.pause();
-    if (data.exit) {
-      terminal.resume();
-    }
-    if (data.code === 127) {
-      terminal.error('type "help" for available commands');
-    }
-    if (data.output) {
-      terminal.echo(data.output);
-    }
-    terminal.resume();
-  });
-
-  $scope.onTerminalInput = function(command, term) {
-    terminal = term;
-    if (command === 'help') {
-      var sep = '\n';
-      term.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
-      return;
-    } else {
-      socket.emit('instance.command', {
-        host: $scope.host,
-        command: command
-      });
-      term.pause();
-    }
-  };
-*/
-
+  	$scope.onTerminalInput = function(command, term) {
+    	terminal = term;
+    	if (command === 'help') {
+      		var sep = '\n';
+      		term.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
+      		return;
+    	} else {
+      		socket.emit('instance.command', {
+        		host: $scope.host,
+        		command: command
+      		});
+      		term.pause();
+    	}
+  	};
+	
+	$scope.hideUpload = true;
 	$scope.hideTerminal = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;

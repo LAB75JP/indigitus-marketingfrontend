@@ -42,7 +42,8 @@
                                     span.glyphicon.glyphicon-off
                                     span="Operating System:"
                             td 
-                                img.logo(src="images/ubuntu_logo.png")
+                                ="Linux"
+                                img.logo(src="images/tux.png")
                         tr 
                             td 
                                 span.glyphicon.glyphicon-floppy-disk
@@ -156,7 +157,7 @@
                                                 ="{{line}}"
                     
 
-    .row.row-test.upload
+    .row.row-test.upload(ng-hide="hideUpload")
         .col-md-12
             .row 
                 .col-md-10

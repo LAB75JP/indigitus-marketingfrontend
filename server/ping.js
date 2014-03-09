@@ -11,15 +11,17 @@
 			// Thanks to Debian, wasting 2 hours of time, you stupid fuckers!
 			// https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=609853
 			&& (
-				   str[str.length - 4].substr(0, 9) === 'icmp_seq='
-				|| str[str.length - 4].substr(0, 9) === 'icmp_req='
+//				   str[str.length - 4].substr(0, 9) === 'icmp_seq='
+//				|| str[str.length - 4].substr(0, 9) === 'icmp_req='
+                str[str.length - 4].substr(0, 4) === 'seq='
 			)
 			&& str[str.length - 2].substr(0, 5) === 'time='
 		) {
 
 			return {
 				line:     line,
-				sequence: parseInt(str[str.length - 4].substr(9), 10),
+				//sequence: parseInt(str[str.length - 4].substr(9), 10),
+                sequence: parseInt(str[str.length - 4].substr(4), 10),
 				time:     parseFloat(str[str.length - 2].substr(5), 10)
 			};
 

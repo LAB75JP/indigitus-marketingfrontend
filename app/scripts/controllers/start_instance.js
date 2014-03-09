@@ -4,10 +4,10 @@
 angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties) {
 
 	$scope.steps = [];
-	$scope.timeLeft = 60;
+	$scope.timeLeft = 20;
 	$scope.percentage = 0;
 
-	var timeLeft = 60000;
+	var timeLeft = 20000;
 	var decreaseTimeLeft = function(){
 		timeLeft -= 100;	
 		$scope.timeLeft = Math.floor(timeLeft / 100) / 10;
