@@ -3,7 +3,7 @@ var _CONFIG = require('../lib/config/config');
 var async = require('async');
 
 (function(global){
-    
+
     var _server = null;
 	var _client = new _Nova({
 		url:           _CONFIG.nova,
@@ -16,7 +16,7 @@ var async = require('async');
 	/*
 	 * CHAINED REST API CALLS
 	 */
-	
+
 	var _deleteServer = function(id, success, error, scope) {
 
 		_client.servers.del({
@@ -47,7 +47,7 @@ var async = require('async');
 		});
 
 	};
-	
+
 	var _identifyServer = function(ip, success, error, scope){
 		_client.servers.all({
 			endpoint_type: 'publicURL',
@@ -67,10 +67,10 @@ var async = require('async');
 			}
 		});
 	}
-    
+
     var Callback = function(data, socket){
     	_authenticate(function(tokens){
-			_identifyServer( data.host, function(server){
+			_identifyServer(data.host, function(server){
 				_deleteServer(server.id, function(){
 					socket.emit('instance.deleted');
 				}, function(err){
@@ -80,17 +80,17 @@ var async = require('async');
 			}, function(err){
 				console.log('IDENTIFY SERVER ERROR', err);
 			}, this);
-			
-			
-			
+
+
+
 		}, function(err){
 			console.log('ERR', err);
-		}, this)    
+		}, this)
 	};
-	
+
     module.exports = Callback;
-    
-})(this);	
+
+})(this);
 
 
 

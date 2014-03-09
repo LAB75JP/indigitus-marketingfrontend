@@ -65,7 +65,7 @@
     };
 
 
-    var Callback = function (settings, socket) {
+    var Callback = function (data, socket) {
 
         var tunnel = new _ssh();
 
@@ -104,7 +104,7 @@
 
         });
 
-        tunnel.connect(settings);
+        tunnel.connect(data);
 
     };
 

@@ -40,24 +40,7 @@
 
 		});
 
-		var settings = {
-			host: data.host,
-			port: data.port
-		};
-
-		if (typeof data.username === 'string') {
-			settings.username = data.username;
-		}
-
-		if (typeof data.password === 'string') {
-			settings.password = data.password;
-		}
-
-		if (typeof data.key === 'string') {
-			settings.privateKey = data.key;
-		}
-
-		tunnel.connect(settings);
+		tunnel.connect(data);
 
 	};
 

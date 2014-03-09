@@ -3,7 +3,8 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function ($scope, $http, $location, $timeout, socket, sharedProperties) {
 
-    $scope.host = sharedProperties.get('host');
+//    $scope.host = sharedProperties.get('host');
+    $scope.host = '54.72.71.168';
 
 
     /*

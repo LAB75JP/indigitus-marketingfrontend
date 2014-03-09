@@ -6,16 +6,19 @@
 	var _parse = function (line) {
 
 		var str = line.split(' ');
+console.log(str);
 		if (
-			   typeof str[5] === 'string'
-			&& str[str.length - 4].substr(0, 9) === 'icmp_seq='
+//			   typeof str[5] === 'string'
+			   str[str.length - 4].substr(0, 9) === 'icmp_seq='
 			&& str[str.length - 2].substr(0, 5) === 'time='
 		) {
+
 			console.log('STRING', str);
 			var from = '';
 			if(str[4] !== 'bytes'){
 				from = str[3] + ' ' + str[4]
 			}
+
 			return {
 				line:     line,
 				sequence: parseInt(str[str.length - 4].substr(9), 10),
@@ -35,9 +38,7 @@
 	};
 
 
-	var Callback = function (settings, socket) {
-
-console.log(settings);
+	var Callback = function (data, socket) {
 
 		var tunnel = new _ssh();
 
@@ -62,7 +63,7 @@ console.log(settings);
 
 		});
 
-		tunnel.connect(settings);
+		tunnel.connect(data);
 
 	};
 
