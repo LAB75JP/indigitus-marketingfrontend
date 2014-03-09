@@ -323,14 +323,16 @@ var _CONFIG = require('../lib/config/config');
 											host: ip
 										});
 
+
 										socket.emit('instance.ready', {
 											host: ip
 										});
 
-
 										handle(true);
 
 									} else {
+
+										_step('Booting up Instance ...');
 
 										handle(true);
 										_on_error.call(this, 'No public Floating IPs available');
