@@ -248,7 +248,7 @@ var _CONFIG = require('../lib/config/config');
 
 			socket.emit('instance.step', {
 				line: msg,
-				percentage: step / steps
+				percentage: (step / steps) * 100
 			});
 
 		};
