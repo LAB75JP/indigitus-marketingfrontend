@@ -57,6 +57,8 @@
 
 	var Callback = function(data, socket) {
 
+		var start = Date.now();
+
 		var tunnel = new _ssh();
 
 
@@ -86,7 +88,15 @@
 				});
 
 				stream.on('exit', function() {
+
+					socket.emit('download', {
+						start:      start.toString(),
+						end:        Date.now().toString(),
+						percentage: 100
+					});
+
 					tunnel.end();
+
 				});
 
 			});

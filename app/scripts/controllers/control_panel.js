@@ -4,7 +4,8 @@
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function ($scope, $http, $location, $timeout, socket, sharedProperties) {
 
 //    $scope.host = sharedProperties.get('host');
-    $scope.host = '54.72.71.168';
+    // $scope.host = '54.72.71.168';
+    $scope.host = '127.0.0.1';
 
 
     /*
@@ -236,6 +237,45 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
 
 
 
+	/*
+	 * UPLOAD
+	 */
+
+    $scope.uploadPercentage = 0;
+    $scope.uploadTimeDisplay = 0;
+
+    var uploadTime = 0;
+    var updateTimer = function () {
+        uploadTime += 100;
+        var elapsed = ((uploadTime / 100) / 10).toFixed(2);
+        $scope.uploadTimeDisplay = elapsed;
+        if ($scope.uploadPercentage <= 99) {
+            $timeout(updateTimer, 100);
+        } else {
+			$scope.uploadPercentage = 100;
+		}
+    };
+    socket.on('upload', function (data) {
+        if (data === null) return;
+        $scope.$apply(function () {
+            $scope.uploadPercentage = data.percentage;
+        });
+    });
+
+    $scope.upload = function () {
+        $scope.hideUpload = false;
+        uploadTime = 0;
+        $scope.uploadTimeDisplay = 0;
+        $scope.uploadPercentage = 0;
+        socket.emit('upload', {
+            host:  $scope.host,
+            start: Date.now()
+        });
+        $timeout(updateTimer, 100);
+    };
+
+
+
     /*
      * DOWNLOAD
      */
@@ -246,14 +286,13 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
     var downloadTime = 0;
     var updateTimer = function () {
         downloadTime += 100;
-        var elapsed = Math.floor(downloadTime / 100) / 10;
-        if (Math.round(elapsed) == elapsed) {
-            elapsed += '.0';
-        }
+        var elapsed = ((downloadTime / 100) / 10).toFixed(2);
         $scope.downloadTimeDisplay = elapsed;
-        if ($scope.downloadPercentage !== 100) {
+        if ($scope.downloadPercentage <= 99) {
             $timeout(updateTimer, 100);
-        }
+        } else {
+			$scope.downloadPercentage = 100;
+		}
     };
     socket.on('download', function (data) {
         if (data === null) return;
@@ -268,7 +307,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function 
         $scope.downloadTimeDisplay = 0;
         $scope.downloadPercentage = 0;
         socket.emit('download', {
-            host: $scope.host,
+            host:  $scope.host,
             start: Date.now()
         });
         $timeout(updateTimer, 100);

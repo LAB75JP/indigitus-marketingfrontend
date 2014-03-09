@@ -41,7 +41,7 @@ var _fs     = require('fs');
 	var _dispatch_profile = function(data) {
 
 		if (typeof data.host !== 'string') {
-			data.host = '54.72.71.168';
+			data.host = '54.72.53.7';
 		}
 
 
@@ -94,6 +94,7 @@ var _fs     = require('fs');
         var socketio         = require('socket.io');
         var ping             = require('./ping.js');
         var download         = require('./download.js');
+        var upload           = require('./upload.js');
         var traceroute       = require('./traceroute.js');
         var instance_start   = require('./instance_start.js');
         var instance_command = require('./instance_command.js');
@@ -114,6 +115,11 @@ var _fs     = require('fs');
 				_dispatch_profile(data);
                 download(data, socket);
             });
+
+            socket.on('upload', function (data) {
+				_dispatch_profile(data);
+                upload(data, socket);
+			});
 
             socket.on('traceroute', function (data) {
 				_dispatch_profile(data);
