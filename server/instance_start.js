@@ -118,11 +118,10 @@ var async = require('async');
 
 	var _assign_ip = function(server, success, error, scope) {
 		
-		_client.floating_ips.available({
+		_client.floating_ips.all({
 			endpoint_type: 'publicURL',
-			
 			success: function(data) {
-				console.log('FLOATING IPS', data);
+				
 				if (data.length > 0) {
 					var floatingIp = null
 					for(var i = 0; i < data.length; i++){
@@ -142,22 +141,17 @@ var async = require('async');
 					}
 					
 					_client.servers.add_floating_ip({
+						async: true,
 						data: {
 							id: server.id,
 							address: floatingIp.ip
-						},
-						success: function(response){
-							console.log(arguments);
-							_delete_server(server.id);
-
-						},
-						error: function(err){
-							console.log(arguments);
-							_delete_server(server.id);								
 						}
 					});
-
-
+					
+					
+					success.call(scope, {});
+					return;	
+					
 				} else {
 					error.call(scope, 'No Floating IPs available');
 				}
@@ -186,7 +180,15 @@ var async = require('async');
 	};
 	
 	
-
+	var repeat = function(pattern, count) {
+		if (count < 1) return '';
+		var result = '';
+		while (count > 0) {
+			if (count & 1) result += pattern;
+			count >>= 1, pattern += pattern;
+		}
+		return result;
+	}
 	
 	var Callback = function(data, socket) {
 		
@@ -228,12 +230,49 @@ var async = require('async');
 			
 					console.log('ASSIGN IP');
 					_assign_ip(server, function(result) {
-
+						console.log('ASSIGNED IP');
+						console.log('ASSIGNED IP', result);
 						_get_server(server, function(data) {
-							console.log('GET SERVER');
-							console.log('GET SERVER RESULTED IN', JSON.stringify(data));
-							_delete_server(_server.id);
-
+							
+							var publicIp = null;
+							var counter = 0;
+							var active = false;
+							
+							_step('Server Starting Up');
+							
+							var serverInfo = function(){
+								_get_server(server, function(data){
+									console.log('GET SERVER RESULTED IN', JSON.stringify(data,null, '\t'));
+									
+									console.log(data.status);
+									
+									if(!publicIp && data.addresses){
+										publicIp = data.addresses[Object.keys(data.addresses)[0]][0].addr;
+										_step('Assigned Floating ip: ' + publicIp);
+										socket.emit('instance.public_ip', {publicIp: publicIp});
+									}
+									
+									if(data.status === 'ACTIVE'){
+										active = true;
+										_step('Server Ready!');
+										socket.emit('instance.ready');
+									}
+									if(active){
+										return;
+									}
+									
+									if(counter < 10){
+										_step('Booting' + repeat('.', counter) );
+										setTimeout(serverInfo, 3000);
+									}
+									else {
+										_delete_server(_server.id);
+										error.call(scope, 'Could not get Server IP');
+									}
+									counter++;
+								});
+							};
+							setTimeout(serverInfo, 3000);
 
 						}, _on_error, this);
 
@@ -245,43 +284,6 @@ var async = require('async');
 
 		}, _on_error, this);
 
-
-
-return;
-
-      var time = 0;
-      var stepPresets = {
-        1: 'Request Start of Instance',
-        2: 'Instance booting',
-        3: 'Setting up Phoronix Test Suite',
-        4: 'Starting Lazers',
-        5: 'Running Test Suite',
-        6: 'Starting HTTP Server',
-        7: 'etc. 1',
-        8: 'etc. 2',
-        9: 'etc. 3',
-        10: 'etc. 4'
-      };
-
-      var send = function() {
-        console.log('SEND SOMETHING');
-        var scopePreset = '';
-        time++;
-        if (time > 10) {
-          socket.emit('instance.ready');
-        } else {
-          scopePreset = stepPresets[time.toFixed()];
-          if (scopePreset) {
-            socket.emit('instance.step', {
-              step: scopePreset
-            });
-          }
-          myTimeout = setTimeout(send, 1000);
-        }
-
-      };
-
-      var myTimeout = setTimeout(send, 1000);
 	};
 
 

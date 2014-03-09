@@ -1,27 +1,36 @@
 'use strict';
 
 
-angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket) {
+angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties) {
 
 	$scope.steps = [];
 	$scope.timeLeft = 60;
 
 	socket.emit('instance.start');
 	
-	$timeout(function(){
-		console.log('CALLED');
-		$location.path('/control_panel').replace();
-	}, 1000);
-
+	var decreaseTimer = function(){
+		$scope.timeLeft--;
+		$timeout(decreaseTimer, 1000);
+	};
+	
+	$timeout(decreaseTimer, 1000)
+	
 	socket.on('instance.step', function(data) {
-		console.log('DAT STEP');
-		console.log(data.step);
-		$scope.steps.push(data.step);
+		$scope.$apply(function(){
+			$scope.steps.push(data.line);
+		});
+	});
+	
+	socket.on('instance.public_ip', function(data){
+		sharedProperties.set('publicIp', data.publicIp);
+		console.log(sharedProperties.get('publicIp'));
 	});
 
 	socket.on('instance.ready', function(data) {
 		console.log('ON INSTANCE READY');
-		$location.path('/control_panel').replace();
+		$scope.$apply(function(){
+			$location.path('/control_panel').replace();
+		});
 	});
 
 	socket.on('instance.error', function(data) {

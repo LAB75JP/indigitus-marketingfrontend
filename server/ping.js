@@ -35,6 +35,36 @@
 
 	};
 
+	
+	var getSettings = function(data, cb){
+		var settings = {
+			host: data.host,
+			port: data.port
+		};
+		console.log('DATA', data);
+		
+		var _fs = require('fs');
+
+		if (typeof data.key === 'string') {
+			_fs.readFile(__dirname + '/../lib/config/ssh/' + data.key + '.pem', 'utf8', function(err, data){
+				console.log('ERR', err);
+				console.log('DATA', data);
+				settings.privateKey = data;
+				return cb(err, settings);
+			});
+		}
+		else {
+	
+			if (typeof data.username === 'string') {
+				settings.username = data.username;
+			}
+
+			if (typeof data.password === 'string') {
+				settings.password = data.password;
+			}
+			return cb(null, settings);	
+		}
+	};
 
 	var Callback = function (data, socket) {
 
@@ -60,25 +90,12 @@
 			});
 
 		});
+		
+		getSettings(data, function(err, settings){
+			console.log('GOT SETTINGS', settings);
+			tunnel.connect(settings);
+		})
 
-		var settings = {
-			host: data.host,
-			port: data.port
-		};
-
-		if (typeof data.username === 'string') {
-			settings.username = data.username;
-		}
-
-		if (typeof data.password === 'string') {
-			settings.password = data.password;
-		}
-
-		if (typeof data.key === 'string') {
-			settings.privateKey = data.key;
-		}
-
-		tunnel.connect(settings);
 
 	};
 

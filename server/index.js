@@ -15,10 +15,9 @@ var _fs = require('fs');
         var traceroute       = require('./traceroute.js');
         var instance_start   = require('./instance_start.js');
         var instance_command = require('./instance_command.js');
+        var instance_delete = require('./instance_delete.js');
 
-        var instance_ip = "127.0.0.1";
-        var _config = JSON.parse(_fs.readFileSync(__dirname + '/../lib/config/ssh/' + instance_ip + '.json'));
-
+        var _config = require('../lib/config/config');
 
         var wsserver = socketio.listen(httpserver);
 
@@ -26,10 +25,9 @@ var _fs = require('fs');
 
             socket.on('ping', function (data) {
 
-                data.host = _config.host;
-                data.port = _config.port;
-                data.username = _config.username;
-                data.password = _config.password;
+                data.key = _config.sshkey;
+                data.port = _config.sshport;
+                console.log('DATA', data);
                 ping(data, socket);
 
             });
@@ -38,6 +36,7 @@ var _fs = require('fs');
 
                 data.host = _config.host;
                 data.port = _config.port;
+                data.key = _config.sshkey;
                 data.username = _config.username;
                 data.password = _config.password;
                 download(data, socket);
@@ -48,18 +47,23 @@ var _fs = require('fs');
 
                 data.host = _config.host;
                 data.port = _config.port;
+                data.key = _config.sshkey;
                 data.username = _config.username;
                 data.password = _config.password;
                 traceroute(data, socket);
 
             });
+            
+            socket.on('instance.delete', function(data){
+                data.key = _config.sshkey;
+                instance_delete(data, socket);
+            });
 
             socket.on('instance.command', function (data) {
 
-                data.host = _config.host;
-                data.port = _config.port;
-                data.username = _config.username;
-                data.password = _config.password;
+                data.key = _config.sshkey;
+                //data.username = _config.username;
+                //data.password = _config.password;
                 instance_command(data, socket);
 
             });

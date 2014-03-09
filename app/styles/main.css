@@ -7365,6 +7365,11 @@ h3 .glyphicon {
   min-height: 800px;
   overflow: hidden;
 }
+.start-instance .steps {
+  display: block;
+  width: 230px;
+  margin: 0 auto;
+}
 .landing-page .demo {
   background: #eee;
   padding: 20px;
