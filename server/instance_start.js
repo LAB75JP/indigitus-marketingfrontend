@@ -239,10 +239,16 @@ var _CONFIG = require('../lib/config/config');
 
 	var Callback = function(data, socket, ubercallback, uberscope) {
 
+		var step  = 0;
+		var steps = 8;
+
 		var _step = function(msg) {
 
+			step++;
+
 			socket.emit('instance.step', {
-				line: msg
+				line: msg,
+				percentage: step / steps
 			});
 
 		};
