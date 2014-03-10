@@ -1,10 +1,10 @@
 'use strict';
 
 
-angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties) {
+angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	$scope.host = sharedProperties.get('host');
-	// $scope.host = '127.0.0.1';
+	//$scope.host = sharedProperties.get('host');
+	$scope.host = '127.0.0.1';
 
 
 	/*
@@ -128,7 +128,14 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		p1: {
 			color: '#000',
 			weight: 2,
-			latlngs: []
+			latlngs: [{
+				lat: 53.55857,
+				lng: 9.9278215
+			},
+			{
+				lat: 52.5075419,
+				lng: 13.4261419 
+			}]
 		}
 	};
 
@@ -160,7 +167,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			var add = false;
             if (traceroute && traceroute.location) {
                 var add = true;
-			    console.log(traceroute);
 				for (var y in latlngs) {
 					if (latlngs[y]) {
 						if (
@@ -173,7 +179,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 					}
 				}
 			}
-            console.log(add);
+
 			if (add) {
 				$scope.paths.p1.latlngs[$scope.pathItems++] = {
 					lat: traceroute.location.latitude,
@@ -189,7 +195,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.tracerouteHosts = {};
 	$scope.tracerouteLines = [];
 	$scope.tracerouteList = [];
-
+	var setCenter = false;
 	socket.on('traceroute', function(data) {
 
 		if (data === null) return false;
@@ -221,6 +227,13 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				}
 
 				if (data.location) {
+					if(!setCenter){
+						$scope.center = {
+							lat: data.location.latitude,
+							lng: data.location.longitude,
+							zoom: 10
+						};
+					}
 					var time = (data.time) ? ' ' + data.time + 'ms' : '';
 					var label = data.host + time;
 					$scope.addMarker(data.sequence, label, data.location);
@@ -250,7 +263,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	});
 
 	$scope.traceroute = function () {
-
 		$scope.hideTraceroute = false;
 		$scope.paths = {
 			p1: {
@@ -270,9 +282,23 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.tracerouteLines = [];
 		socket.emit('traceroute', {
 			host:   $scope.host,
-			target: '173.252.110.27',
+			target: '173.194.116.41',
 			start:  Date.now()
 		});
+		
+
+		$timeout(function(){
+			
+			leafletData.getMap().then(function(map){
+				
+				map.invalidateSize(false);
+			})
+			.catch(function(){
+				console.log('DID NOT GET MAP');
+			})
+			
+		}, 3000);
+			
 
 	};
 
@@ -386,7 +412,12 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	$scope.defaults = {
 		tileLayer: "https://{s}.tiles.mapbox.com/v3/lab75.hfmjfap1/{z}/{x}/{y}.png",
-		scrollWheelZoom: false
+		scrollWheelZoom: false,
+		 tileLayerOptions: {
+			opacity: 0.9,
+			detectRetina: false,
+			reuseTiles: true,
+		}
 	};
 
 

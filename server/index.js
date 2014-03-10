@@ -6,6 +6,7 @@
 
 var _CONFIG = require('../lib/config/config');
 var _fs     = require('fs');
+var simpleRecaptcha = require('simple-recaptcha');
 
 (function () {
 
@@ -90,8 +91,8 @@ var _fs     = require('fs');
 	 * IMPLEMENTATION
 	 */
 
-    var server = function (httpserver) {
-
+    var server = function (httpserver, app) {
+		
         var socketio         = require('socket.io');
         var ping             = require('./ping.js');
         var download         = require('./download.js');
@@ -106,7 +107,8 @@ var _fs     = require('fs');
         var wsserver = socketio.listen(httpserver);
 
         wsserver.sockets.on('connection', function (socket) {
-
+			socket.captcha_valid = false;
+				
             socket.on('ping', function (data) {
 				_dispatch_profile(data);
                 ping(data, socket);
@@ -138,8 +140,28 @@ var _fs     = require('fs');
             });
 
             socket.on('instance.start', function (data) {
-                instance_start(data, socket, _create_profile, that);
+				if(socket.captcha_valid || _CONFIG.environment === 'development'){
+					instance_start(data, socket, _create_profile, that);
+				}
             });
+			
+			socket.on('captcha.validate', function(data){
+				console.log(arguments);
+				var privateKey = _CONFIG.recaptcha.privateKey;
+				var challenge = data.challenge;
+				var response = data.response;
+				console.log('SOCKET CONNECTION', socket.handshake);
+				var ip = socket.handshake.address.address;
+				simpleRecaptcha(privateKey, ip, challenge, response, function(err) {
+			  		socket.captcha_valid = false;
+					if (err) {
+				  		return socket.emit('captcha.invalid', {err: err.message});
+				  	}
+					socket.captcha_valid = true;
+					socket.emit('captcha.valid', {success: true})		
+				});
+				
+			});
 
         });
 

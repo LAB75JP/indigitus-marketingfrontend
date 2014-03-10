@@ -6,46 +6,44 @@
 
 .container.container.landing-page
     .row.header
-        .col-md-12
+        .col-md-12.start-map
+            .row 
+                .col-md-12
+                    h2
+                        ="Refined"
+                        br
+                        ="Cloud Computing"
+                        br
+                        ="from Switzerland"
+                    p
+                        ="Launch your Swiss-based "
+                        br
+                        ="test instance in less than 20 sec.!"
+                        br
             .row
-                .col-md-5
+                .col-md-12
+                    button.btn.btn-to-tour(ng-click="scrollToDemo()")="Try now!"
+                    //-(ng-hide="hideCaptchaForm === false", ng-click="hideCaptchaForm = !hideCaptchaForm")
+            .row.captcha-wrapper(collapse="hideCaptchaForm")
+                .col-md-12
                     .row 
-                        .col-md-12
-                            h2
-                                ="Refined"
-                                br
-                                ="Cloud Computing"
-                                br
-                                ="from Switzerland"
-                            p
-                                ="Launch your Swiss-based "
-                                br
-                                ="test instance in less than 20 sec.!"
-                                br
+                        h3="We will start a instance..."
                     .row
-                        .col-md-12
-                            button.btn.btn-to-tour(ng-click="scrollToDemo()")="Try now!"
-                            //-(ng-hide="hideCaptchaForm === false", ng-click="hideCaptchaForm = !hideCaptchaForm")
-                    .row.captcha-wrapper(collapse="hideCaptchaForm")
-                        .col-md-8
-                            .row 
-                                h3="We will start a instance..."
-                            .row
-                                alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
-                                    = "{{alert.msg}}"                
-                                form
-                                    div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
-                            .row
-                                button.btn.btn-block.pull-left.btn-default(ng-click="checkCaptcha()")
-                                    = "Start"        
-                .col-md-7
-                    img.map(src='images/map.png')
+                        alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
+                            = "{{alert.msg}}"                
+                        form
+                            div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+                    .row
+                        button.btn.btn-block.pull-left.btn-default(ng-click="checkCaptcha()")
+                            = "Start"        
     .row.intro
         .col-md-4
             h3="Indigitus makes a point"
             ul
                 li="Swiss location and neutrality"
-                li="NSA-free due to specific data center and network design"
+                li="NSA-free due to specific data center" 
+                br 
+                = "and network design"
                 li="Free expert support"
                 li="Fully based on OpenStack"
         .col-md-8
@@ -53,8 +51,10 @@
             p
                 ="We combine the security level of an OpenStack private cloud environment with the benefits of a physical shared "
                 ="infrastructure. This enables us to offer you secure private cloud computing at an unequaled affordable pricing level - "
-                ="In addition, we provide you with a full-blown OpenStack API for even more convenient individual use of our IaaS platform."
-                ="We are using the latest Quanta hardware to boost your business. Our FINMA certified Swiss data center has no NSA "
+                ="In addition, we provide you with a full-blown OpenStack API for even more convenient individual use of our IaaS platform. "
+                ="We are using the latest Quanta hardware to boost your business. Our "
+                a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx")="FINMA"
+                = " certified Swiss data center has no NSA "
                 ="strings attached. In addition, we are delighting you with fast downstream and upstream IP connections via our premium "
                 ="European uplink partners."
     .row.feature-highlight
@@ -64,34 +64,31 @@
         .col-md-4
             h3="Adaptable."
             .img-wrapper
-                img(src="images/setup.png")
-            ul
-                li="Pure OpenStack API"
-                li="Precise and transparent pricing"
-                li
-                    ="FINMA approved data center"
-                    br
-                    ="(Swiss Financial Market Supervisory Authority)"
-                li= "Swiss neutrality since 1515"
+                ul
+                    li="Pure OpenStack API"
+                    li="Precise and transparent pricing"
+                    li
+                        ="FINMA approved data center"
+                        br
+                        ="(Swiss Financial Market Supervisory Authority)"
+                    li= "Swiss neutrality since 1515"
         .col-md-4.feature
             h3="Flexible."
             .img-wrapper 
-                img(src="images/dashboard.png")
-            ul 
-                li="IaaS Cloud Computing offer"
-                li="Pay-as-you-go pre-payment"
-                li="No upfront investments (CAPEX)"
-                li="Cost effective due to shared infrastructure"
+                ul 
+                    li="IaaS Cloud Computing offer"
+                    li="Pay-as-you-go pre-payment"
+                    li="No upfront investments (CAPEX)"
+                    li="Cost effective due to shared infrastructure"
 
         .col-md-4.feature
             h3="Empowering."
             .img-wrapper 
-                img(src="images/money.png")
-            ul 
-                li="Rapid instance deployment"
-                li="Latest Quanta server hardware"
-                li="Full control via web portal and API"
-                li="Expert support"
+                ul 
+                    li="Rapid instance deployment"
+                    li="Latest Quanta server hardware"
+                    li="Full control via web portal and API"
+                    li="Expert support"
     #demo.row.demo         
         .col-md-12
             .row
@@ -101,7 +98,7 @@
                 .col-md-8
                     h3="Prove us: Launch your test instance in less than 20 sec.!"
                     p
-                        ="When you press the button, we will deploy a real instance on our IaaS platform."
+                        ="When you press the button, we will deploy a real instance on our IaaS platform. "
                         ="We will show you all steps we make to deploy the instance in real time. After the instance was deployed successfully, you’re forwarded you to a functional "
                         ="page running on that newly deployed instance."
                         =" On this page you are able to" 
@@ -116,23 +113,11 @@
                         a.btn.btn-default(ng-click="reloadCaptcha()")
                             span.glyphicon.glyphicon-refresh
                         button.btn.btn-default.pull-right(ng-click="checkCaptcha()")
-                            = "Start your Instance now!"       
+                            = "Start your instance now!"       
 
                 
     .row.contact-us
         .col-md-12
             h1="Where we are"
             <leaflet center="center" markers="markers" defaults="defaults" height="300"></leaflet>
-.footer
-  .container
-    .row
-      .col-md-4
-        a(href="mailto:info@indigitus.ch")
-          = "info@indigitus.ch"
-        p
-          = "©2014 Indigitus AG • Lindenstrasse 4 • CH-6340 Baar<br>Trade Register Number CH-170.3.038.029-3"
-          br
-          = "Board of Directors: Thomas C. Bächtold"
-      .col-md-8
-      
-      
+

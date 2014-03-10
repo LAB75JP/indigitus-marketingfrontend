@@ -1,3 +1,4 @@
+@import "leaflet-resets";
 body, html {
     width: 100%;
     height: 100%;
@@ -17,82 +18,13 @@ body, html {
     position: absolute;
     right: 30px;
     top: 120px;
-    
     font-size: 50px;
 }
-
-.leaflet-map-pane,
-.leaflet-objects-pane,
-.leaflet-overlay-pane,
-.leaflet-zoom-animated,
-.leaflet-marker-pane {
-  height: 100%;
-  width: 100%;
-}
-
-.traceroute-map {
-  position: relative;
-}
-  
-.leaflet-popup {
-  margin-left: 5px;
-  position: relative;
-  width: 200px;
-}
-  
-
-.leaflet-popup-content-wrapper {
-  width: 200px;
-}
-  
-.leaflet-popup-content-wrapper {
-  margin-top: -75px;
-}
-  
-.leaflet-container { 
-  a.leaflet-popup-close-button {
-    margin-top: -74px;
-    margin-left: 179px;
-    top: -70px;
-  }
-}
-
 
 #map {
   height: 100%;
   width: 100%;
 }
-
-
-.leaflet-control-layers label {
-  font-weight: normal;
-  margin-bottom: 0px;
-}
-
-.leaflet-popup-content {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-.leaflet-popup-content-wrapper {
-  border-radius: 5px;
-}
-.leaflet-sidebar {
-  z-index: 1020;
-}
-.leaflet-sidebar .close {
-  right: 0px;
-  top: 5px;
-  background: transparent;
-}
-
-.background {
-    background: white;
-    width: 100%;
-    height: 100%;
-}
-
 
 .fade-in {
     opacity: 0;
@@ -154,7 +86,6 @@ h3 {
 
 
 .main-container {
-    margin-bottom: -20px;
     background-color: #f9f9f9;
 }
 
@@ -166,6 +97,11 @@ h3 {
     h1 {
         color: #4d4d70;
     }
+    
+    .footer {
+        display: none;
+    }
+    
     .steps {
         display: block;
         margin: 30px auto;
@@ -189,7 +125,13 @@ h3 {
     }
 }
 
+
 .landing-page {
+    
+    .start-map {
+        background: url('/images/map.png') right center no-repeat;
+        min-height: 300px;
+    }
     
     .demo {
         background: #eee;
@@ -262,9 +204,6 @@ h3 {
         padding: 30px 30px 30px 30px;
         background: #eee;
     }
-    .map {
-        max-height: 600px;
-    }
     #recaptcha_logo,
     #recaptcha_whatsthis_btn,
     #recaptcha_switch_audio_btn,
@@ -285,7 +224,7 @@ h3 {
     }
     
     .btn-to-tour { 
-        background: rgb(231,105,100);
+        background: #ff0000;
         border-color: rgb(231,105,100);
         margin-top: 10px;
         color: white;
@@ -299,9 +238,8 @@ h3 {
             text-align: center;
         }
         .img-wrapper {
-            text-align: center;
             width: 100%;
-            height: 200px; 
+            height: 150px; 
             background: #eee;
             padding: 20px;
         } 
@@ -379,7 +317,13 @@ h3 {
     }
 }
 
+.main-container {
+    padding-bottom: 50px;
+}
+
 .control-panel {
+    
+    
     
     .well {
         padding: 5px 20px 20px 20px;

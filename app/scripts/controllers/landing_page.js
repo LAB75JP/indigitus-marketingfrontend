@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('indigitusMarketingApp')
-    .controller('LandingPageCtrl', function ($scope, $http, $location, vcRecaptchaService) {
+    .controller('LandingPageCtrl', function ($scope, $http, $location, vcRecaptchaService, socket) {
         
         $scope.hideCaptchaForm = true;
 
         $scope.center= {
             lat: 47.184371,
             lng: 8.5177285,
-            zoom: 15
+            zoom: 10
         };
         $scope.markers = {
             m1: {
@@ -66,12 +66,10 @@ angular.module('indigitusMarketingApp')
                 });
                 return;
             }
-
-            $http({
-                method: 'POST',
-                url: '/check_recaptcha',
-                data: vcRecaptchaService.data()
-            }).success(function (data) {
+            
+            socket.emit('captcha.validate', vcRecaptchaService.data() );
+            
+            socket.on('captcha.invalid', function(data){
                 if (data.err) {
                     $scope.alerts.push({
                         type: 'danger',
@@ -79,18 +77,10 @@ angular.module('indigitusMarketingApp')
                     });
                     vcRecaptchaService.reload();
                 }
-                if (data.success) {
-                    $location.path('/start_instance').replace();
-                    return;
-                }
-                vcRecaptchaService.reload();
-            }).error(function (data) {
-                vcRecaptchaService.reload();
-                $scope.alerts.push({
-                    type: 'danger',
-                    msg: data.err
-                });
-
+            });
+            
+            socket.on('captcha.valid', function(data){
+               $location.path('/start_instance').replace(); 
             });
 
 
