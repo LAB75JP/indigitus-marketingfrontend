@@ -231,7 +231,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 						$scope.center = {
 							lat: data.location.latitude,
 							lng: data.location.longitude,
-							zoom: 10
+							zoom: 8
 						};
 					}
 					var time = (data.time) ? ' ' + data.time + 'ms' : '';
@@ -443,6 +443,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
   	$scope.onTerminalInput = function(command, term) {
     	terminal = term;
+		console.log('COMMAND');
     	if (command === 'help') {
       		var sep = '\n';
       		term.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
@@ -458,7 +459,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	
     
 	$scope.hideUpload = true;
-    $scope.hideTerminalRow = true;
+    $scope.hideTerminalRow = false;
 	$scope.hideTerminal = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
