@@ -242,18 +242,25 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				}
 
 				if (data.location) {
-/*					if(!setCenter){
-						$timeout(function(location, i){
-							$scope.center = {
-								lat: data.location.latitude,
-								lng: data.location.longitude,
-								zoom: 8
-							};
-						}.bind(this, location, i), 1000 * i);
-					}*/
-					var time = (data.time) ? ' ' + data.time + 'ms' : '';
+					if(!setCenter){
+ 						(function(location){
+ 							//console.log('INTERVAL COUNTER', intervalCounter);
+ 							$timeout(function(){
+ 								var time = (data.time) ? ' ' + data.time + 'ms' : '';
+ 								var label = data.host + time;
+ 								$scope.addMarker(data.sequence, label, data.location);
+ 								//console.log('location', location);
+ 								$scope.center = {
+ 									lat: data.location.latitude,
+ 									lng: data.location.longitude,
+ 									zoom: 5
+ 								};	
+ 							}, intervalCounter++ * 3000);
+ 						})(data.location);
+ 					}
+					/*var time = (data.time) ? ' ' + data.time + 'ms' : '';
 					var label = data.host + time;
-					$scope.addMarker(data.sequence, label, data.location);
+					$scope.addMarker(data.sequence, label, data.location);*/
 					//$scope.updatePath();
 				}
 
@@ -514,7 +521,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
   	};
 
-
+	$scope.hideTerminalRow = true;
 	$scope.hideUpload = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;

@@ -7724,6 +7724,7 @@ h3 .glyphicon {
   height: 100%;
 }
 .start-instance h1 {
+  margin-top: 50px;
   color: #4d4d70;
 }
 .start-instance .steps {
