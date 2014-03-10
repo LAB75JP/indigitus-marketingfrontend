@@ -3,8 +3,8 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	//$scope.host = sharedProperties.get('host');
-	$scope.host = '127.0.0.1';
+	$scope.host = sharedProperties.get('host');
+	//$scope.host = '127.0.0.1';
 
 
 	/*
@@ -102,7 +102,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 			var marker = $scope.markers[key];
 			if (marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)) {
-				console.log('RETURN');
 				return;
 			}
 
