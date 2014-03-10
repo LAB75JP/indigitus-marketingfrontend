@@ -20,8 +20,8 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	
 	socket.on('instance.step', function(data) {
 		$scope.$apply(function(){
-			console.log('DATA', data);
-			console.log('PERCENTAGE', data.percentage);
+			/*console.log('DATA', data);
+			console.log('PERCENTAGE', data.percentage);*/
 			if($scope.steps.indexOf(data.line) === -1 ){
 				$scope.steps.push(data.line);
 			}
@@ -35,7 +35,7 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 			sharedProperties.set('host', data.host);
 		}
 
-		console.log('ON INSTANCE READY', data.ip);
+		//console.log('ON INSTANCE READY', data.ip);
 
         $timeout(function(){
             $location.path('/control_panel').replace();
@@ -44,7 +44,7 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 	});
 
 	socket.on('instance.error', function(data) {
-		console.error(data);
+		//console.error(data);
 	});
 
 
