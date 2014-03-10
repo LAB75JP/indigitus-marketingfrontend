@@ -10,7 +10,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 * PING
 	 */
 	$scope.timeLeft = '30:00';
-	var timeLeft = 60 * 30;
+	var timeLeft = 60 * 1;
 	var decreaseTimeLeft = function(){
 		timeLeft -= 1;
 		var seconds = timeLeft%60 + '';
@@ -18,6 +18,12 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.timeLeft = Math.floor(timeLeft / 60) + ':' + secondsDisplay;
 		if(timeLeft > 0){
 			$timeout(decreaseTimeLeft, 1000);
+		}
+		else {
+			socket.emit('instance.delete', {host: $scope.host});
+			$scope.$apply(function(){
+				$location.path('/').replace();
+			});
 		}
 	};
 	$timeout(decreaseTimeLeft, 1000);
@@ -70,7 +76,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 
 	$scope.ping = function() {
-
+		
 		$scope.hidePing = false;
 		if ($scope.pingsActive === true) {
 			return false;
@@ -117,13 +123,15 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			}
 
 		}
+		
+		var icon = ( host.indexOf('.atlas.cogentco.com') > -1 ) ? 'images/indigitus_setup.png':'images/setup.png';
 
 		$scope.markers['m' + new Date().getTime()] = {
 			lat: parseFloat(location.latitude),
 			lng: parseFloat(location.longitude),
 			message: host,
 			icon: {
-				iconUrl: 'images/setup.png',
+				iconUrl: icon,
 				iconSize: [25, 25],
 				iconAnchor: [5, 10],
 				popupAnchor: [0, 0],
@@ -203,6 +211,10 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		}
 
 	};
+	
+	socket.on('traceroute.stop', function(){
+		$scope.tracerouteActive = false;
+	});
 
 	// TODO: Order Traceroute by sequence!
 	$scope.tracerouteHosts = {};
@@ -254,13 +266,10 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 									 lng: data.location.longitude,
 									 zoom: 5
 								 };
-							 }, intervalCounter++ * 1500);
+							 }, intervalCounter++ * 2000);
 						 })(data.location);
 					 }
-					/*var time = (data.time) ? ' ' + data.time + 'ms' : '';
-					var label = data.host + time;
-					$scope.addMarker(data.sequence, label, data.location);*/
-					//$scope.updatePath();
+
 				}
 
 			}
@@ -309,19 +318,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			target: '173.194.116.41',
 			start:  Date.now()
 		});
-
-
-		/*        $timeout(function(){
-
-			leafletData.getMap().then(function(map){
-
-				map.invalidateSize(false);
-			})
-			.catch(function(){
-				console.log('DID NOT GET MAP');
-			})
-
-		}, 3000);*/
 
 	};
 
@@ -398,9 +394,13 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	};
 
 	socket.on('download', function(data) {
+		$('.progress-striped').addClass('active');
 		if (data === null) return;
 		$scope.$apply(function () {
 			$scope.downloadPercentage = data.percentage;
+			if($scope.downloadPercentage == 100){
+				$('.progress-striped').removeClass('active');
+			}
 		});
 	});
 

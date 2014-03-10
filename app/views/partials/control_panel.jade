@@ -67,7 +67,7 @@
                     h3
                         span.glyphicon.glyphicon-bell
                         ="Ping"
-                        small="Ping google.com from your instance"
+                        small="Ping google.com and see the low latency of the indigitus network"
                 .col-md-2
                     a.btn.btn-small.btn-default.btn-block.btn-start(ng-click="ping()", ng-disabled="pingsActive")
                         span(ng-if="pingsActive")
@@ -110,7 +110,7 @@
                     h3
                         span.glyphicon.glyphicon-map-marker
                         ="Traceroute"
-                        small="Traceroute google.com from your instance"
+                        small="Run trace route to see where your traffic goes"
                 .col-md-2
                     a.btn.btn-default.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")
                         span(ng-if="tracerouteActive")
@@ -169,7 +169,7 @@
                             ="Test"
             .row(collapse="hideUpload")
                 .col-12
-                    .progress.progress-striped.active
+                    .progress.progress-striped
                         .progress-bar(style='width: {{uploadPercentage}}%', role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100')
                             = "60%"
                     p="Time: {{uploadTimeDisplay}} seconds"
@@ -181,7 +181,7 @@
                     h3
                         span.glyphicon.glyphicon-cloud-download
                         ='Download'
-                        small="11MB from imgur.com"
+                        small="Download data on your instance and see the speed of indigitus datacenters connectivity"
                 .col-md-2
                     a.btn.btn-default.btn-block(ng-click="download()")
                         span(ng-if="downloadActive")
