@@ -97,7 +97,7 @@
                                         span.glyphicon.glyphicon-chevron-down   
                                         ="Hide Raw Output"
                                 div(collapse="hidePingOutput")
-                                    div.well
+                                    div.well.raw-output
                                         h3(ng-if="pingLines.length === 0").text-center="No output yet"
                                         p(ng-if="pingLines.length > 0").text-right="Average {{pingsAverage}}"
                                         div(ng-if="pingLines.length > 0")
@@ -142,7 +142,7 @@
                                     span.glyphicon.glyphicon-chevron-down   
                                     ="Hide Raw Output"
                             div(collapse="hideTracerouteOutput")
-                                div.well
+                                div.well.raw-output
                                     h3(ng-if="tracerouteLines.length === 0").text-center= "No output yet"
                                     div(ng-if="tracerouteLines.length > 0")
                                         ul 
@@ -217,10 +217,3 @@
                 .col-md-12.terminal-wrapper
                     <div terminal cb="onTerminalInput" width="100%" height="400" greetings="Connected to testinstance" prompt="testinstance:testuser$"></div>
 
-div
-//-    .row
-//-        .col-md-2
-//-            <img src="images/setup.png">
-//-        .col-md-10.intro
-//-            h3="Try it out"
-//-            p='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'

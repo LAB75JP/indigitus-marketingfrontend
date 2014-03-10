@@ -7613,8 +7613,19 @@ h3 .glyphicon {
 .main-container {
   padding-bottom: 50px;
 }
+.control-panel .traceroute-info {
+  margin-top: 20px;
+}
 .control-panel .well {
   padding: 5px 20px 20px 20px;
+}
+.control-panel .raw-output-link {
+  margin-top: 20px;
+}
+.control-panel .raw-output {
+  margin-top: 20px;
+  height: 150px;
+  overflow-y: scroll;
 }
 .control-panel .glyphicon-chevron-right,
 .control-panel .glyphicon-chevron-down {
@@ -7636,7 +7647,7 @@ h3 .glyphicon {
   padding: 10px 10px;
 }
 .control-panel .terminal {
-  background-color: #000000;
+  background-color: #272822;
   font-size: 15px;
   font: 'Ubuntu Mono', Arial, Sans Serif;
   margin-top: 20px;

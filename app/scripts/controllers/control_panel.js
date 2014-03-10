@@ -3,8 +3,8 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	// $scope.host = sharedProperties.get('host');
-	$scope.host = '127.0.0.1';
+	$scope.host = sharedProperties.get('host');
+	//$scope.host = '127.0.0.1';
 
 
 	/*
@@ -102,7 +102,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 			var marker = $scope.markers[key];
 			if (marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)) {
-				console.log('RETURN');
 				return;
 			}
 
@@ -227,13 +226,15 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				}
 
 				if (data.location) {
-					if(!setCenter){
-						$scope.center = {
-							lat: data.location.latitude,
-							lng: data.location.longitude,
-							zoom: 10
-						};
-					}
+/*					if(!setCenter){
+						$timeout(function(location, i){
+							$scope.center = {
+								lat: data.location.latitude,
+								lng: data.location.longitude,
+								zoom: 8
+							};
+						}.bind(this, location, i), 1000 * i);
+					}*/
 					var time = (data.time) ? ' ' + data.time + 'ms' : '';
 					var label = data.host + time;
 					$scope.addMarker(data.sequence, label, data.location);
@@ -287,7 +288,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		});
 
 
-		$timeout(function(){
+/*		$timeout(function(){
 
 			leafletData.getMap().then(function(map){
 
@@ -297,8 +298,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				console.log('DID NOT GET MAP');
 			})
 
-		}, 3000);
-
+		}, 3000);*/
 
 	};
 
@@ -477,21 +477,21 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		}
 
 
-			_terminal.pause();
     	if (command === 'help') {
 
-      		var sep = '\n';
-      		_terminal.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
+      		_terminal.echo('\n\n\n' + AVAILABLE_COMMANDS.join('\n') + '\n');
+			_terminal.resume();
+
       		return;
 
     	} else {
 
       		socket.emit('instance.command', {
-        		host: $scope.host,
+        		host:    $scope.host,
         		command: command
       		});
 
-      		term.pause();
+      		_terminal.pause();
 
     	}
 

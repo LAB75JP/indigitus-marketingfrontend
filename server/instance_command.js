@@ -136,7 +136,6 @@
 
 		});
 
-console.log(data);
 
 		tunnel.connect(data);
 
