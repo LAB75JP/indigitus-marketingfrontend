@@ -7974,6 +7974,9 @@ h3 .glyphicon {
   font: 'Ubuntu Mono', Arial, Sans Serif;
   margin-top: 20px;
 }
+.control-panel .terminal .prompt {
+  font-size: 15px;
+}
 .control-panel ul {
   list-style-type: none;
 }

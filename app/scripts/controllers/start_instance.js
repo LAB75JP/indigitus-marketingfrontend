@@ -32,6 +32,9 @@ angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function
 		if (data.host !== null) {
 			sharedProperties.set('host', data.host);
 		}
+		if(data.time !== null) {
+			sharedProperties.set('startupTime', data.time);
+		}
 
 		//console.log('ON INSTANCE READY', data.ip);
 

@@ -5,6 +5,10 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	$scope.host = sharedProperties.get('host');
 	//$scope.host = '127.0.0.1';
+	
+	
+	$scope.startupTime = sharedProperties.get('startupTime') / 1000;
+	console.log('STARTUP TIME', $scope.startupTime);
 
 	/*
 	 * PING
@@ -453,19 +457,17 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
-		'cd',
 		'cat',
 		'grep',
-		'pcregrep'
+		'ps',
+		'netstat',
+		'touch'
+		
 	];
 
 	socket.on('instance.command_output', function(data) {
 
 		if (_terminal !== null) {
-
-//			if (data.code === 127) 
-//				_terminal.error('type "help" for available commands');
-//            }
 
 			if (typeof data.line === 'string') {
 				_terminal.echo(data.line);
@@ -520,12 +522,11 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	  };
 
-	$scope.hideTerminalRow = true;
-	$scope.hideUpload = true;
+	$scope.hideTerminalRow = false;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
 	$scope.hidePing = true;
-	$scope.hideTerminal = false;
+	$scope.hideTerminal = true;
 	$scope.hideTraceroute = true;
 	$scope.hidePingOutput = true;
 	$scope.hideTracerouteOutput = true;

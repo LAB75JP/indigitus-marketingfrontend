@@ -236,12 +236,22 @@ var _CONFIG = require('../lib/config/config');
 	/*
 	 * IMPLEMENTATION
 	 */
+	
+	
 
 	var Callback = function(data, socket, ubercallback, uberscope) {
-
+		var _startupTime = 0;
+		var _started = false;
 		var step  = 0;
 		var steps = 8;
 
+		var _timer = function(){
+			_startupTime += 100;
+			if(!_started){
+				setTimeout(_timer, 100);
+			}
+		};
+		
 		var _step = function(msg) {
 
 			step++;
@@ -275,7 +285,7 @@ var _CONFIG = require('../lib/config/config');
 			_step('Clonging template ...');
 
 			_clone_template(function(data) {
-
+				setTimeout(_timer, 100);
 				_step('Creating server instance "' + data.name + '" ...');
 
 				_create_server(data, function(server) {
@@ -317,15 +327,17 @@ var _CONFIG = require('../lib/config/config');
 
 									if (ip !== null) {
 
+										_started = true;
 										_step('Server ready!');
 
 										ubercallback.call(uberscope, {
 											host: ip
 										});
 
-
+										console.log(_startupTime);
 										socket.emit('instance.ready', {
-											host: ip
+											host: ip,
+											time: _startupTime
 										});
 
 										handle(true);

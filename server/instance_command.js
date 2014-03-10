@@ -31,10 +31,13 @@
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
-		'cd',
 		'cat',
 		'grep',
-		'pcregrep'
+		'pcregrep',
+		'ifconfig',
+		'netstat',
+		'ps',
+		'touch'
 	];
 
 
@@ -85,7 +88,7 @@
 			var command = _filter(data.command);
 			if (command === null) {
 
-				socket.emit('instance.command_error', {
+				return socket.emit('instance.command_error', {
 					error: 'Not executed for security reasons.'
 				});
 
@@ -106,18 +109,10 @@
 					stream.on('data', function (raw) {
 
 						var str = raw.toString();
-						if (str.match(/\n/)) {
-
-							buffer += str.substr(0, str.indexOf('\n'));
-
-							socket.emit('instance.command_output', {
-								line: buffer
-							});
-
-							buffer = str.substr(str.indexOf('\n') + 1);
-
-						}
-
+						socket.emit('instance.command_output', {
+							line: raw.toString()
+						});
+						
 					});
 
 				}
