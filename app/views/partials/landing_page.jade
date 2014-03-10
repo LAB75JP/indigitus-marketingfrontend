@@ -1,3 +1,4 @@
+.landing-page-map 
 .navbar.navbar-fixed-top
     .container
         .navbar-header
@@ -5,12 +6,13 @@
                 = "Indigitus"
 
 .container.container.landing-page
+
     .row.header
         .col-md-12.start-map
             .row 
-                .col-md-12
+                .col-md-12.teaser
                     h2
-                        ="Refined"
+                        ="Try it out: Refined"
                         br
                         ="Cloud Computing"
                         br
@@ -23,7 +25,6 @@
             .row
                 .col-md-12
                     button.btn.btn-to-tour(ng-click="scrollToDemo()")="Try now!"
-                    //-(ng-hide="hideCaptchaForm === false", ng-click="hideCaptchaForm = !hideCaptchaForm")
             .row.captcha-wrapper(collapse="hideCaptchaForm")
                 .col-md-12
                     .row 
@@ -41,9 +42,7 @@
             h3="Indigitus makes a point"
             ul
                 li="Swiss location and neutrality"
-                li="NSA-free due to specific data center" 
-                br 
-                = "and network design"
+                li="NSA-free due to specific data center and network design"
                 li="Free expert support"
                 li="Fully based on OpenStack"
         .col-md-8
@@ -52,10 +51,11 @@
                 ="We combine the security level of an OpenStack private cloud environment with the benefits of a physical shared "
                 ="infrastructure. This enables us to offer you secure private cloud computing at an unequaled affordable pricing level - "
                 ="In addition, we provide you with a full-blown OpenStack API for even more convenient individual use of our IaaS platform. "
+                br
                 ="We are using" 
                 br
                 ="the latest Quanta hardware to boost your business. Our "
-                a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx")="FINMA"
+                a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
                 = " certified Swiss data center has no NSA "
                 ="strings attached. In addition, we are delighting you with fast downstream and upstream IP connections via our premium "
                 ="European uplink partners."
@@ -70,16 +70,15 @@
                     li="Pure OpenStack API"
                     li="Precise and transparent pricing"
                     li
-                        ="FINMA approved data center"
-                        br
-                        ="(Swiss Financial Market Supervisory Authority)"
+                        a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
+                        =" approved data center"
                     li= "Swiss neutrality since 1515"
         .col-md-4.feature
             h3="Flexible."
             .img-wrapper 
                 ul 
                     li="IaaS Cloud Computing offer"
-                    li="Pay-as-you-go pre-payment"
+                    li="Pay-per-use pre-payment"
                     li="No upfront investments (CAPEX)"
                     li="Cost effective due to shared infrastructure"
 
@@ -98,7 +97,7 @@
                     h2.text-center="Try the demo for free"
             .row 
                 .col-md-8
-                    h3="Prove us: Launch your test instance in less than 20 sec.!"
+                    h3="Prove us: Launch your test instance in < 20 sec!"
                     p
                         ="When you press the button, we will deploy a real instance on our IaaS platform. "
                         ="We will show you all steps we make to deploy the instance in real time. After the instance was deployed successfully, you’re forwarded you to a functional "
@@ -114,7 +113,7 @@
                         div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
                         a.btn.btn-default(ng-click="reloadCaptcha()")
                             span.glyphicon.glyphicon-refresh
-                        button.btn.btn-default.pull-right(ng-click="checkCaptcha()")
+                        button.btn.btn-default.pull-right.btn-start-instance-now(ng-click="checkCaptcha()")
                             = "Start your instance now!"       
 
                 

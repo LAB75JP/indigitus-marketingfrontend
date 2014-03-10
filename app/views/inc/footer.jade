@@ -1,15 +1,38 @@
 .footer
   .container
     .row
+        .col-md-12
+            h3="Contact"
+    .row
       .col-md-4
+        h4="Legal Information"
         p
           = "©2014 Indigitus AG • Lindenstrasse 4 • CH-6340 Baar"
           br
-          = "Trade Register Number CH-170.3.038.029-3"
+          = "CHE-253.562.065 MWST"
           br
           = "Board of Directors: Thomas C. Bächtold"
+        
+                //a(href='#')
+                //    li#linkedin.icon-linkedin
+                
+                //
+                   cv-social-media 
+                #clear
+
       .col-md-4
+        h4="About Us"
+        p="We offer a Swiss-based cloud computing infrastructure that is as adaptable, flexible and efficient as your business needs it to be."
+        h4="Follow Us"
+        div
+            ul.cv-social-media
+                a(href='https://www.facebook.com/indigitus')
+                    li#facebook.icon-facebook
+                a(href='https://twitter.com/indigitus')
+                    li#twitter.icon-twitter
+
         
       .col-md-4
-        img.openstack-logo.pull-right(src="images/openstack.png")
+        h4="Built On"
+        img.openstack-logo(src="images/openstack.png")
       

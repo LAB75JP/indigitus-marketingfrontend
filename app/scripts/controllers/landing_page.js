@@ -8,7 +8,7 @@ angular.module('indigitusMarketingApp')
         $scope.center= {
             lat: 47.184371,
             lng: 8.5177285,
-            zoom: 10
+            zoom: 6
         };
         $scope.markers = {
             m1: {
