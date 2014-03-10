@@ -3,7 +3,7 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	//$scope.host = sharedProperties.get('host');
+	// $scope.host = sharedProperties.get('host');
 	$scope.host = '127.0.0.1';
 
 
@@ -134,7 +134,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			},
 			{
 				lat: 52.5075419,
-				lng: 13.4261419 
+				lng: 13.4261419
 			}]
 		}
 	};
@@ -170,7 +170,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				for (var y in latlngs) {
 					if (latlngs[y]) {
 						if (
-                            latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng ===           
+                            latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng ===
                             traceroute.location.longitude
                         ) {
 							add = false;
@@ -245,21 +245,21 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		});
 
 	});
-	
-	
+
+
 	$scope.deletingInstance = false;
 	$scope.stopInstance = function(){
 		$scope.deletingInstance = true;
 		socket.emit('instance.delete', {host: $scope.host});
 	};
-	
+
 	socket.on('instance.deleted', function(){
 		console.log('INSTANCE DELETED');
 		$scope.$apply(function(){
 			$location.path('/').replace();
 		});
 		console.log('INSTANCE DELETED');
-		
+
 	});
 
 	$scope.traceroute = function () {
@@ -285,20 +285,20 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			target: '173.194.116.41',
 			start:  Date.now()
 		});
-		
+
 
 		$timeout(function(){
-			
+
 			leafletData.getMap().then(function(map){
-				
+
 				map.invalidateSize(false);
 			})
 			.catch(function(){
 				console.log('DID NOT GET MAP');
 			})
-			
+
 		}, 3000);
-			
+
 
 	};
 
@@ -426,43 +426,83 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 * TERMINAL
 	 */
 
-    var terminal = null;
+    var _terminal = null;
+
+	var AVAILABLE_COMMANDS = [
+		'ls',
+		'cd',
+		'cat',
+		'grep',
+		'pcregrep'
+	];
+
 	socket.on('instance.command_output', function(data) {
-    	terminal.pause();
-    	if (data.exit) {
-      		terminal.resume();
-    	}
-    	if (data.code === 127) {
-      		terminal.error('type "help" for available commands');
-    	}
-    	if (data.output) {
-      		terminal.echo(data.output);
-    	}
-    	terminal.resume();
+
+		if (_terminal !== null) {
+
+//	    	if (data.code === 127) {
+//		  		_terminal.error('type "help" for available commands');
+//			}
+
+	    	if (typeof data.line === 'string') {
+		  		_terminal.echo(data.line);
+			}
+
+	    	if (data.exit === true) {
+		  		_terminal.resume();
+			}
+
+		}
+
   	});
 
+	socket.on('instance.command_error', function(data) {
+
+		if (_terminal !== null) {
+
+			if (typeof data.error === 'string') {
+				_terminal.error(data.error);
+			}
+
+			_terminal.resume();
+
+		}
+
+	});
+
   	$scope.onTerminalInput = function(command, term) {
-    	terminal = term;
+
+		if (_terminal === null) {
+			_terminal = term;
+		}
+
+
+			_terminal.pause();
     	if (command === 'help') {
+
       		var sep = '\n';
-      		term.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
+      		_terminal.echo(sep + sep + $scope.availableCommands.join(sep) + sep);
       		return;
+
     	} else {
+
       		socket.emit('instance.command', {
         		host: $scope.host,
         		command: command
       		});
+
       		term.pause();
+
     	}
+
   	};
-	
-    
+
+
 	$scope.hideUpload = true;
-    $scope.hideTerminalRow = true;
-	$scope.hideTerminal = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
 	$scope.hidePing = true;
+    $scope.hideTerminal = false;
 	$scope.hideTraceroute = true;
 	$scope.hidePingOutput = true;
 	$scope.hideTracerouteOutput = true;

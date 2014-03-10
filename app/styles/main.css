@@ -7636,7 +7636,7 @@ h3 .glyphicon {
   padding: 10px 10px;
 }
 .control-panel .terminal {
-  background-color: #272822;
+  background-color: #000000;
   font-size: 15px;
   font: 'Ubuntu Mono', Arial, Sans Serif;
   margin-top: 20px;
