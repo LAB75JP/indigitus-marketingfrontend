@@ -3,20 +3,21 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	$scope.host = sharedProperties.get('host');
-	//$scope.host = '127.0.0.1';
+	//$scope.host = sharedProperties.get('host');
+	$scope.host = '127.0.0.1';
 
 
 	/*
 	 * PING
 	 */
 
-	$scope.timeLeft = 30.0;
-	var timeLeft = 300000;
+	$scope.timeLeft = '30:00';
+	var timeLeft = 60 * 30;
 	var decreaseTimeLeft = function(){
-		timeLeft -= 1000;
-		$scope.timeLeft = Math.floor(timeLeft / 1000) / 10;
-		if(Math.round($scope.timeLeft) == $scope.timeLeft) { $scope.timeLeft += '.0'; }
+		timeLeft -= 1;
+		var seconds = timeLeft%60 + '';
+		var secondsDisplay = (seconds.length < 2) ? '0' + seconds:seconds;
+		$scope.timeLeft = Math.floor(timeLeft / 60) + ':' + secondsDisplay;
 		if(timeLeft > 0){
 			$timeout(decreaseTimeLeft, 1000);
 		}
