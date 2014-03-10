@@ -10,7 +10,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 * PING
 	 */
 	$scope.timeLeft = '30:00';
-	var timeLeft = 60 * 1;
+	var timeLeft = 60 * 30;
 	var decreaseTimeLeft = function(){
 		timeLeft -= 1;
 		var seconds = timeLeft%60 + '';
