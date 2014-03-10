@@ -33,6 +33,7 @@
         for (var l = 0, ll = lines.length; l < ll; l++) {
 
             var str = _filter(lines[l].split(' '));
+
             if (
                 typeof str[0] === 'string' && str[0].match(/([0-9]{1,4})/)
             ) {
@@ -45,18 +46,20 @@
                     time:     parseFloat(str[3], 10)
                 };
 
-                _geo(data.ip, function (err, response) {
+                (function(data){
+                    _geo(data.ip, function (err, response) {
 
-					if (err) {
-						data.location = null;
-					} else {
-						data.location = response.location;
-					}
+                        if (err) {
+                            data.location = null;
+                        } else {
+                            data.location = response.location;
+                        }
 
 
-					socket.emit('traceroute', data);
+                        socket.emit('traceroute', data);
 
-                });
+                    });
+                })(data);
 
             }
 
@@ -79,6 +82,7 @@
                 stream.on('data', function (raw) {
 
                     var str = raw.toString();
+
                     if (str.match(/\n/)) {
 
                         buffer += str.substr(0, str.indexOf('\n'));

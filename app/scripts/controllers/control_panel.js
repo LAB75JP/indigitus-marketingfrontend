@@ -3,14 +3,12 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	//$scope.host = sharedProperties.get('host');
-	$scope.host = '127.0.0.1';
-
+	$scope.host = sharedProperties.get('host');
+	//$scope.host = '127.0.0.1';
 
 	/*
 	 * PING
 	 */
-
 	$scope.timeLeft = '30:00';
 	var timeLeft = 60 * 30;
 	var decreaseTimeLeft = function(){
@@ -180,14 +178,14 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 			var traceroute = $scope.tracerouteList[i];
 			var add = false;
-            if (traceroute && traceroute.location) {
-                var add = true;
+			if (traceroute && traceroute.location) {
+				var add = true;
 				for (var y in latlngs) {
 					if (latlngs[y]) {
 						if (
-                            latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng ===
-                            traceroute.location.longitude
-                        ) {
+							latlngs[y].lat === traceroute.location.latitude && latlngs[y].lng ===
+							traceroute.location.longitude
+						) {
 							add = false;
 							break;
 						}
@@ -244,21 +242,21 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 				if (data.location) {
 					if(!setCenter){
- 						(function(location){
- 							//console.log('INTERVAL COUNTER', intervalCounter);
- 							$timeout(function(){
- 								var time = (data.time) ? ' ' + data.time + 'ms' : '';
- 								var label = data.host + time;
- 								$scope.addMarker(data.sequence, label, data.location);
- 								//console.log('location', location);
- 								$scope.center = {
- 									lat: data.location.latitude,
- 									lng: data.location.longitude,
- 									zoom: 5
- 								};	
- 							}, intervalCounter++ * 3000);
- 						})(data.location);
- 					}
+						 (function(location){
+							 //console.log('INTERVAL COUNTER', intervalCounter);
+							 $timeout(function(){
+								 var time = (data.time) ? ' ' + data.time + 'ms' : '';
+								 var label = data.host + time;
+								 $scope.addMarker(data.sequence, label, data.location);
+								 //console.log('location', location);
+								 $scope.center = {
+									 lat: data.location.latitude,
+									 lng: data.location.longitude,
+									 zoom: 5
+								 };
+							 }, intervalCounter++ * 1500);
+						 })(data.location);
+					 }
 					/*var time = (data.time) ? ' ' + data.time + 'ms' : '';
 					var label = data.host + time;
 					$scope.addMarker(data.sequence, label, data.location);*/
@@ -313,7 +311,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		});
 
 
-/*		$timeout(function(){
+		/*        $timeout(function(){
 
 			leafletData.getMap().then(function(map){
 
@@ -451,7 +449,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 * TERMINAL
 	 */
 
-    var _terminal = null;
+	var _terminal = null;
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
@@ -465,21 +463,21 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 		if (_terminal !== null) {
 
-//	    	if (data.code === 127) {
-//		  		_terminal.error('type "help" for available commands');
-//			}
+//			if (data.code === 127) 
+//				_terminal.error('type "help" for available commands');
+//            }
 
-	    	if (typeof data.line === 'string') {
-		  		_terminal.echo(data.line);
+			if (typeof data.line === 'string') {
+				_terminal.echo(data.line);
 			}
 
-	    	if (data.exit === true) {
-		  		_terminal.resume();
+			if (data.exit === true) {
+				  _terminal.resume();
 			}
 
 		}
 
-  	});
+	});
 
 	socket.on('instance.command_error', function(data) {
 
@@ -495,39 +493,39 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	});
 
-  	$scope.onTerminalInput = function(command, term) {
+	$scope.onTerminalInput = function(command, term) {
 
 		if (_terminal === null) {
 			_terminal = term;
 		}
 
 
-    	if (command === 'help') {
+		if (command === 'help') {
 
-      		_terminal.echo('\n\n\n' + AVAILABLE_COMMANDS.join('\n') + '\n');
+			_terminal.echo('\n\n\n' + AVAILABLE_COMMANDS.join('\n') + '\n');
 			_terminal.resume();
 
-      		return;
+			  return;
 
-    	} else {
+		} else {
 
-      		socket.emit('instance.command', {
-        		host:    $scope.host,
-        		command: command
-      		});
+			  socket.emit('instance.command', {
+				host:    $scope.host,
+				command: command
+			  });
 
-      		_terminal.pause();
+			  _terminal.pause();
 
-    	}
+		}
 
-  	};
+	  };
 
 	$scope.hideTerminalRow = true;
 	$scope.hideUpload = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
 	$scope.hidePing = true;
-    $scope.hideTerminal = false;
+	$scope.hideTerminal = false;
 	$scope.hideTraceroute = true;
 	$scope.hidePingOutput = true;
 	$scope.hideTracerouteOutput = true;
