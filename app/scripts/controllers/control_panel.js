@@ -226,13 +226,15 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				}
 
 				if (data.location) {
-					if(!setCenter){
-						$scope.center = {
-							lat: data.location.latitude,
-							lng: data.location.longitude,
-							zoom: 8
-						};
-					}
+/*					if(!setCenter){
+						$timeout(function(location, i){
+							$scope.center = {
+								lat: data.location.latitude,
+								lng: data.location.longitude,
+								zoom: 8
+							};	
+						}.bind(this, location, i), 1000 * i);	
+					}*/
 					var time = (data.time) ? ' ' + data.time + 'ms' : '';
 					var label = data.host + time;
 					$scope.addMarker(data.sequence, label, data.location);
@@ -286,7 +288,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		});
 		
 
-		$timeout(function(){
+/*		$timeout(function(){
 			
 			leafletData.getMap().then(function(map){
 				
@@ -296,7 +298,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				console.log('DID NOT GET MAP');
 			})
 			
-		}, 3000);
+		}, 3000);*/
 			
 
 	};
@@ -458,7 +460,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	
     
 	$scope.hideUpload = true;
-    $scope.hideTerminalRow = false;
+    $scope.hideTerminalRow = true;
 	$scope.hideTerminal = true;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
