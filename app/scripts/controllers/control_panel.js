@@ -223,7 +223,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				if (data.location) {
 					var time = (data.time) ? ' ' + data.time + 'ms' : '';
 					var label = data.host + time;
-					//$scope.addMarker(data.sequence, label, data.location);
+					$scope.addMarker(data.sequence, label, data.location);
 					//$scope.updatePath();
 				}
 
