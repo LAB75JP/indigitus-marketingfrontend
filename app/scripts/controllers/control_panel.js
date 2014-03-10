@@ -11,6 +11,18 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 * PING
 	 */
 
+	$scope.timeLeft = 30.0;
+	var timeLeft = 300000;
+	var decreaseTimeLeft = function(){
+		timeLeft -= 1000;
+		$scope.timeLeft = Math.floor(timeLeft / 1000) / 10;
+		if(Math.round($scope.timeLeft) == $scope.timeLeft) { $scope.timeLeft += '.0'; }
+		if(timeLeft > 0){
+			$timeout(decreaseTimeLeft, 1000);
+		}
+	};
+	$timeout(decreaseTimeLeft, 1000);
+
 	$scope.pingLines = [];
 	$scope.pingsActive = false;
 	$scope.pingsAverage = 0;
@@ -107,7 +119,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 		}
 
-		$scope.markers['m' + sequence] = {
+		$scope.markers['m' + new Date().getTime()] = {
 			lat: parseFloat(location.latitude),
 			lng: parseFloat(location.longitude),
 			message: host,
@@ -120,6 +132,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				shadowAnchor: [0, 0]
 			}
 		};
+
+
+		//console.log('MARKERS', $scope.markers);
 
 	};
 
@@ -195,6 +210,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.tracerouteLines = [];
 	$scope.tracerouteList = [];
 	var setCenter = false;
+	var intervalCounter = 0;
 	socket.on('traceroute', function(data) {
 
 		if (data === null) return false;
@@ -264,6 +280,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	});
 
 	$scope.traceroute = function () {
+		intervalCounter = 0;
 		$scope.hideTraceroute = false;
 		$scope.paths = {
 			p1: {
