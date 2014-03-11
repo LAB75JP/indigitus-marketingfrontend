@@ -146,8 +146,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				iconSize: [25, 25],
 				iconAnchor: [10, 10],
 				popupAnchor: [0, 0],
-				shadowSize: [0, 0],
-				shadowAnchor: [0, 0]
+				shadowAnchor: [0, 0],
+				shadowUrl: false
 			}
 		};
 
