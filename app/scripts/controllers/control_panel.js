@@ -118,7 +118,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	$scope.lastLocation = null;
 	$scope.addMarker = function(sequence, host, location) {
-		
+		console.log($scope.host);
 		var hack = $scope.host.split('.');
 		var isInstance = ( host.indexOf(hack.splice(0,2).join('.')) > -1 );
 		var icon = isInstance ? 'images/indigitus_setup.png':'images/setup.png';
@@ -140,7 +140,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			icon: {
 				iconUrl: icon,
 				iconSize: [25, 25],
-				iconAnchor: [5, 10],
+				iconAnchor: [10, 10],
 				popupAnchor: [0, 0],
 				shadowSize: [0, 0],
 				shadowAnchor: [0, 0]
@@ -264,6 +264,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 								 var time = (data.time) ? ' ' + data.time + 'ms' : '';
 								 var label = data.host + time;
 								 $scope.addMarker(data.sequence, label, data.location);
+								 $scope.updatePath();
 								 //console.log('location', location);
 								 $scope.center = {
 									 lat: data.location.latitude,
@@ -460,12 +461,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
-		'cat',
-		'grep',
 		'ps',
 		'netstat',
-		'touch'
-		
+		'ifconfig'
 	];
 
 	socket.on('instance.command_output', function(data) {
@@ -524,7 +522,17 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		}
 
 	  };
-
+	
+/*	setInterval(function(){
+		console.log('INTERVAL');
+		leafletData.getMap().then(function(map){
+			console.log('GOT MAP', map);
+			map.invalidateSize(true);
+			console.log('MAP SIZE', map.getSize());
+			
+		});	
+	}, 3000)*/
+	
 	$scope.hideTerminalRow = false;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;

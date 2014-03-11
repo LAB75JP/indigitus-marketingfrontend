@@ -31,13 +31,9 @@
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
-		'cat',
-		'grep',
-		'pcregrep',
 		'ifconfig',
 		'netstat',
-		'ps',
-		'touch'
+		'ps'
 	];
 
 
