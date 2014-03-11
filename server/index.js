@@ -7,6 +7,9 @@
 var _CONFIG = require('../lib/config/config');
 var _fs     = require('fs');
 var simpleRecaptcha = require('simple-recaptcha');
+var userId = _CONFIG.mindMax.userId;
+var licenseKey = _CONFIG.mindMax.licenseKey;
+var _geo  = require('geoip2ws')(userId, licenseKey);
 
 (function () {
 
@@ -146,6 +149,15 @@ var simpleRecaptcha = require('simple-recaptcha');
 				}
             });
 			
+			socket.on('instance.get_location', function(data){
+				var host = data.host;
+				_geo(host, function (err, response) {
+					if(!err){
+						socket.emit('instance.location', response.location);
+					}
+				});	
+			});
+			
 			socket.on('captcha.validate', function(data){
 				console.log(arguments);
 				var privateKey = _CONFIG.recaptcha.privateKey;
@@ -163,6 +175,8 @@ var simpleRecaptcha = require('simple-recaptcha');
 				});
 				
 			});
+			
+
 
         });
 

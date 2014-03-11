@@ -123,17 +123,15 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		var isInstance = ( host.indexOf(hack.splice(0,2).join('.')) > -1 );
 		var icon = isInstance ? 'images/indigitus_setup.png':'images/setup.png';
 		
-		if(!isInstance){
-			for (var key in $scope.markers) {
+		for (var key in $scope.markers) {
 
-				var marker = $scope.markers[key];
-				if (marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)) {
-					return;
-				}
-
+			var marker = $scope.markers[key];
+			if (marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)) {
+				return;
 			}
+
 		}
-		
+
 		
 		$scope.markers['m' + new Date().getTime()] = {
 			lat: parseFloat(location.latitude),
@@ -297,8 +295,12 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		});
 	});
 
+	socket.on('instance.location', function(location){
+		$scope.addMarker(0, $scope.host, location);
+	});
+	
 	$scope.traceroute = function () {
-		console.log('TRACEROUTE');
+		
 		intervalCounter = 0;
 		$scope.hideTraceroute = false;
 		$scope.paths = {
@@ -322,6 +324,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			target: '173.194.116.41',
 			start:  Date.now()
 		});
+		socket.emit('instance.get_location', {host: $scope.host});
 
 	};
 

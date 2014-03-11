@@ -243,7 +243,7 @@ var _CONFIG = require('../lib/config/config');
 		var _startupTime = 0;
 		var _started = false;
 		var step  = 0;
-		var steps = 8;
+		var steps = 9;
 
 		var _timer = function(){
 			_startupTime += 100;
