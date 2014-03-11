@@ -329,6 +329,7 @@ var _CONFIG = require('../lib/config/config');
 
 										_started = true;
 										_step('Server ready!');
+										_step('Startup took ' + (_startupTime / 1000) + ' seconds');
 
 										ubercallback.call(uberscope, {
 											host: ip

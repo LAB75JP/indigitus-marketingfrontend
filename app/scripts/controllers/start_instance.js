@@ -3,6 +3,8 @@
 
 angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties) {
 
+	$('.start-instance').css({'min-height': $(window).height() + 'px'});
+	
 	$scope.steps = [];
 	$scope.timeLeft = 20;
 	$scope.percentage = 0;

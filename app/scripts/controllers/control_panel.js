@@ -5,10 +5,10 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	$scope.host = sharedProperties.get('host');
 	//$scope.host = '127.0.0.1';
+	//$scope.host='185.39.230.47';
 	
 	
 	$scope.startupTime = sharedProperties.get('startupTime') / 1000;
-	console.log('STARTUP TIME', $scope.startupTime);
 
 	/*
 	 * PING
@@ -118,18 +118,23 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	$scope.lastLocation = null;
 	$scope.addMarker = function(sequence, host, location) {
+		
+		var hack = $scope.host.split('.');
+		var isInstance = ( host.indexOf(hack.splice(0,2).join('.')) > -1 );
+		var icon = isInstance ? 'images/indigitus_setup.png':'images/setup.png';
+		
+		if(!isInstance){
+			for (var key in $scope.markers) {
 
-		for (var key in $scope.markers) {
+				var marker = $scope.markers[key];
+				if (marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)) {
+					return;
+				}
 
-			var marker = $scope.markers[key];
-			if (marker.lat === parseFloat(location.latitude) && marker.lng === parseFloat(location.longitude)) {
-				return;
 			}
-
 		}
 		
-		var icon = ( host.indexOf('.atlas.cogentco.com') > -1 ) ? 'images/indigitus_setup.png':'images/setup.png';
-
+		
 		$scope.markers['m' + new Date().getTime()] = {
 			lat: parseFloat(location.latitude),
 			lng: parseFloat(location.longitude),
@@ -143,9 +148,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				shadowAnchor: [0, 0]
 			}
 		};
-
-
-		//console.log('MARKERS', $scope.markers);
 
 	};
 
@@ -290,15 +292,13 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	};
 
 	socket.on('instance.deleted', function(){
-		console.log('INSTANCE DELETED');
 		$scope.$apply(function(){
 			$location.path('/').replace();
 		});
-		console.log('INSTANCE DELETED');
-
 	});
 
 	$scope.traceroute = function () {
+		console.log('TRACEROUTE');
 		intervalCounter = 0;
 		$scope.hideTraceroute = false;
 		$scope.paths = {
@@ -527,6 +527,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.hideDownload = true;
 	$scope.hidePing = true;
 	$scope.hideTerminal = true;
+	$scope.hideTraceroute = true;
+	// Test Path
 	$scope.hideTraceroute = true;
 	$scope.hidePingOutput = true;
 	$scope.hideTracerouteOutput = true;

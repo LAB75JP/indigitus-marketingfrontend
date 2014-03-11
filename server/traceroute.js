@@ -28,7 +28,6 @@
     };
 
     var _parse = function (buffer, socket) {
-
         var lines = buffer.split('\n');
         for (var l = 0, ll = lines.length; l < ll; l++) {
 
@@ -85,11 +84,11 @@
 
                     if (str.match(/\n/)) {
 
-                        buffer += str.substr(0, str.indexOf('\n'));
+                        buffer += str.substr(0, str.lastIndexOf('\n'));
 
                         _parse(buffer, socket);
 
-                        buffer = str.substr(str.indexOf('\n') + 1);
+                        buffer = str.substr(str.lastIndexOf('\n') + 1);
 
                     } else {
 

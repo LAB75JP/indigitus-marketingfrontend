@@ -2266,8 +2266,8 @@ input[type="button"].btn-block {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot');
-  src: url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+  src: url('../bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot');
+  src: url('../bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -7677,7 +7677,6 @@ html {
 }
 .cv-social-media {
   width: 65px !important;
-  margin: 0 auto !important;
 }
 @-webkit-keyframes fade_in {
   0% {
@@ -7730,8 +7729,8 @@ h3 .glyphicon {
   margin: 10px 0;
 }
 .start-instance {
-  overflow: hidden;
   height: 100%;
+  width: 100%;
 }
 .start-instance h1 {
   margin-top: 50px;
@@ -7760,6 +7759,21 @@ h3 .glyphicon {
 .landing-page {
   background: url('/images/eu_map.png') right -225px no-repeat;
   min-height: 500px;
+}
+.landing-page .seperator-start {
+  position: relative;
+  height: 1px;
+  margin-top: 50px;
+  background: #4d4d70;
+  width: 100%;
+}
+.landing-page .seperator-start.first {
+  margin-top: 200px;
+}
+.landing-page .row-start {
+  margin-bottom: 80px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #4d4d70;
 }
 .landing-page .demo {
   background: #eee;
@@ -7816,14 +7830,14 @@ h3 .glyphicon {
   border: 0;
 }
 .landing-page .intro {
-  margin-top: 180px;
+  margin-top: 240px;
 }
 .landing-page .alert {
   padding: 5px;
   margin: 0;
 }
 .landing-page .feature-highlight {
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 .landing-page .try-for-free {

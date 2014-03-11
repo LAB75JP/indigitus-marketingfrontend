@@ -36,7 +36,8 @@
                             div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
                     .row
                         button.btn.btn-block.pull-left.btn-default(ng-click="checkCaptcha()")
-                            = "Start"        
+                            = "Start"   
+    //hr.seperator-start.first
     .row.intro
         .col-md-4
             h3="Indigitus makes a point"
@@ -59,6 +60,8 @@
                 = " certified Swiss data center has no NSA "
                 ="strings attached. In addition, we are delighting you with fast downstream and upstream IP connections via our premium "
                 ="European uplink partners."
+    
+    hr.seperator-start
     .row.feature-highlight
         .col-md-12
             h2.text-center="Feature Highlight"
@@ -90,11 +93,13 @@
                     li="Latest Quanta server hardware"
                     li="Full control via web portal and API"
                     li="Expert support"
+    hr.seperator-start
+    .row
+        .col-md-12
+            h2.text-center="Try the demo for free"
+            
     #demo.row.demo         
         .col-md-12
-            .row
-                .col-md-12
-                    h2.text-center="Try the demo for free"
             .row 
                 .col-md-8
                     h3="Prove us: Launch your test instance in < 20 sec!"
@@ -128,8 +133,10 @@
                                    
 
                 
+    hr.seperator-start
     .row.contact-us
         .col-md-12
-            h1="Where we are"
+            h2.text-center="Where we are"
             <leaflet center="center" markers="markers" defaults="defaults" height="300"></leaflet>
 
+    hr.seperator-start

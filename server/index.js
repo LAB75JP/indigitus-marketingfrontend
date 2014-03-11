@@ -125,6 +125,7 @@ var simpleRecaptcha = require('simple-recaptcha');
 			});
 
             socket.on('traceroute', function (data) {
+				console.log('TRACEROUTE');
 				_dispatch_profile(data);
                 traceroute(data, socket);
             });
