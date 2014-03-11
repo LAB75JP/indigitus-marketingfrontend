@@ -37,6 +37,7 @@
 	};
 
 
+
 	var Callback = function (data, socket) {
 
 		var tunnel = new _ssh();
@@ -61,11 +62,17 @@
 			});
 
 		});
-
+		
+		tunnel.on('error', function(err){
+			console.log('ERROR', err);
+			setTimeout(function(){
+				tunnel.connect(data);
+			}, 1000);
+		});
+		
 		tunnel.connect(data);
-
+		
 	};
-
 
 	module.exports = Callback;
 

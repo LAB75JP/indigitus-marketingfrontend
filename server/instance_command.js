@@ -130,6 +130,13 @@
 			});
 
 		});
+		
+		tunnel.on('error', function(err){
+			console.log('ERROR', err);
+			setTimeout(function(){
+				tunnel.connect(data);
+			}, 1000);
+		});
 
 
 		tunnel.connect(data);

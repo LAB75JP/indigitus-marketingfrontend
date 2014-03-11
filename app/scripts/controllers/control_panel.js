@@ -442,7 +442,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		scrollWheelZoom: false,
 		 tileLayerOptions: {
 			opacity: 0.9,
-			detectRetina: false,
+			detectRetina: true,
 			reuseTiles: true,
 		}
 	};

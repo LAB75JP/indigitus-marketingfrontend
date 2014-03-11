@@ -11,7 +11,7 @@
             h1="Your Instance"
     p="Deployed and started in "
       strong="{{startupTime}}" 
-      ="seconds "
+      =" seconds"
     .row.instance-stats.row-test
         .col-md-12
             .row
@@ -70,7 +70,7 @@
                     h3
                         span.glyphicon.glyphicon-bell
                         ="Ping"
-                        small="Ping google.com and see the low latency of the indigitus network"
+                        small="Ping google.com on your instance and see the low latency of the indigitus network"
                 .col-md-2
                     a.btn.btn-small.btn-default.btn-block.btn-start(ng-click="ping()", ng-disabled="pingsActive")
                         span(ng-if="pingsActive")
@@ -113,7 +113,7 @@
                     h3
                         span.glyphicon.glyphicon-map-marker
                         ="Traceroute"
-                        small="Run trace route to see where your traffic goes"
+                        small="Run trace route on your instance to see where your instance is located and where your traffic goes"
                 .col-md-2
                     a.btn.btn-default.btn-block(ng-click="traceroute()", ng-disabled="tracerouteActive")
                         span(ng-if="tracerouteActive")
@@ -184,7 +184,7 @@
                     h3
                         span.glyphicon.glyphicon-cloud-download
                         ='Download'
-                        small="Download data on your instance and see the speed of indigitus datacenters connectivity"
+                        small="Download data to your instance and see the speed of indigitus datacenters connectivity"
                 .col-md-2
                     a.btn.btn-default.btn-block(ng-click="download()")
                         span(ng-if="downloadActive")
@@ -212,7 +212,7 @@
                     h3
                         span.glyphicon.glyphicon-list-alt
                         ='Terminal'
-                        small="Connect to your instance and directly issue commands in a shell"
+                        small="Execute a limited set of shell commands on the instance"
                 .col-md-2
                     a.btn.btn-default.btn-block(ng-click="hideTerminal=false")="Test"
             .row(collapse="hideTerminal")

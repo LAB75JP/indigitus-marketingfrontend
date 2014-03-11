@@ -43,8 +43,9 @@
             ul
                 li="Swiss location and neutrality"
                 li="NSA-free due to specific data center and network design"
-                li="Free expert support"
+                li="Dedicated expert support"
                 li="Fully based on OpenStack"
+                li="EU compliant"
         .col-md-8
             h3="What makes indigitus your unique IaaS partner"
             p
@@ -53,8 +54,7 @@
                 ="In addition, we provide you with a full-blown OpenStack API for even more convenient individual use of our IaaS platform. "
                 br
                 ="We are using" 
-                br
-                ="the latest Quanta hardware to boost your business. Our "
+                =" the latest Quanta hardware to boost your business. Our "
                 a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
                 = " certified Swiss data center has no NSA "
                 ="strings attached. In addition, we are delighting you with fast downstream and upstream IP connections via our premium "
@@ -79,7 +79,7 @@
                 ul 
                     li="IaaS Cloud Computing offer"
                     li="Pay-per-use pre-payment"
-                    li="No upfront investments (CAPEX)"
+                    li="No upfront CAPEX investments"
                     li="Cost effective due to shared infrastructure"
 
         .col-md-4.feature
@@ -100,12 +100,14 @@
                     h3="Prove us: Launch your test instance in < 20 sec!"
                     p
                         ="When you press the button, we will deploy a real instance on our IaaS platform. "
-                        ="We will show you all steps we make to deploy the instance in real time. After the instance was deployed successfully, you’re forwarded you to a functional "
+                        ="We will show you all steps we make to deploy the instance in real time. After the instance was deployed successfully, you’re forwarded to a functional "
                         ="page running on that newly deployed instance."
                         =" On this page you are able to" 
                         ul
-                            li="monitor upload and download streams"
-                            li="use (reduced set) of shell commands like “ls”"
+                            li="Ping google.com on your instance and see the low latency of the indigitus network"
+                            li="Run trace route on your instance to see where your instance is located and where your traffic goes"
+                            li="Download data to your instance and see the speed of indigitus datacenters connectivity"
+                            li="Execute a limited set of shell commands on the instance"
                 .col-md-4
                     alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
                         = "{{alert.msg}}"                
@@ -114,7 +116,16 @@
                         a.btn.btn-default(ng-click="reloadCaptcha()")
                             span.glyphicon.glyphicon-refresh
                         button.btn.btn-default.pull-right.btn-start-instance-now(ng-click="checkCaptcha()")
-                            = "Start your instance now!"       
+                            span(ng-if="solvingCaptcha")
+                                ="Checking Captcha"
+                                span.animated-ellipsis
+                                    span.one="."
+                                    span.two="."
+                                    span.three="."
+                            span(ng-if="!solvingCaptcha")
+                                = "Start your instance now!"
+                                
+                                   
 
                 
     .row.contact-us
