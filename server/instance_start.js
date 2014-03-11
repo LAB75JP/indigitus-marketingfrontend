@@ -276,13 +276,13 @@ var _CONFIG = require('../lib/config/config');
 		};
 
 
-		_step('Creating a new Instance just for you...');
+		_step('Creating a new Instance...');
 		_step('Authenticating...');
 
 		_authenticate(function(tokens) {
 
 			_step('Authentication successful.');
-			_step('Clonging template ...');
+			_step('Cloning template ...');
 
 			_clone_template(function(data) {
 				setTimeout(_timer, 100);
