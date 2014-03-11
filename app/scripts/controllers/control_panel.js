@@ -264,7 +264,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 								 var time = (data.time) ? ' ' + data.time + 'ms' : '';
 								 var label = data.host + time;
 								 $scope.addMarker(data.sequence, label, data.location);
-								 $scope.updatePath();
+								 //$scope.updatePath();
 								 //console.log('location', location);
 								 $scope.center = {
 									 lat: data.location.latitude,
