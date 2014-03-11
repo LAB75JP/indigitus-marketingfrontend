@@ -21,6 +21,7 @@
     "angularjs-nvd3-directives": "*",
     "socket.io": "*",
     "jquery-mousewheel": "*",
+    "leaflet": "0.7.2",
     "angular-leaflet-directive": "*",
     "font-awesome": "~3.2.1"
   },

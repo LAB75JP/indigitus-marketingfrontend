@@ -36,7 +36,7 @@ angular.module('indigitusMarketingApp')
         var scrollTo = function (target) {
             var destination = $(target).offset().top;
             $('html:not(:animated),body:not(:animated)').animate({
-                scrollTop: destination - 15
+                scrollTop: destination - 100
             }, 500);
             return false;
         };
@@ -44,7 +44,7 @@ angular.module('indigitusMarketingApp')
         $scope.alerts = [];
 
         $scope.scrollToDemo = function () {
-            scrollTo('#demo');
+            scrollTo('#demo-headline');
         };
 
         $scope.closeAlert = function (index) {

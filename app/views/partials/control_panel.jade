@@ -4,6 +4,7 @@
       a.navbar-brand(href="/#/")
         = "Indigitus"
         
+         
 .container.control-panel
 
     .row 
@@ -132,7 +133,8 @@
                                   extended-nvd3-discrete-bar-chart
                     .row(ng-if="!hideTraceroute")
                         .col-md-12
-                            <leaflet center="center" markers="markers" paths="paths" defaults="defaults" id="map"></leaflet>    
+                            <leaflet center="center" markers="markers" paths="paths" defaults="defaults" height="500px" id="map"></leaflet>   
+                    
                            
                     .row
                         .col-md-12.traceroute-info 

@@ -8032,34 +8032,6 @@ h3 .glyphicon {
 .control-panel .intro {
   margin-bottom: 100px;
 }
-#map {
-  width: 1150px;
-  height: 500px;
-}
-@media (min-width: 992px) {
-  #map {
-    width: 740px;
-    height: 400px;
-  }
-}
-@media (min-width: 740px) {
-  #map {
-    width: 700px;
-    height: 300px;
-  }
-}
-@media (max-width: 700px) {
-  #map {
-    width: 300px;
-    height: 200px;
-  }
-}
-@media (min-width: 1149px) {
-  #map {
-    width: 1150px;
-    height: 500px;
-  }
-}
 .leaflet-map-pane,
 .leaflet-objects-pane,
 .leaflet-overlay-pane,
@@ -8088,8 +8060,6 @@ h3 .glyphicon {
   height: 100% !important;
   position: relative;
   height: 500px;
-  margin-left: 20px;
-  margin-top: 10px;
 }
 .leaflet-container a.leaflet-popup-close-button {
   margin-top: -74px;

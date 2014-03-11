@@ -4,7 +4,7 @@
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
 	$scope.host = sharedProperties.get('host');
-	//$scope.host = '127.0.0.1';
+	$scope.host = '127.0.0.1';
 	//$scope.host='185.39.230.47';
 	
 	
@@ -264,7 +264,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 								 var time = (data.time) ? ' ' + data.time + 'ms' : '';
 								 var label = data.host + time;
 								 $scope.addMarker(data.sequence, label, data.location);
-								 //$scope.updatePath();
+								 $scope.updatePath();
 								 //console.log('location', location);
 								 $scope.center = {
 									 lat: data.location.latitude,
@@ -523,15 +523,6 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	  };
 	
-/*	setInterval(function(){
-		console.log('INTERVAL');
-		leafletData.getMap().then(function(map){
-			console.log('GOT MAP', map);
-			map.invalidateSize(true);
-			console.log('MAP SIZE', map.getSize());
-			
-		});	
-	}, 3000)*/
 	
 	$scope.hideTerminalRow = false;
 	$scope.hideUpload = true;
@@ -540,7 +531,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.hideTerminal = true;
 	$scope.hideTraceroute = true;
 	// Test Path
-	$scope.hideTraceroute = true;
+	$scope.hideTraceroute = false;
 	$scope.hidePingOutput = true;
 	$scope.hideTracerouteOutput = true;
 
