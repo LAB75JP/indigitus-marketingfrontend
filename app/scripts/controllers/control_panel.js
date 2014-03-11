@@ -3,8 +3,12 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
+	if(!sharedProperties.get('host')){
+		$location.path('/').replace();
+	}
+	
 	$scope.host = sharedProperties.get('host');
-	$scope.host = '127.0.0.1';
+	//$scope.host = '127.0.0.1';
 	//$scope.host='185.39.230.47';
 	
 	
@@ -531,7 +535,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.hideTerminal = true;
 	$scope.hideTraceroute = true;
 	// Test Path
-	$scope.hideTraceroute = false;
+	$scope.hideTraceroute = true;
 	$scope.hidePingOutput = true;
 	$scope.hideTracerouteOutput = true;
 
