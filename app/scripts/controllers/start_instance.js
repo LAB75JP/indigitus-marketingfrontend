@@ -4,6 +4,7 @@
 angular.module('indigitusMarketingApp').controller('StartInstanceCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties) {
 
 	$('.start-instance').css({'min-height': $(window).height() + 'px'});
+	$('html, body').scrollTop(0);
 	
 	$scope.steps = [];
 	$scope.timeLeft = 20;
