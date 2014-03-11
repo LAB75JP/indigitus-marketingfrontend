@@ -3,15 +3,15 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	if(!sharedProperties.get('host')){
+	if (!sharedProperties.get('host')) {
 		$location.path('/').replace();
 	}
-	
+
 	$scope.host = sharedProperties.get('host');
 	//$scope.host = '127.0.0.1';
 	//$scope.host='185.39.230.47';
-	
-	
+
+
 	$scope.startupTime = sharedProperties.get('startupTime') / 1000;
 
 	/*
@@ -19,17 +19,18 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	 */
 	$scope.timeLeft = '30:00';
 	var timeLeft = 60 * 30;
-	var decreaseTimeLeft = function(){
+	var decreaseTimeLeft = function() {
 		timeLeft -= 1;
-		var seconds = timeLeft%60 + '';
-		var secondsDisplay = (seconds.length < 2) ? '0' + seconds:seconds;
+		var seconds = timeLeft % 60 + '';
+		var secondsDisplay = (seconds.length < 2) ? '0' + seconds : seconds;
 		$scope.timeLeft = Math.floor(timeLeft / 60) + ':' + secondsDisplay;
-		if(timeLeft > 0){
+		if (timeLeft > 0) {
 			$timeout(decreaseTimeLeft, 1000);
-		}
-		else {
-			socket.emit('instance.delete', {host: $scope.host});
-			$scope.$apply(function(){
+		} else {
+			socket.emit('instance.delete', {
+				host: $scope.host
+			});
+			$scope.$apply(function() {
 				$location.path('/').replace();
 			});
 		}
@@ -44,7 +45,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		key: 'Pings',
 		values: []
 	}];
-	$scope.markers  = {};
+	$scope.markers = {};
 	$scope.pingList = [];
 
 	socket.on('ping', function(data) {
@@ -84,7 +85,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 
 	$scope.ping = function() {
-		
+
 		$scope.hidePing = false;
 		if ($scope.pingsActive === true) {
 			return false;
@@ -124,9 +125,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.addMarker = function(sequence, host, location) {
 		console.log($scope.host);
 		var hack = $scope.host.split('.');
-		var isInstance = ( host.indexOf(hack.splice(0,2).join('.')) > -1 );
-		var icon = isInstance ? 'images/indigitus_setup.png':'images/setup.png';
-		
+		var isInstance = (host.indexOf(hack.splice(0, 2).join('.')) > -1);
+		var icon = isInstance ? 'images/indigitus_setup.png' : 'images/setup.png';
+
 		for (var key in $scope.markers) {
 
 			var marker = $scope.markers[key];
@@ -136,7 +137,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 		}
 
-		
+
 		$scope.markers['m' + new Date().getTime()] = {
 			lat: parseFloat(location.latitude),
 			lng: parseFloat(location.longitude),
@@ -160,8 +161,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			latlngs: [{
 				lat: 53.55857,
 				lng: 9.9278215
-			},
-			{
+			}, {
 				lat: 52.5075419,
 				lng: 13.4261419
 			}]
@@ -175,9 +175,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 			var item = latlngs[i];
 			if (
-				   latlngs[i]
-				&& latlngs[i].lat === location.latitude
-				&& latlngs[i].lng === location.longitude
+				latlngs[i] && latlngs[i].lat === location.latitude && latlngs[i].lng === location.longitude
 			) {
 				return;
 			}
@@ -219,9 +217,18 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		}
 
 	};
-	
-	socket.on('traceroute.stop', function(){
+
+	socket.on('traceroute.stop', function() {
 		$scope.tracerouteActive = false;
+		setTimeout(function() {
+			$timeout(function() {
+				$scope.center = {
+					lat: 7.79,
+					lng: 21.28,
+					zoom: 2
+				};
+			}, intervalCounter * 2000);
+		}, 2000);
 	});
 
 	// TODO: Order Traceroute by sequence!
@@ -261,23 +268,23 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				}
 
 				if (data.location) {
-					if(!setCenter){
-						 (function(location){
-							 //console.log('INTERVAL COUNTER', intervalCounter);
-							 $timeout(function(){
-								 var time = (data.time) ? ' ' + data.time + 'ms' : '';
-								 var label = data.host + time;
-								 $scope.addMarker(data.sequence, label, data.location);
-								 $scope.updatePath();
-								 //console.log('location', location);
-								 $scope.center = {
-									 lat: data.location.latitude,
-									 lng: data.location.longitude,
-									 zoom: 5
-								 };
-							 }, intervalCounter++ * 2000);
-						 })(data.location);
-					 }
+					if (!setCenter) {
+						(function(location) {
+							//console.log('INTERVAL COUNTER', intervalCounter);
+							$timeout(function() {
+								var time = (data.time) ? ' ' + data.time + 'ms' : '';
+								var label = data.host + time;
+								$scope.addMarker(data.sequence, label, data.location);
+								$scope.updatePath();
+								//console.log('location', location);
+								$scope.center = {
+									lat: data.location.latitude,
+									lng: data.location.longitude,
+									zoom: 5
+								};
+							}, intervalCounter++ * 2000);
+						})(data.location);
+					}
 
 				}
 
@@ -289,23 +296,25 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 
 	$scope.deletingInstance = false;
-	$scope.stopInstance = function(){
+	$scope.stopInstance = function() {
 		$scope.deletingInstance = true;
-		socket.emit('instance.delete', {host: $scope.host});
+		socket.emit('instance.delete', {
+			host: $scope.host
+		});
 	};
 
-	socket.on('instance.deleted', function(){
-		$scope.$apply(function(){
+	socket.on('instance.deleted', function() {
+		$scope.$apply(function() {
 			$location.path('/').replace();
 		});
 	});
 
-	socket.on('instance.location', function(location){
+	socket.on('instance.location', function(location) {
 		$scope.addMarker(0, $scope.host, location);
 	});
-	
-	$scope.traceroute = function () {
-		
+
+	$scope.traceroute = function() {
+
 		intervalCounter = 0;
 		$scope.hideTraceroute = false;
 		$scope.paths = {
@@ -325,11 +334,13 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.tracerouteActive = true;
 		$scope.tracerouteLines = [];
 		socket.emit('traceroute', {
-			host:   $scope.host,
+			host: $scope.host,
 			target: '173.194.116.41',
-			start:  Date.now()
+			start: Date.now()
 		});
-		socket.emit('instance.get_location', {host: $scope.host});
+		socket.emit('instance.get_location', {
+			host: $scope.host
+		});
 
 	};
 
@@ -343,7 +354,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.uploadTimeDisplay = 0;
 
 	var uploadTime = 0;
-	var uploadUpdateTimer = function () {
+	var uploadUpdateTimer = function() {
 
 		uploadTime += 100;
 		var elapsed = ((uploadTime / 100) / 10).toFixed(2);
@@ -356,14 +367,14 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 	};
 
-	socket.on('upload', function (data) {
+	socket.on('upload', function(data) {
 		if (data === null) return;
-		$scope.$apply(function () {
+		$scope.$apply(function() {
 			$scope.uploadPercentage = data.percentage;
 		});
 	});
 
-	$scope.upload = function () {
+	$scope.upload = function() {
 
 		$scope.hideUpload = false;
 
@@ -372,7 +383,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.uploadPercentage = 0;
 
 		socket.emit('upload', {
-			host:  $scope.host,
+			host: $scope.host,
 			start: Date.now()
 		});
 
@@ -390,7 +401,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.downloadTimeDisplay = 0;
 
 	var downloadTime = 0;
-	var downloadUpdateTimer = function () {
+	var downloadUpdateTimer = function() {
 
 		downloadTime += 100;
 
@@ -408,15 +419,15 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	socket.on('download', function(data) {
 		$('.progress-striped').addClass('active');
 		if (data === null) return;
-		$scope.$apply(function () {
+		$scope.$apply(function() {
 			$scope.downloadPercentage = data.percentage;
-			if($scope.downloadPercentage == 100){
+			if ($scope.downloadPercentage == 100) {
 				$('.progress-striped').removeClass('active');
 			}
 		});
 	});
 
-	$scope.download = function () {
+	$scope.download = function() {
 
 		$scope.hideDownload = false;
 
@@ -425,7 +436,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		$scope.downloadPercentage = 0;
 
 		socket.emit('download', {
-			host:  $scope.host,
+			host: $scope.host,
 			start: Date.now()
 		});
 
@@ -435,7 +446,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 
 
 
-	$scope.barColor = function () {
+	$scope.barColor = function() {
 		return '#4d4d70';
 	};
 
@@ -448,7 +459,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	$scope.defaults = {
 		tileLayer: "https://{s}.tiles.mapbox.com/v3/lab75.hfmjfap1/{z}/{x}/{y}.png",
 		scrollWheelZoom: false,
-		 tileLayerOptions: {
+		tileLayerOptions: {
 			opacity: 0.9,
 			detectRetina: true,
 			reuseTiles: true,
@@ -479,7 +490,7 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			}
 
 			if (data.exit === true) {
-				  _terminal.resume();
+				_terminal.resume();
 			}
 
 		}
@@ -512,22 +523,22 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			_terminal.echo('\n\n\n' + AVAILABLE_COMMANDS.join('\n') + '\n');
 			_terminal.resume();
 
-			  return;
+			return;
 
 		} else {
 
-			  socket.emit('instance.command', {
-				host:    $scope.host,
+			socket.emit('instance.command', {
+				host: $scope.host,
 				command: command
-			  });
+			});
 
-			  _terminal.pause();
+			_terminal.pause();
 
 		}
 
-	  };
-	
-	
+	};
+
+
 	$scope.hideTerminalRow = false;
 	$scope.hideUpload = true;
 	$scope.hideDownload = true;
