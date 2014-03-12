@@ -1,5 +1,4 @@
-
-(function (global) {
+(function(global) {
 
 	var _ssh = require('ssh2');
 
@@ -19,7 +18,6 @@
 		'scp',
 		'sshd',
 		'service',
-		'ping',
 		'traceroute',
 		'sed',
 		'nano',
@@ -33,7 +31,8 @@
 		'ls',
 		'ifconfig',
 		'netstat',
-		'ps'
+		'ps',
+		'ping'
 	];
 
 
@@ -42,7 +41,10 @@
 
 		var valid = false;
 
-		var tmp = command.split(' ');
+		console.log(command);
+		var tmp = command.replace('#', '');
+		tmp = tmp.split(' ');
+		console.log('TMP', tmp);
 		for (var t = 0, tl = tmp.length; t < tl; t++) {
 
 			var str = tmp[t];
@@ -64,22 +66,31 @@
 
 		}
 
-
-		if (valid === true) {
-			return tmp.join(' ');
+		if (!valid) {
+			return null;
 		}
 
+		// EDGE CASES
+		tmp = tmp.join(' ');
 
-		return null;
+		if (tmp.indexOf('ping') !== -1) {
+			if (tmp.indexOf('-c') === -1) {
+				tmp += ' -c 10';
+			}
+		}
+
+		return tmp;
+
+
 
 	};
 
 
-	var Callback = function (data, socket) {
+	var Callback = function(data, socket) {
 
 		var tunnel = new _ssh();
 
-		tunnel.once('ready', function () {
+		tunnel.once('ready', function() {
 
 			var command = _filter(data.command);
 			if (command === null) {
@@ -90,7 +101,7 @@
 
 			}
 
-			tunnel.exec(command, function (err, stream) {
+			tunnel.exec(command, function(err, stream) {
 
 				if (err) {
 
@@ -102,34 +113,34 @@
 
 					var buffer = '';
 
-					stream.on('data', function (raw) {
+					stream.on('data', function(raw) {
 
 						var str = raw.toString();
 						socket.emit('instance.command_output', {
 							line: raw.toString()
 						});
-						
+
 					});
 
 				}
 
-				stream.on('exit', function () {
+				stream.on('exit', function() {
 
 					socket.emit('instance.command_output', {
-                        exit: true
-                    });
+						exit: true
+					});
 
-                    tunnel.end();
+					tunnel.end();
 
 				});
 
 			});
 
 		});
-		
-		tunnel.on('error', function(err){
+
+		tunnel.on('error', function(err) {
 			console.log('ERROR', err);
-			setTimeout(function(){
+			setTimeout(function() {
 				tunnel.connect(data);
 			}, 1000);
 		});
@@ -142,4 +153,3 @@
 	module.exports = Callback;
 
 })(this);
-

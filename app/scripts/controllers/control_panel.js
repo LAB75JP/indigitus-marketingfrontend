@@ -3,13 +3,14 @@
 
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
-	if (!sharedProperties.get('host')) {
+	$scope.host = sharedProperties.get('host');
+	$scope.host = '127.0.0.1';
+	//$scope.host='185.39.230.47';
+
+	if (!$scope.host) {
 		$location.path('/').replace();
 	}
 
-	$scope.host = sharedProperties.get('host');
-	//$scope.host = '127.0.0.1';
-	//$scope.host='185.39.230.47';
 
 
 	$scope.startupTime = sharedProperties.get('startupTime') / 1000;
@@ -478,7 +479,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		'ls',
 		'ps',
 		'netstat',
-		'ifconfig'
+		'ifconfig',
+		'ping'
 	];
 
 	socket.on('instance.command_output', function(data) {
