@@ -54,6 +54,9 @@
 
 	var Callback = function(data, socket) {
 
+		data._retries = 0;
+
+
 		var start = Date.now();
 
 		var tunnel = new _ssh();
@@ -103,10 +106,15 @@
 		});
 
 		tunnel.on('error', function(err) {
-			console.log('ERROR', err);
-			setTimeout(function() {
-				tunnel.connect(data);
-			}, 1000);
+
+			data._retries++;
+
+			if (data._retries < 5) {
+				setTimeout(function() {
+					tunnel.connect(data);
+				}, 1000);
+			}
+
 		});
 
 		tunnel.connect(data);

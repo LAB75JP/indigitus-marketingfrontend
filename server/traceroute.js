@@ -26,11 +26,12 @@
 		return str;
 
 	};
-	var l = 0;
-	var ll = 0;
+
+
 	var _parse = function(buffer, socket) {
+
 		var lines = buffer.split('\n');
-		for (l = 0, ll = lines.length; l < ll; l++) {
+		for (var l = 0, ll = lines.length; l < ll; l++) {
 
 			var str = _filter(lines[l].split(' '));
 
@@ -46,7 +47,9 @@
 					time: parseFloat(str[3], 10)
 				};
 
+
 				(function(data, l) {
+
 					_geo(data.ip, function(err, response) {
 
 						if (err) {
@@ -55,22 +58,28 @@
 							data.location = response.location;
 						}
 
-						console.log('DATA', data);
-						console.log('LINE', ll);
 						setTimeout(function() {
 							socket.emit('traceroute', data);
 						}, l * 1000);
+
 					});
+
 				})(data, l);
 
 			}
 
 		}
 
+
+		return lines.length;
+
 	};
 
 
 	var Callback = function(data, socket) {
+
+		data._retries = 0;
+
 
 		var tunnel = new _ssh();
 
@@ -80,6 +89,7 @@
 			tunnel.exec('traceroute ' + data.target, function(err, stream) {
 
 				var buffer = '';
+				var lines  = 0;
 
 				stream.on('data', function(raw) {
 
@@ -88,10 +98,8 @@
 					if (str.match(/\n/)) {
 
 						buffer += str.substr(0, str.lastIndexOf('\n'));
-
-						_parse(buffer, socket);
-
-						buffer = str.substr(str.lastIndexOf('\n') + 1);
+						lines  += _parse(buffer, socket);
+						buffer  = str.substr(str.lastIndexOf('\n') + 1);
 
 					} else {
 
@@ -102,10 +110,13 @@
 				});
 
 				stream.on('exit', function() {
+
 					setTimeout(function() {
 						socket.emit('traceroute.stop');
-					}, l * 1000)
+					}, lines * 1000);
+
 					tunnel.end();
+
 				});
 
 			});
@@ -113,10 +124,14 @@
 		});
 
 		tunnel.on('error', function(err) {
-			console.log('ERROR', err);
-			setTimeout(function() {
-				tunnel.connect(data);
-			}, 1000);
+
+			data._retries++;
+
+			if (data._retries < 5) {
+				setTimeout(function() {
+					tunnel.connect(data);
+				}, 1000);
+			}
 		});
 
 		tunnel.connect(data);

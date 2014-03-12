@@ -19,6 +19,9 @@
 
 	var Callback = function (data, socket) {
 
+		data._retries = 0;
+
+
 		var start = Date.now();
 
 		var tunnel = new _ssh();
@@ -65,6 +68,7 @@
 			});
 
 			tunnel.on('error', function() {
+				data._retries++;
 				_on_end.call(tunnel, socket, start);
 			});
 

@@ -40,6 +40,9 @@
 
 	var Callback = function (data, socket) {
 
+		data._retries = 0;
+
+
 		var tunnel = new _ssh();
 
 		tunnel.once('ready', function () {
@@ -62,16 +65,21 @@
 			});
 
 		});
-		
-		tunnel.on('error', function(err){
-			console.log('ERROR', err);
-			setTimeout(function(){
-				tunnel.connect(data);
-			}, 1000);
+
+		tunnel.on('error', function(err) {
+
+			data._retries++;
+
+			if (data._retries < 5) {
+				setTimeout(function() {
+					tunnel.connect(data);
+				}, 1000);
+			}
+
 		});
-		
+
 		tunnel.connect(data);
-		
+
 	};
 
 	module.exports = Callback;
