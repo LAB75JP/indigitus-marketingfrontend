@@ -4,7 +4,7 @@
 	var _ssh = require('ssh2');
 
 	var _urls = {
-		'imgur.com': 'http://imgur.com/B1eTsBj'
+		'imgur.com': 'http://imgur.com/B1eTsBj.jpg'
 	};
 
 
