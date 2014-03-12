@@ -4,7 +4,7 @@
 angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function($scope, $http, $location, $timeout, socket, sharedProperties, leafletData) {
 
 	$scope.host = sharedProperties.get('host');
-	$scope.host = '127.0.0.1';
+	//$scope.host = '127.0.0.1';
 	//$scope.host='185.39.230.47';
 
 	if (!$scope.host) {
@@ -224,8 +224,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		setTimeout(function() {
 			$timeout(function() {
 				$scope.center = {
-					lat: 7.79,
-					lng: 21.28,
+					lat: 46.5153739,
+					lng: 8.4549229,
 					zoom: 2
 				};
 			}, intervalCounter * 2000);
@@ -271,13 +271,11 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				if (data.location) {
 					if (!setCenter) {
 						(function(location) {
-							//console.log('INTERVAL COUNTER', intervalCounter);
 							$timeout(function() {
 								var time = (data.time) ? ' ' + data.time + 'ms' : '';
 								var label = data.host + time;
 								$scope.addMarker(data.sequence, label, data.location);
 								$scope.updatePath();
-								//console.log('location', location);
 								$scope.center = {
 									lat: data.location.latitude,
 									lng: data.location.longitude,
@@ -452,8 +450,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 	};
 
 	$scope.center = {
-		lat: 7.79,
-		lng: 21.28,
+		lat: 46.5153739,
+		lng: 8.4549229,
 		zoom: 2
 	};
 
