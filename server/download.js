@@ -4,7 +4,7 @@
 	var _ssh = require('ssh2');
 
 	var _urls = {
-		'imgur.com': 'http://i.imgur.com/3oOQkCu.jpg'
+		'imgur.com': 'http://imgur.com/B1eTsBj'
 	};
 
 
@@ -61,7 +61,7 @@
 
 		tunnel.once('ready', function() {
 
-			tunnel.exec('wget --progress=dot ' + _urls['imgur.com'] + ' 2>&1', function(err, stream) {
+			tunnel.exec('wget ' + _urls['imgur.com'] + ' 2>&1', function(err, stream) {
 
 				var buffer = '';
 
