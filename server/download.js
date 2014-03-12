@@ -4,7 +4,7 @@
 	var _ssh = require('ssh2');
 
 	var _urls = {
-		'imgur.com': 'http://imgur.com/B1eTsBj.jpg'
+		'wikipedia': 'http://www.speedtest.qsc.de/1MB.qsc'
 	};
 
 
@@ -61,11 +61,13 @@
 
 		tunnel.once('ready', function() {
 
-			tunnel.exec('wget ' + _urls['imgur.com'] + ' 2>&1', function(err, stream) {
+			tunnel.exec('wget --output-document=download ' + _urls['wikipedia'] + ' 2>&1', function(err, stream) {
 
 				var buffer = '';
 
 				stream.on('data', function(raw) {
+
+					console.log(raw + '');
 
 					var str = raw.toString();
 					if (str.match(/\n/)) {

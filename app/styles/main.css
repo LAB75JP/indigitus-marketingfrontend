@@ -7821,6 +7821,9 @@ h3 .glyphicon {
 .landing-page .terminal-wrapper h3 {
   margin-bottom: 20px;
 }
+.landing-page .terminal-wrapper .cmd {
+  font-size: 15px;
+}
 .landing-page .recaptchatable .recaptcha_image_cell {
   padding: 0;
 }
