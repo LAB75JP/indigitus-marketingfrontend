@@ -18,7 +18,6 @@
 		'scp',
 		'sshd',
 		'service',
-		'traceroute',
 		'sed',
 		'nano',
 		'vi',
@@ -29,10 +28,10 @@
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
-		'ifconfig',
 		'netstat',
 		'ps',
-		'ping'
+		'ping',
+		'traceroute'
 	];
 
 

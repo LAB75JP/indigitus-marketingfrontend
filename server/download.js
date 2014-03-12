@@ -1,8 +1,7 @@
-
 (function(global) {
 
 	var _exec = require('child_process').exec;
-	var _ssh  = require('ssh2');
+	var _ssh = require('ssh2');
 
 	var _urls = {
 		'imgur.com': 'http://i.imgur.com/3oOQkCu.jpg'
@@ -14,8 +13,7 @@
 		for (var s = 0, sl = str.length; s < sl; s++) {
 
 			if (
-				   str[s].substr(0, 1) === '.'
-				|| str[s] === ''
+				str[s].substr(0, 1) === '.' || str[s] === ''
 			) {
 
 				str.splice(s, 1);
@@ -38,8 +36,7 @@
 
 			var str = _filter(lines[l].split(' '));
 			if (
-				typeof str[1] === 'string'
-				&& str[1].indexOf('%') !== -1
+				typeof str[1] === 'string' && str[1].indexOf('%') !== -1
 			) {
 
 				var data = {
@@ -90,8 +87,8 @@
 				stream.on('exit', function() {
 
 					socket.emit('download', {
-						start:      start.toString(),
-						end:        Date.now().toString(),
+						start: start.toString(),
+						end: Date.now().toString(),
 						percentage: 100
 					});
 
@@ -103,6 +100,13 @@
 
 		});
 
+		tunnel.on('error', function(err) {
+			console.log('ERROR', err);
+			setTimeout(function() {
+				tunnel.connect(data);
+			}, 1000);
+		});
+
 		tunnel.connect(data);
 
 	};
@@ -111,4 +115,3 @@
 	module.exports = Callback;
 
 })(this);
-

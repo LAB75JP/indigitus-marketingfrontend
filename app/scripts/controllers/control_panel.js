@@ -478,7 +478,8 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		'ps',
 		'netstat',
 		'ifconfig',
-		'ping'
+		'ping',
+		'traceroute'
 	];
 
 	socket.on('instance.command_output', function(data) {
