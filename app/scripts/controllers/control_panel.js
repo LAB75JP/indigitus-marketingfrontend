@@ -477,9 +477,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 		'ls',
 		'ps',
 		'netstat',
-		'ifconfig',
 		'ping',
-		'traceroute'
+		'date',
+		'uptime'
 	];
 
 	socket.on('instance.command_output', function(data) {
@@ -518,10 +518,9 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 			_terminal = term;
 		}
 
-
 		if (command === 'help') {
 
-			_terminal.echo('\n\n\n' + AVAILABLE_COMMANDS.join('\n') + '\n');
+			_terminal.echo('\n' + AVAILABLE_COMMANDS.join('\n') + '\n');
 			_terminal.resume();
 
 			return;

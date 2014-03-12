@@ -30,8 +30,9 @@
 		'ls',
 		'netstat',
 		'ps',
-		'ping',
-		'traceroute'
+	'ping',
+		'date',
+		'uptime'
 	];
 
 
