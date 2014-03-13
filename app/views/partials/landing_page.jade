@@ -1,142 +1,134 @@
 .landing-page-map 
 .navbar.navbar-fixed-top
-    .container
-        .navbar-header
-            a.navbar-brand(href="/#/")
-                = "Indigitus"
+	.container
+		.navbar-header
+			a.navbar-brand(href="/#/")
+				= "Indigitus"
 
 .container.container.landing-page
+	.row.header
+		.col-md-12.start-map
+			.row 
+				.col-md-12.teaser
+					h2
+						="Try it out: Refined"
+						br
+						="Cloud Computing"
+						br
+						="from Switzerland"
+					p
+						="Launch your Swiss-based "
+						br
+						="test instance in less than 20 sec.!"
+						br
+					button.btn.btn-to-tour(ng-click="scrollToDemo()")="Try now!"
+			.row
+				.col-md-6.teaser
+					h2
+						="CeBIT Whitepaper"
+					P
+						="To learn more about our cloud computing services,"
+						br
+						="the team behind it, the technology and its benefits,"
+						br
+						="and how to become a friendly user, please read our"
+						br
+						="CeBIT Whitepaper:"
+						br			
+					a.btn.pull-left.btn-default(href="/downloads/indigitus_CeBIT_Whitepaper.pdf")="Download Whitepaper"
+	hr.seperator-start
+	.row.intro
+		.col-md-4
+			h3="Indigitus makes a point"
+			ul
+				li="Swiss location and neutrality"
+				li="NSA-free due to specific data center and network design"
+				li="Dedicated expert support"
+				li="Fully based on OpenStack"
+				li="EU compliant"
+		.col-md-8
+			h3="What makes indigitus your unique IaaS partner"
+			p
+				="We combine the security level of an OpenStack private cloud environment with the benefits of a physical shared "
+				="infrastructure. This enables us to offer you secure private cloud computing at an unequaled affordable pricing level - "
+				="In addition, we provide you with a full-blown OpenStack API for even more convenient individual use of our IaaS platform. "
+				br
+				="We are using the latest Quanta hardware to boost your business."
+				="Our "
+				a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
+				= " certified Swiss data center has no NSA strings attached. "
+				="In addition, we are delighting you with fast downstream and upstream IP connections via our premium "
+				="European uplink partners."
+	
+	hr.seperator-start
+	.row.feature 
+		.col-md-4
+			h3="Adaptable."
+			.img-wrapper
+				ul
+					li="Pure OpenStack API"
+					li="Precise and transparent pricing"
+					li
+						a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
+						=" approved data center"
+					li= "Swiss neutrality since 1515"
+		.col-md-4.feature
+			h3="Flexible."
+			.img-wrapper 
+				ul 
+					li="IaaS Cloud Computing offer"
+					li="Pay-per-use pre-payment"
+					li="No upfront CAPEX investments"
+					li="Cost effective due to shared infrastructure"
 
-    .row.header
-        .col-md-12.start-map
-            .row 
-                .col-md-12.teaser
-                    h2
-                        ="Try it out: Refined"
-                        br
-                        ="Cloud Computing"
-                        br
-                        ="from Switzerland"
-                    p
-                        ="Launch your Swiss-based "
-                        br
-                        ="test instance in less than 20 sec.!"
-                        br
-            .row
-                .col-md-12
-                    button.btn.btn-to-tour(ng-click="scrollToDemo()")="Try now!"
-            .row.captcha-wrapper(collapse="hideCaptchaForm")
-                .col-md-12
-                    .row 
-                        h3="We will start a instance..."
-                    .row
-                        alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
-                            = "{{alert.msg}}"                
-                        form
-                            div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
-                    .row
-                        button.btn.btn-block.pull-left.btn-default(ng-click="checkCaptcha()")
-                            = "Start"   
-    //hr.seperator-start.first
-    .row.intro
-        .col-md-4
-            h3="Indigitus makes a point"
-            ul
-                li="Swiss location and neutrality"
-                li="NSA-free due to specific data center and network design"
-                li="Dedicated expert support"
-                li="Fully based on OpenStack"
-                li="EU compliant"
-        .col-md-8
-            h3="What makes indigitus your unique IaaS partner"
-            p
-                ="We combine the security level of an OpenStack private cloud environment with the benefits of a physical shared "
-                ="infrastructure. This enables us to offer you secure private cloud computing at an unequaled affordable pricing level - "
-                ="In addition, we provide you with a full-blown OpenStack API for even more convenient individual use of our IaaS platform. "
-                br
-                ="We are using" 
-                =" the latest Quanta hardware to boost your business. Our "
-                a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
-                = " certified Swiss data center has no NSA "
-                ="strings attached. In addition, we are delighting you with fast downstream and upstream IP connections via our premium "
-                ="European uplink partners."
-    
-    hr.seperator-start
-    .row.feature-highlight
-        .col-md-12
-            h2.text-center="Feature Highlight"
-    .row.feature 
-        .col-md-4
-            h3="Adaptable."
-            .img-wrapper
-                ul
-                    li="Pure OpenStack API"
-                    li="Precise and transparent pricing"
-                    li
-                        a(href="http://www.finma.ch/e/finma/Pages/Ziele.aspx", target="_blank")="FINMA"
-                        =" approved data center"
-                    li= "Swiss neutrality since 1515"
-        .col-md-4.feature
-            h3="Flexible."
-            .img-wrapper 
-                ul 
-                    li="IaaS Cloud Computing offer"
-                    li="Pay-per-use pre-payment"
-                    li="No upfront CAPEX investments"
-                    li="Cost effective due to shared infrastructure"
+		.col-md-4.feature
+			h3="Empowering."
+			.img-wrapper 
+				ul 
+					li="Rapid instance deployment"
+					li="Latest Quanta server hardware"
+					li="Full control via web portal and API"
+					li="Expert support"
+	hr.seperator-start
+	.row#demo-headline
+		.col-md-12
+			h2.text-center="Try the demo for free"
+			
+	#demo.row.demo         
+		.col-md-12
+			.row 
+				.col-md-8
+					h3="Prove us: Launch your test instance in < 20 sec!"
+					p
+						="When you press the button, we will deploy a real instance on our IaaS platform. "
+						="We will show you all steps we make to deploy the instance in real time. After the instance was deployed successfully, you’re forwarded to a functional "
+						="page running on that newly deployed instance."
+						=" On this page you are able to" 
+						ul
+							li="Ping google.com on your instance and see the low latency of the indigitus network"
+							li="Run trace route on your instance to see where your instance is located and where your traffic goes"
+							li="Download data to your instance and see the speed of indigitus datacenters connectivity"
+							li="Execute a limited set of shell commands on the instance"
+				.col-md-4
+					alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
+						= "{{alert.msg}}"                
+					form.captcha-form.pull-right
+						div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
+						a.btn.btn-default(ng-click="reloadCaptcha()")
+							span.glyphicon.glyphicon-refresh
+						button.btn.btn-default.pull-right.btn-start-instance-now(ng-click="checkCaptcha()")
+							span(ng-if="solvingCaptcha")
+								="Checking Captcha"
+								span.animated-ellipsis
+									span.one="."
+									span.two="."
+									span.three="."
+							span(ng-if="!solvingCaptcha")
+								= "Start your instance now!"
+	hr.seperator-start
+	.row.contact-us
+		.col-md-12
+			h2.text-center="Where we are"
+			<leaflet center="center" markers="markers" defaults="defaults" height="300"></leaflet>
 
-        .col-md-4.feature
-            h3="Empowering."
-            .img-wrapper 
-                ul 
-                    li="Rapid instance deployment"
-                    li="Latest Quanta server hardware"
-                    li="Full control via web portal and API"
-                    li="Expert support"
-    hr.seperator-start
-    .row#demo-headline
-        .col-md-12
-            h2.text-center="Try the demo for free"
-            
-    #demo.row.demo         
-        .col-md-12
-            .row 
-                .col-md-8
-                    h3="Prove us: Launch your test instance in < 20 sec!"
-                    p
-                        ="When you press the button, we will deploy a real instance on our IaaS platform. "
-                        ="We will show you all steps we make to deploy the instance in real time. After the instance was deployed successfully, you’re forwarded to a functional "
-                        ="page running on that newly deployed instance."
-                        =" On this page you are able to" 
-                        ul
-                            li="Ping google.com on your instance and see the low latency of the indigitus network"
-                            li="Run trace route on your instance to see where your instance is located and where your traffic goes"
-                            li="Download data to your instance and see the speed of indigitus datacenters connectivity"
-                            li="Execute a limited set of shell commands on the instance"
-                .col-md-4
-                    alert(ng-repeat='alert in alerts', type='alert.type', close='closeAlert($index)')
-                        = "{{alert.msg}}"                
-                    form.captcha-form.pull-right
-                        div(vc-recaptcha='', ng-model="model.captcha", class="recaptcha", tabindex='3', theme='clean', key=req.config.recaptcha.publicKey)
-                        a.btn.btn-default(ng-click="reloadCaptcha()")
-                            span.glyphicon.glyphicon-refresh
-                        button.btn.btn-default.pull-right.btn-start-instance-now(ng-click="checkCaptcha()")
-                            span(ng-if="solvingCaptcha")
-                                ="Checking Captcha"
-                                span.animated-ellipsis
-                                    span.one="."
-                                    span.two="."
-                                    span.three="."
-                            span(ng-if="!solvingCaptcha")
-                                = "Start your instance now!"
-                                
-                                   
-
-                
-    hr.seperator-start
-    .row.contact-us
-        .col-md-12
-            h2.text-center="Where we are"
-            <leaflet center="center" markers="markers" defaults="defaults" height="300"></leaflet>
-
-    hr.seperator-start
+	hr.seperator-start
