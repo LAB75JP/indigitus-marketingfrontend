@@ -23,14 +23,15 @@
 		'vi',
 		'vim',
 		'sudo',
-		'su'
+		'su',
+		'|'     // pipe is blocked
 	];
 
 	var AVAILABLE_COMMANDS = [
 		'ls',
 		'netstat',
 		'ps',
-	'ping',
+		'ping',
 		'date',
 		'uptime'
 	];
