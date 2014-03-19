@@ -249,13 +249,16 @@ angular.module('indigitusMarketingApp').controller('ControlPanelCtrl', function(
 				$scope.tracerouteHosts[data.sequence] = data.host;
 				$scope.tracerouteItem++;
 				$scope.tracerouteLines[data.sequence] = data.line;
-				$scope.tracerouteData[0].values[data.sequence] = [data.sequence, data.time];
+				console.log('DATA', data);
+				console.log('DATA SEQUENCE', data.sequence);
+				console.log('DATA TIME', data.time);
+				$scope.tracerouteData[0].values[data.sequence - 1] = [data.sequence, data.time];
 				$scope.tracerouteList[data.sequence] = data;
 
 				for (var i = 0; i < data.sequence; i++) {
 
 					if (!$scope.tracerouteData[0].values[i]) {
-						$scope.tracerouteData[0].values[i] = [i + 1, 0];
+						$scope.tracerouteData[0].values[i] = [i + 1, null];
 					}
 
 					if (!$scope.tracerouteList[i + 1]) {
